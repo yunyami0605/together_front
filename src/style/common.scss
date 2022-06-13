@@ -1,0 +1,44 @@
+@import "./color.scss";
+@import "./page.scss";
+
+.border {
+  border: 1px solid black;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.between__v {
+  display: flex;
+  justify-content: center;
+  align-items: space-between;
+}
+
+.center__v {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

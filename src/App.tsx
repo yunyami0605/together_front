@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Header from "common/header/Header";
+import { Club } from "page/club/Club";
+import { SideProject } from "page/sideProject/SideProject";
+import { Story } from "page/story/Story";
+import { StudyContent } from "page/study/StudyContent";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import "./App.scss";
+import { Study } from "./page/study/Study";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+        <Header />
+
+        <Routes>
+          <Route path="/" element={<Navigate replace to="/study" />} />
+          <Route path="/study" element={<Study />} />
+          <Route path="/study/:id" element={<StudyContent />} />
+          <Route path="/sideproject" element={<SideProject />} />
+          <Route path="/club" element={<Club />} />
+          <Route path="/story" element={<Story />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

@@ -1,0 +1,43 @@
+.ads__container {
+  background-color: #c7c7c7;
+  height: 240px;
+  margin-bottom: 6vh;
+}
+
+.page__title {
+  margin-bottom: 14px;
+
+  padding-left: 48px;
+}
+
+.search__container {
+  margin-bottom: 4px;
+  padding-left: 48px;
+
+  & > button {
+    width: 84px;
+    height: 34px;
+    border: 1px solid #b4b4b4;
+
+    margin-right: 20px;
+  }
+
+  & > .search__bar__box {
+    width: 150px;
+
+    & > .input__btn {
+      width: 38px;
+      height: 34px;
+      background-color: #a1a1a1;
+    }
+  }
+}
+
+.study__list__container {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr;
+  // flex-wrap: wrap;
+  padding: 12px 24px;
+  gap: 10px 20px;
+}
