@@ -49,19 +49,23 @@
 
   // @ body (des, member)
   .study__content__body {
-    padding: 34px 12px;
+    padding: 34px 22px;
 
     & > h3 {
-      padding-left: 14px;
+      // padding-left: 14px;
       margin-bottom: 20px;
     }
 
     .content__desc {
       margin-bottom: 8vh;
       min-height: 240px;
+      font-size: 16px;
 
-      background-color: lightgray;
-      text-align: center;
+      // word-wrap: break-word;
+      // word-break: break-all;
+      white-space: pre-line;
+      // background-color: lightgray;
+      // text-align: center;
     }
   }
 
@@ -114,6 +118,40 @@
       border: 1px solid black;
       font-size: 16px;
       height: 60px;
+    }
+  }
+}
+
+.member__box {
+  border: 1px solid #c6c6c6;
+  border-radius: 8px;
+  width: 240px;
+  min-height: 240px;
+  padding: 14px 18px;
+
+  & > .member__info {
+    margin-bottom: 14px;
+
+    // @ member img
+    & > img {
+      width: 38px;
+      height: 38px;
+      margin-right: 10px;
+      background-color: lightgray;
+      border-radius: 8px;
+    }
+
+    // @ member name
+    & > p {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+
+  & > .skill__taglist {
+    & > span {
+      margin-right: 8px;
+      font-size: 14px;
     }
   }
 }

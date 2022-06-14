@@ -20,7 +20,7 @@ export const StudyContent: FC = () => {
             </h3>
 
             <div className="between study__content__sub">
-              <h2 className="study__content__master">쿠키</h2>
+              <h3 className="study__content__master">쿠키</h3>
 
               <div className="row study__content__sub__info">
                 <span className="study__content__view">뷰 24</span>
@@ -60,11 +60,28 @@ export const StudyContent: FC = () => {
           <div className="study__content__body">
             <h3>소개</h3>
 
-            <div className="content__desc"></div>
+            <div className="content__desc">
+              {`스터디 주제 : 팀 프로젝트 스터디\n
+              목표 : 결과물 만들어내기! \n(첫 프로젝트는 네이버 웹툰 클론 코딩입니다.) 저희 스터디는 js를
+              스터디 일정(횟수) : (평일) 월,수,금 8시~12시, (주말) 일요일 8시~12시 \n
+              처음 시작하시는 분들도 있고, 다 같이 공부하려고 모이는 스터디 그룹입니다.\n`}
+            </div>
 
             <h3>현재 멤버</h3>
 
-            <div className="content__desc"></div>
+            <div className="row member__list">
+              <div className="member__box">
+                <div className="row member__info">
+                  <img />
+                  <p>동동이</p>
+                </div>
+                <div className="row skill__taglist">
+                  <span># JS</span>
+                  <span># REACT</span>
+                </div>
+              </div>
+              <div></div>
+            </div>
           </div>
 
           {/* @ comment */}

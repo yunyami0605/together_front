@@ -1,0 +1,28 @@
+.register__field {
+  margin-bottom: 2vh;
+}
+
+.register__input {
+  margin-bottom: 4vh;
+  width: 100%;
+  padding-left: 8px;
+  height: 44px;
+
+  border: 1px solid lightgray;
+}
+
+.register__desc {
+  margin-bottom: 4vh;
+
+  resize: none;
+  height: 240px;
+}
+
+.register__btnlist {
+  & > button {
+    margin: 0 12px;
+    width: 84px;
+    height: 42px;
+    border: 1px solid lightgray;
+  }
+}

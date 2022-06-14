@@ -25,6 +25,7 @@ export default function Header() {
         <SubBtn url="sideproject" txt="사이드 프로젝트" />
         <SubBtn url="club" txt="동아리" />
         <SubBtn url="story" txt="이야기" />
+        <SubBtn url="register" txt="등록하기" />
       </section>
     </section>
   );
