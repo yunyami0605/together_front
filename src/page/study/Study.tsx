@@ -1,15 +1,25 @@
-import { FC } from "react";
-import Header from "common/header/Header";
+import { FC, useEffect } from "react";
 import "./Study.scss";
 import { StudyBox } from "./components/StudyBox";
+import { apiCall } from "common/api";
 
 export const Study: FC = () => {
   const tmp = [0, 0, 0, 0];
+
+  const getStudyBoardList = async () => {
+    const res = await apiCall({
+      url: "/study/board/list?page=1",
+      method: "GET",
+    });
+    console.log(res);
+  };
+
+  useEffect(() => {
+    getStudyBoardList();
+  }, []);
   return (
     <section className="page">
       {/* 스터디 */}
-      {/* <Header /> */}
-      {/* # Header */}
       <section className="center w100 ads__container">
         <h1>이벤트 / 광고</h1>
       </section>
