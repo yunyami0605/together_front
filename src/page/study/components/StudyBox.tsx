@@ -1,17 +1,29 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import { typeStudyBoardItem } from "reudx/service/study/board";
 import "./StudyBox.scss";
 
-export const StudyBox: FC = () => {
+interface IProps {
+  data: typeStudyBoardItem;
+}
+
+export const StudyBox = ({ data }: IProps) => {
   const navi = useNavigate();
+
+  const onMove = () => {
+    if (!data?.id) return alert("No access");
+    navi(`/study/${data.id}`);
+  };
+
   return (
-    <div className="border study__box" onClick={() => navi("/study/3")}>
+    <div className="border study__box" onClick={onMove}>
       <div className="study__box__header">
-        <p>자바스크립트 같이하실 분들 구합니다.</p>
+        <p>{data.title}</p>
       </div>
 
       <div className="study__box__body">
         <div className="study__tag__list">
+          {/* // @ 추후 */}
           <span>#JS</span>
           <span>#TS</span>
           <span>#REACT</span>
@@ -20,12 +32,13 @@ export const StudyBox: FC = () => {
 
       <div className="study__box__putter">
         <div className="row putter__line">
+          {/* // @ 추후 */}
           <div className="user__img"></div>
           <p className="user__nickname">쿠키</p>
         </div>
 
         <div className="row between putter__line">
-          <p className="recruit__count">모집 인원 1/6</p>
+          <p className="recruit__count">{`모집 인원 1/${data.persons}`}</p>
 
           <div className="row sub__line">
             <p className="view__count">14</p>

@@ -1,7 +1,16 @@
 import { FC } from "react";
+import { useParams } from "react-router-dom";
+import { useGetStudyBoardQuery } from "reudx/service/study/board";
 import "./StudyContent.scss";
 
 export const StudyContent: FC = () => {
+  // const tmp = queryString();
+  const param = useParams() as { id: string };
+
+  const { data, isLoading, isSuccess, error, refetch } = useGetStudyBoardQuery(
+    +param.id
+  );
+
   return (
     <section className="page">
       {/* 스터디 */}
@@ -15,9 +24,7 @@ export const StudyContent: FC = () => {
       <section className="page__body">
         <section className="study__content">
           <div className="study__content__header">
-            <h3 className="study__content__title">
-              [스터디] 자바스크립트 공부하실분들 구합니다.2
-            </h3>
+            <h3 className="study__content__title">{data?.title}</h3>
 
             <div className="between study__content__sub">
               <h3 className="study__content__master">쿠키</h3>
@@ -35,13 +42,13 @@ export const StudyContent: FC = () => {
           <div className="study__content__option">
             <div className="option__box">
               <div className="bold">종류</div>
-              <div>스터디 / IT개발</div>
+              <div>{data?.type || ""}</div>
               <div className="bold">장소</div>
-              <div>서울</div>
+              <div>{data?.location || ""}</div>
               <div></div>
 
               <div className="bold">인원</div>
-              <div>4명</div>
+              <div>{data?.persons || 0}명</div>
               <div className="bold">기간</div>
               <div>미정</div>
               <div></div>
@@ -49,6 +56,7 @@ export const StudyContent: FC = () => {
 
             <div className="bold">태그</div>
             <div className="row option__tag__list">
+              {/* // @ 추후 */}
               <span># 4명</span>
               <span># 서울</span>
               <span># 경기</span>
@@ -61,10 +69,11 @@ export const StudyContent: FC = () => {
             <h3>소개</h3>
 
             <div className="content__desc">
-              {`스터디 주제 : 팀 프로젝트 스터디\n
+              {data?.content || ""}
+              {/* {`스터디 주제 : 팀 프로젝트 스터디\n
               목표 : 결과물 만들어내기! \n(첫 프로젝트는 네이버 웹툰 클론 코딩입니다.) 저희 스터디는 js를
               스터디 일정(횟수) : (평일) 월,수,금 8시~12시, (주말) 일요일 8시~12시 \n
-              처음 시작하시는 분들도 있고, 다 같이 공부하려고 모이는 스터디 그룹입니다.\n`}
+              처음 시작하시는 분들도 있고, 다 같이 공부하려고 모이는 스터디 그룹입니다.\n`} */}
             </div>
 
             <h3>현재 멤버</h3>

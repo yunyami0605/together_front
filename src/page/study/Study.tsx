@@ -1,24 +1,31 @@
-import { FC, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import "./Study.scss";
 import { StudyBox } from "./components/StudyBox";
 import { apiCall } from "common/api";
+import {
+  typeStudyBoardItem,
+  useGetStudyBoardListQuery,
+} from "reudx/service/study/board";
 
 export const Study: FC = () => {
-  const tmp = [0, 0, 0, 0];
+  const { data, isLoading, isSuccess, error, refetch } =
+    useGetStudyBoardListQuery(1);
 
-  const getStudyBoardList = async () => {
-    const res = await apiCall({
-      url: "/study/board/list?page=1",
-      method: "GET",
-    });
-    console.log(res);
-  };
+  // const getStudyBoardList = async () => {
+  //   const res = await apiCall({
+  //     url: "/study/board/list?page=1",
+  //     method: "GET",
+  //   });
+  // };
 
   useEffect(() => {
-    getStudyBoardList();
-  }, []);
+    if (error) alert(error);
+    // getStudyBoardList();
+  }, [error]);
+
   return (
     <section className="page">
+      {isLoading && <h1 className="loading__txt">LOADING...</h1>}
       {/* 스터디 */}
       <section className="center w100 ads__container">
         <h1>이벤트 / 광고</h1>
@@ -39,8 +46,10 @@ export const Study: FC = () => {
         </section>
 
         <section className="study__list__container">
-          {tmp.map(() => (
-            <StudyBox />
+          {data?.list.map((val: typeStudyBoardItem, i) => (
+            <React.Fragment key={i}>
+              <StudyBox data={val} />
+            </React.Fragment>
           ))}
         </section>
       </section>
