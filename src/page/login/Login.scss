@@ -1,0 +1,36 @@
+.login__page {
+  padding-top: 20vh;
+  .login__box {
+    .login__title {
+      text-align: center;
+      font-size: 40px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .login__input {
+      height: 40px;
+      margin-bottom: 20px;
+    }
+
+    .login__btn {
+      height: 50px;
+      margin: 20px 0 18px;
+      font-weight: bold;
+      font-size: 20px;
+      background-color: #bddeff;
+      color: #fff;
+    }
+
+    .login__subline {
+      display: flex;
+      justify-content: flex-end;
+
+      & > button {
+        padding: 8px 0;
+        // border: 1px solid;
+        margin-left: 18px;
+        font-size: 14px;
+      }
+    }
+  }
+}

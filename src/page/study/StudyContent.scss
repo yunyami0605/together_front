@@ -1,25 +1,24 @@
 .study__content {
   .study__content__header {
     .study__content__title {
-      margin-bottom: 24px;
+      padding-left: 12px;
+      margin-bottom: 12px;
     }
 
     .study__content__sub {
-      .study__content__master {
+      margin-bottom: 10px;
+
+      & span {
+        font-size: 16px;
         font-weight: bold;
-      }
 
-      .study__content__sub__info {
-        & > span {
-          font-size: 16px;
-          font-weight: bold;
-
-          margin-left: 14px;
-        }
+        margin-left: 16px;
       }
     }
 
     .study__content__dateline {
+      margin-bottom: 10px;
+
       font-size: 16px;
       text-align: right;
     }
@@ -39,11 +38,23 @@
 
     & div,
     & span {
-      font-size: 16px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #144808;
+    }
+
+    & .option__box__type {
+      color: #000000;
     }
 
     .option__tag__list {
       margin-top: 20px;
+
+      & > span {
+        color: #144808;
+
+        margin-right: 10px;
+      }
     }
   }
 

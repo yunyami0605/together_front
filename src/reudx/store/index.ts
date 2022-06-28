@@ -3,15 +3,17 @@ import { configureStore } from "@reduxjs/toolkit";
 // Or from '@reduxjs/toolkit/query/react'
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { studyBoardApi } from "reudx/service/study/board";
+import { userApi } from "reudx/service/study/user";
 
 export const store = configureStore({
   reducer: {
     // 특정 top-level slice에서 생성된 리듀서를 추가
     [studyBoardApi.reducerPath]: studyBoardApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
   },
   // 캐싱, 요청 취소, 폴링 등등 유용한 rtk-query의 기능들을 위한 api 미들웨어 추가
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(studyBoardApi.middleware),
+    getDefaultMiddleware().concat(studyBoardApi.middleware, userApi.middleware),
   devTools: process.env.NODE_ENV !== "production",
 });
 

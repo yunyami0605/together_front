@@ -1,10 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
+import { apiCall } from "common/api";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SubBtn from "./components/SubBtn";
 import "./Header.scss";
 
 export default function Header() {
+  const { pathname } = useLocation() as { pathname: string };
   const navi = useNavigate();
 
+  const onMoveLoginPage = () => {
+    navi("login", { replace: true });
+  };
   const onMovePage = (url: string) => {
     // navi("/");
     navi(url, { replace: true });
@@ -16,7 +21,7 @@ export default function Header() {
 
         <article className="header__btnlist">
           <button>알림</button>
-          <button>정보</button>
+          <button onClick={onMoveLoginPage}>로그인</button>
         </article>
       </section>
 
@@ -25,7 +30,7 @@ export default function Header() {
         <SubBtn url="sideproject" txt="사이드 프로젝트" />
         <SubBtn url="club" txt="동아리" />
         <SubBtn url="story" txt="이야기" />
-        <SubBtn url="register" txt="등록하기" />
+        <SubBtn url="together/register" txt="등록하기" />
       </section>
     </section>
   );

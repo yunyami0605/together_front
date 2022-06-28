@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from "react";
 import "./Study.scss";
 import { StudyBox } from "./components/StudyBox";
-import { apiCall } from "common/api";
 import {
   typeStudyBoardItem,
   useGetStudyBoardListQuery,
@@ -11,17 +10,18 @@ export const Study: FC = () => {
   const { data, isLoading, isSuccess, error, refetch } =
     useGetStudyBoardListQuery(1);
 
-  // const getStudyBoardList = async () => {
-  //   const res = await apiCall({
-  //     url: "/study/board/list?page=1",
-  //     method: "GET",
-  //   });
-  // };
+  console.log(data);
 
   useEffect(() => {
-    if (error) alert(error);
+    // if (error) alert(error);
     // getStudyBoardList();
   }, [error]);
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  // 현재 모집 인원, 전체 모집 인원, view, taglist
 
   return (
     <section className="page">

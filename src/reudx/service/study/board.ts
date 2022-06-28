@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { getCookieValue } from "common/tool";
 
 export type typeStudyBoardItem = {
   id: number;
@@ -8,9 +9,15 @@ export type typeStudyBoardItem = {
   location: string;
   persons: number;
   period: string;
+  like: number;
+  dislike: number;
+  view: number;
   createdAt: string;
   updatedAt: string;
   deletedAt?: string;
+  author: {
+    nickname: string;
+  };
 };
 
 interface IGetListResData<K> {
@@ -51,7 +58,19 @@ export const studyBoardApi = createApi({
   reducerPath: "studyBoardApi",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_API_BASE_URL + "/study/board",
+    prepareHeaders(headers) {
+      const token = getCookieValue("toat");
+
+      headers.set("Authorization", `Bearer ${token}`);
+      headers.set("Accept", `application/json`);
+
+      return headers;
+    },
+
+    credentials: "include",
   }),
+
+  refetchOnMountOrArgChange: 0,
   tagTypes: ["board"],
   endpoints: (builder) => ({
     postStudyBoard: builder.mutation<typeStudyBoardItem, Partial<IBoardBody>>({
@@ -70,7 +89,12 @@ export const studyBoardApi = createApi({
       IGetListResData<typeStudyBoardItem>,
       number
     >({
-      query: (page) => `/list?page=${page}`,
+      query: (page) => {
+        return {
+          url: `/list?page=${page}`,
+          credentials: "include",
+        };
+      },
       transformResponse: (response: IListRes<typeStudyBoardItem>, meta, arg) =>
         response.data,
       // providesTags: (result, error, arg) => [{ type: "board", id: arg }],
@@ -85,7 +109,7 @@ export const studyBoardApi = createApi({
 
     getStudyBoard: builder.query<typeStudyBoardItem, number>({
       query: (id) => {
-        return { url: `/${id}`, method: "delete" };
+        return { url: `/${id}`, method: "get" };
       },
       transformResponse: (response: IRes<typeStudyBoardItem>, meta, arg) =>
         response.data,

@@ -24,7 +24,7 @@ function TogetherRegister() {
   const [content, setContent] = useState("");
   const [type, setType] = useState("");
   const [location, setLocation] = useState("");
-  const [persons, setPersons] = useState(3);
+  const [persons, setPersons] = useState(0);
   const [tagList, setTagList] = useState(["# TAG"]);
   const [period, setPeriod] = useState("2022-08-22 12:12:10");
 
@@ -34,12 +34,14 @@ function TogetherRegister() {
   const navi = useNavigate();
 
   const onSubmit = async () => {
+    const personsData = Number(persons);
+    if (type === "") return alert("종류를 선택해주세요.");
     const body: IBoardBody = {
       title,
       content,
       type,
       location,
-      persons,
+      persons: personsData < 0 ? 0 : personsData,
       tagList,
       period,
     };
@@ -65,7 +67,17 @@ function TogetherRegister() {
       <section className="page__body">
         <div className="register__form">
           <h3 className="register__field"># Together 종류</h3>
-          <input className="register__input" />
+          <select
+            onChange={(e: any) => setType(e.target.value)}
+            value={type}
+            className="register__input"
+            name="type"
+          >
+            <option value="">-- 선택 --</option>
+            <option value="study">스터디</option>
+            <option value="sideproject">사이드 프로젝트</option>
+            <option value="story">이야기</option>
+          </select>
 
           <h3 className="register__field"># 제목</h3>
           <input
@@ -84,7 +96,9 @@ function TogetherRegister() {
           <h3 className="register__field"># 인원</h3>
           <input
             className="register__input"
-            onChange={(e: any) => setPersons(Number(e.target.value))}
+            onChange={(e: any) => {
+              setPersons(Number(e.target.value));
+            }}
             value={persons}
             type={"number"}
           />

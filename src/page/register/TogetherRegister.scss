@@ -1,18 +1,32 @@
 .register__form {
   margin: 44px 0 24px;
+
+  input[type="number"],
+  .register__input {
+    margin-bottom: 4vh;
+    width: 100%;
+    padding-left: 18px;
+    height: 44px;
+
+    border: 1px solid lightgray;
+
+    border-radius: 0;
+
+    font-size: 16px;
+
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    & > option {
+      font-size: 16px;
+    }
+  }
 }
 
 .register__field {
   margin-bottom: 2vh;
-}
-
-.register__input {
-  margin-bottom: 4vh;
-  width: 100%;
-  padding-left: 8px;
-  height: 44px;
-
-  border: 1px solid lightgray;
 }
 
 .register__desc {

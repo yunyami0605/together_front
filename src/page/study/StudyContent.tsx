@@ -1,4 +1,5 @@
-import { FC } from "react";
+import { toDate } from "common/tool";
+import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGetStudyBoardQuery } from "reudx/service/study/board";
 import "./StudyContent.scss";
@@ -9,7 +10,30 @@ export const StudyContent: FC = () => {
 
   const { data, isLoading, isSuccess, error, refetch } = useGetStudyBoardQuery(
     +param.id
+    // { refetchOnMountOrArgChange: true }
   );
+
+  // useEffect(() => {
+  //   refetch(+param.id);
+  // }, []);
+
+  console.log(data);
+  /**
+    content: "ewfijewjffoiew"
+    createdAt: "2022-06-19T06:20:07.787Z"
+    deletedAt: null
+    dislike: 0
+    favorite: 0
+    id: 11
+    like: 0
+    location: "seoul"
+    period: "2022-08-22T03:12:10.000Z"
+    persons: 3
+    title: "test6"
+    type: ""
+    updatedAt: "2022-06-27T09:25:32.000Z"
+    view: 2
+   */
 
   return (
     <section className="page">
@@ -24,33 +48,42 @@ export const StudyContent: FC = () => {
       <section className="page__body">
         <section className="study__content">
           <div className="study__content__header">
-            <h3 className="study__content__title">{data?.title}</h3>
+            <h2 className="study__content__title">{data?.title || ""}</h2>
 
-            <div className="between study__content__sub">
-              <h3 className="study__content__master">쿠키</h3>
-
+            <div className="end study__content__sub">
               <div className="row study__content__sub__info">
-                <span className="study__content__view">뷰 24</span>
-                <span className="study__content__like">추천 13</span>
-                <span className="study__content__dislike">비추천 2</span>
+                <span className="study__content__view">
+                  작성자 ({data?.author?.nickname || ""})
+                </span>
+                <span className="study__content__view">
+                  뷰 {data?.view || 0}
+                </span>
+                <span className="study__content__like">
+                  추천 {data?.like || 0}
+                </span>
+                <span className="study__content__dislike">
+                  비추천 {data?.dislike || 0}
+                </span>
               </div>
             </div>
 
-            <p className="bold w100 study__content__dateline">2022-02-03</p>
+            <p className="bold w100 study__content__dateline">
+              {toDate(data?.createdAt, "YYYY.MM.DD")}
+            </p>
           </div>
 
           <div className="study__content__option">
             <div className="option__box">
-              <div className="bold">종류</div>
+              <div className="option__box__type">종류</div>
               <div>{data?.type || ""}</div>
-              <div className="bold">장소</div>
+              <div className="option__box__type">장소</div>
               <div>{data?.location || ""}</div>
               <div></div>
 
-              <div className="bold">인원</div>
+              <div className="option__box__type">인원</div>
               <div>{data?.persons || 0}명</div>
-              <div className="bold">기간</div>
-              <div>미정</div>
+              <div className="option__box__type">기간</div>
+              <div>{toDate(data?.period) || "미정"}</div>
               <div></div>
             </div>
 
@@ -68,13 +101,7 @@ export const StudyContent: FC = () => {
           <div className="study__content__body">
             <h3>소개</h3>
 
-            <div className="content__desc">
-              {data?.content || ""}
-              {/* {`스터디 주제 : 팀 프로젝트 스터디\n
-              목표 : 결과물 만들어내기! \n(첫 프로젝트는 네이버 웹툰 클론 코딩입니다.) 저희 스터디는 js를
-              스터디 일정(횟수) : (평일) 월,수,금 8시~12시, (주말) 일요일 8시~12시 \n
-              처음 시작하시는 분들도 있고, 다 같이 공부하려고 모이는 스터디 그룹입니다.\n`} */}
-            </div>
+            <div className="content__desc">{data?.content || ""}</div>
 
             <h3>현재 멤버</h3>
 

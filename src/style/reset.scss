@@ -187,6 +187,12 @@ textarea:focus,
 input:focus {
   border: 1px solid #727272;
 }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
 
 input[type="tel"][readonly],
 input[type="text"][readonly],

@@ -34,14 +34,14 @@ export const StudyBox = ({ data }: IProps) => {
         <div className="row putter__line">
           {/* // @ 추후 */}
           <div className="user__img"></div>
-          <p className="user__nickname">쿠키</p>
+          <p className="user__nickname">{data?.author.nickname || ""}</p>
         </div>
 
         <div className="row between putter__line">
           <p className="recruit__count">{`모집 인원 1/${data.persons}`}</p>
 
           <div className="row sub__line">
-            <p className="view__count">14</p>
+            <p className="view__count">{data?.view}</p>
             <p className="comment__count">4</p>
           </div>
         </div>
