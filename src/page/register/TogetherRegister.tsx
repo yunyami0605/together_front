@@ -2,10 +2,8 @@ import { apiCall } from "common/api";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  IBoardBody,
-  usePostStudyBoardMutation,
-} from "reudx/service/study/board";
+import { usePostStudyBoardMutation } from "redux/service/study/board";
+import { IBoardBody } from "types/board";
 import "./TogetherRegister.scss";
 
 function TogetherRegister() {

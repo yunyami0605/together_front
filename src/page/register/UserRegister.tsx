@@ -2,14 +2,11 @@ import { apiCall } from "common/api";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  IBoardBody,
-  usePostStudyBoardMutation,
-} from "reudx/service/study/board";
+import { usePostStudyBoardMutation } from "redux/service/study/board";
 import {
   IUserRegisterBody,
   usePostRegisterUserMutation,
-} from "reudx/service/study/user";
+} from "redux/service/user";
 import "./UserRegister.scss";
 
 function UserRegister() {

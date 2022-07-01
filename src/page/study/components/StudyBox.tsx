@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { typeStudyBoardItem } from "reudx/service/study/board";
+import { typeStudyBoardItem } from "types/board";
 import "./StudyBox.scss";
 
 interface IProps {
@@ -34,7 +34,7 @@ export const StudyBox = ({ data }: IProps) => {
         <div className="row putter__line">
           {/* // @ 추후 */}
           <div className="user__img"></div>
-          <p className="user__nickname">{data?.author.nickname || ""}</p>
+          <p className="user__nickname">{data?.writer.nickname || ""}</p>
         </div>
 
         <div className="row between putter__line">

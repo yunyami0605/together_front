@@ -1,6 +1,6 @@
 import { FC, useCallback, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { usePostLoginUserMutation } from "reudx/service/study/user";
+import { usePostLoginUserMutation } from "redux/service/user";
 import "./Login.scss";
 
 export const Login: FC = () => {

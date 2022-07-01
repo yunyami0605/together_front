@@ -1,7 +1,10 @@
 import { toDate } from "common/tool";
-import { FC, useEffect } from "react";
+import { FC, Fragment, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useGetStudyBoardQuery } from "reudx/service/study/board";
+import { usePostCommentMutation } from "redux/service/comment";
+import { useGetStudyBoardQuery } from "redux/service/study/board";
+import BoardCommentInput from "./components/BoardCommentInput";
+import CommentItem from "./components/CommentItem";
 import "./StudyContent.scss";
 
 export const StudyContent: FC = () => {
@@ -53,7 +56,7 @@ export const StudyContent: FC = () => {
             <div className="end study__content__sub">
               <div className="row study__content__sub__info">
                 <span className="study__content__view">
-                  작성자 ({data?.author?.nickname || ""})
+                  작성자 ({data?.writer?.nickname || ""})
                 </span>
                 <span className="study__content__view">
                   뷰 {data?.view || 0}
@@ -124,22 +127,14 @@ export const StudyContent: FC = () => {
           <div className="study__content__comment">
             <h3>댓글 (10)</h3>
 
-            <div className="row comment__input__box">
-              <textarea />
-              <button className="bold">등록</button>
-            </div>
+            <BoardCommentInput id={+param.id} />
 
             <div className="comment__list">
-              <div className="comment__list__item">
-                <div className="row list__item__header">
-                  <p className="bold">다크</p>
-                  <p className="">2022-02-02</p>
-                </div>
-
-                <div className="row list__item__body">
-                  <p>너무 좋아좋아</p>
-                </div>
-              </div>
+              {data?.comment?.list.map((val, i: number) => (
+                <Fragment key={i}>
+                  <CommentItem comment={val} />
+                </Fragment>
+              ))}
             </div>
 
             <button className="w100 comment__list__more__btn">더보기</button>

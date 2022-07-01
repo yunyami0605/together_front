@@ -1,4 +1,5 @@
 import { apiCall } from "common/api";
+import { getCookie, getUserInfo } from "common/tool";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SubBtn from "./components/SubBtn";
 import "./Header.scss";
@@ -7,8 +8,13 @@ export default function Header() {
   const { pathname } = useLocation() as { pathname: string };
   const navi = useNavigate();
 
+  const cookie = getCookie("toat");
+  const sub = getUserInfo(cookie, "sub");
+
+  // const sub = 9;
+
   const onMoveLoginPage = () => {
-    navi("login", { replace: true });
+    if (!sub) navi("login", { replace: true });
   };
   const onMovePage = (url: string) => {
     // navi("/");
@@ -21,7 +27,7 @@ export default function Header() {
 
         <article className="header__btnlist">
           <button>알림</button>
-          <button onClick={onMoveLoginPage}>로그인</button>
+          <button onClick={onMoveLoginPage}>{!sub ? "로그인" : "메뉴"}</button>
         </article>
       </section>
 

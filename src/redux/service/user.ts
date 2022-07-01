@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { IRes } from "types/response";
 
 export interface IUserPostBody {
   email: string;
@@ -9,11 +10,6 @@ export interface IUserRegisterBody {
   email: string;
   password: string;
   nickname: string;
-}
-
-interface IRes<T> {
-  data: T;
-  statusCode: number;
 }
 
 export const userApi = createApi({

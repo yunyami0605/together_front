@@ -1,10 +1,8 @@
 import React, { FC, useEffect } from "react";
 import "./Study.scss";
 import { StudyBox } from "./components/StudyBox";
-import {
-  typeStudyBoardItem,
-  useGetStudyBoardListQuery,
-} from "reudx/service/study/board";
+import { useGetStudyBoardListQuery } from "redux/service/study/board";
+import { typeStudyBoardItem } from "types/board";
 
 export const Study: FC = () => {
   const { data, isLoading, isSuccess, error, refetch } =

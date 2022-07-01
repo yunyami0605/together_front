@@ -87,19 +87,6 @@
       margin-bottom: 14px;
     }
 
-    .comment__input__box {
-      & > textarea {
-        resize: none;
-        height: 100px;
-      }
-
-      & > button {
-        margin: 0 18px;
-        width: 64px;
-        font-size: 24px;
-      }
-    }
-
     .comment__list {
       margin-bottom: 44px;
       border-bottom: 1px solid gray;
