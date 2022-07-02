@@ -1,7 +1,12 @@
 import { FC, useState } from "react";
 import "./BoardCommentInput.scss";
-import { usePostCommentMutation } from "redux/service/comment";
+import {
+  useGetCommentListQuery,
+  usePostCommentMutation,
+} from "redux/service/comment";
 import { ICommentBody } from "types/comment";
+import { useNavigate, useParams } from "react-router-dom";
+import { useGetStudyBoardQuery } from "redux/service/study/board";
 
 interface IProps {
   id: number;
@@ -9,6 +14,13 @@ interface IProps {
 export default function BoardCommentInput({ id }: IProps) {
   const [postCredentials, { isSuccess, isLoading, isError }] =
     usePostCommentMutation();
+  const param = useParams() as { id: string };
+
+  const navi = useNavigate();
+
+  //   const { refetch } = useGetCommentListQuery({ page: 1, boardId: +param.id });
+
+  const listData = useGetCommentListQuery({ boardId: +param.id, page: 1 });
 
   const [content, setContent] = useState("");
 
@@ -16,8 +28,16 @@ export default function BoardCommentInput({ id }: IProps) {
     const body: ICommentBody = { content, boardId: id };
     const res = await postCredentials(body)
       .unwrap()
-      .then((payload) => console.log("fulfilled", payload))
-      .catch((error) => console.error("rejected", error));
+      .then((payload) => {
+        if (payload) {
+          listData.refetch();
+        }
+      })
+      .catch((error) => {
+        if (error?.data?.data?.message === "Unauthorized") {
+          navi("/login");
+        }
+      });
   };
 
   return (

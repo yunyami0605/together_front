@@ -55,20 +55,32 @@ export const commentApi = createApi({
     // api get comment content
     getComment: builder.query<typeCommentItem, number>({
       query: (id) => {
-        return { url: `/${id}`, method: "get" };
+        return { url: `/${id}`, method: "GET" };
       },
       transformResponse: (response: IRes<any>) => response.data,
     }),
 
     // api patch comment content
-    patchCommentBoard: builder.mutation<number, number>({
-      query: (id) => `/${id}`,
+    patchCommentBoard: builder.mutation<
+      number,
+      { id?: number; body: { content: string } }
+    >({
+      query: ({ id, body }) => ({
+        url: `/${id}`,
+        method: "PATCH",
+        body,
+        credentials: "include",
+      }),
       transformResponse: (response: IRes<number>) => response.data,
     }),
 
     // api delete comment content
-    deleteComment: builder.query<number, number>({
-      query: (id) => `/${id}`,
+    deleteComment: builder.mutation<number, number>({
+      query: (id) => ({
+        url: `/${id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
       transformResponse: (response: IRes<number>) => response.data,
     }),
   }),
@@ -79,5 +91,5 @@ export const {
   useGetCommentQuery,
   useGetCommentListQuery,
   usePatchCommentBoardMutation,
-  useDeleteCommentQuery,
+  useDeleteCommentMutation,
 } = commentApi;

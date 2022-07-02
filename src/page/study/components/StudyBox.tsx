@@ -38,7 +38,9 @@ export const StudyBox = ({ data }: IProps) => {
         </div>
 
         <div className="row between putter__line">
-          <p className="recruit__count">{`모집 인원 1/${data.persons}`}</p>
+          <p className="recruit__count">{`모집 인원 1/${
+            data?.persons || ""
+          }`}</p>
 
           <div className="row sub__line">
             <p className="view__count">{data?.view}</p>

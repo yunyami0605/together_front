@@ -1,0 +1,35 @@
+.comment__modify__box {
+  position: fixed;
+  top: 38vh;
+  left: 26vw;
+  width: 50vw;
+  z-index: 9999;
+  background: #eefded;
+  padding: 20px 28px 24px;
+  border-radius: 6px;
+
+  & > .comment__modify__header {
+    margin-bottom: 18px;
+    & > p {
+      padding-left: 14px;
+      font-size: 18px;
+    }
+
+    & > .modal__close__btn {
+      border: 1px solid;
+      width: 36px;
+      height: 36px;
+      font-size: 16px;
+    }
+  }
+
+  & > .comment__modify__body {
+    margin-bottom: 14px;
+  }
+
+  & > .comment__modify__putter {
+    .modal__ok__btn {
+      font-size: 16px;
+    }
+  }
+}

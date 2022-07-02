@@ -13,6 +13,8 @@ export const commonBaseQueryOption = (url: string): FetchBaseQueryArgs => {
 
       headers.set("Authorization", `Bearer ${token}`);
       headers.set("Accept", `application/json`);
+      // headers.set("Access-Control-Allow-Origin", "*");
+      // headers.set("Access-Control-Allow-Methods", "*");
 
       return headers;
     },

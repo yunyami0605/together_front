@@ -1,0 +1,21 @@
+.comment__list__item {
+  & p {
+    font-size: 16px;
+  }
+
+  .list__item__header {
+    & .comment__item__writer {
+      margin-right: 12px;
+      font-size: 18px;
+    }
+  }
+
+  .comment__sub__btnline {
+    & > button {
+      margin: 0 4px;
+      border: 1px solid;
+      width: 54px;
+      height: 34px;
+    }
+  }
+}
