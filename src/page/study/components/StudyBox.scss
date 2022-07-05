@@ -1,47 +1,69 @@
+@import "src/style/color.scss";
+
 .study__box {
+  position: relative;
+
   margin: 24px 10px;
   //   width: 240px;
   flex-basis: 25%;
-  border-radius: 4px;
-  padding: 24px 16px;
+  border-radius: 10px;
+  padding: 44px 34px 30px;
+  background-color: white;
+  border: 1px solid $color-grey;
+}
 
-  // @ box header
-  .study__box__header {
-    font-size: 1rem;
-    color: #696ffd;
-  }
+.board__mark {
+  position: absolute;
+  top: 0;
+  left: 8%;
+  // 6 10
+  // @42, 70
+  width: 24px;
+  height: 40px;
+}
 
-  // @ box body
-  .study__box__body {
-    padding: 12px 0;
-    min-height: 160px;
+// @ box header
+.study__box__header {
+  font-size: 1rem;
+  font-weight: bold;
+}
 
-    .study__tag__list {
-      & > span {
-        margin-right: 8px;
-      }
+// @ box body
+.study__box__body {
+  padding: 12px 0;
+  min-height: 160px;
+
+  .study__tag__list {
+    & > span {
+      color: $color-grey;
+      font-size: 14px;
+      margin-right: 8px;
     }
   }
+}
 
-  // @ box putter
-  .study__box__putter {
-    padding-top: 10px;
-    border-top: 1px dashed black;
+// @ box putter
+.study__box__putter {
+  padding-top: 10px;
+  border-top: 1px dashed black;
 
-    & > .putter__line {
-      margin-top: 10px;
+  & > .putter__line {
+    margin-top: 10px;
+
+    & .view__count {
+      margin-right: 18px;
     }
+  }
 
-    & .user__img {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background-color: #a7a6a6;
-      margin-right: 12px;
-    }
+  & .user__img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid #a7a6a6;
+    margin-right: 12px;
+  }
 
-    & .user__nickname {
-      font-weight: bold;
-    }
+  & .user__nickname {
+    font-weight: bold;
   }
 }

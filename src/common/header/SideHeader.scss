@@ -1,0 +1,29 @@
+.page__side__header {
+  padding-top: 4vh;
+  min-height: 100vh;
+
+  & > button:first-child {
+    margin-bottom: 3.5vh;
+  }
+
+  // @ side header button
+  & > a,
+  & > button {
+    height: auto;
+    & p {
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+
+    & img {
+      margin-bottom: 4px;
+      width: 32px;
+    }
+  }
+
+  & > a:first-child {
+    & img {
+      margin-bottom: 0px;
+    }
+  }
+}

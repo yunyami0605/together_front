@@ -56,3 +56,15 @@ export function deleteCookie(cookie_name: string) {
 export const getQuery = () => {
   return queryString.parse(window.location.search);
 };
+
+/**
+*@description num param가 maxCount보다 클 경우 +maxCount로 표시함
+*@param {number} num - 표시할 숫자
+*@param {number} maxCount - 최대 수를 표시할 조건
+
+*/
+export const maxCountTxt = (num?: number, maxCount = 99) => {
+  if (!num) return "";
+
+  return num > maxCount ? `+${maxCount}` : `${num}`;
+};

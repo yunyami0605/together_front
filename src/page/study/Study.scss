@@ -1,3 +1,5 @@
+@import "src/style/color.scss";
+
 .ads__container {
   background-color: #c7c7c7;
   height: 240px;
@@ -5,31 +7,81 @@
 }
 
 .page__title {
-  margin-bottom: 14px;
+  margin-bottom: 20px;
 
-  padding-left: 48px;
+  padding-left: 2.6vw;
 }
 
 .search__container {
   margin-bottom: 4px;
-  padding-left: 48px;
+  padding-left: 2.6vw;
 
   & > button {
-    width: 84px;
-    height: 34px;
-    border: 1px solid #b4b4b4;
+    width: 100px;
+    height: 38px;
+    border: 1px solid $color-grey;
 
     margin-right: 20px;
+    color: $color-grey;
+    font-size: 12px;
   }
 
   & > .search__bar__box {
-    width: 150px;
+    max-width: 400px;
+    flex: 3;
+    border: 1px solid $color-grey;
+
+    & > input {
+      border-radius: 0;
+      // border: 1px solid #898989;
+      color: $color-grey;
+      font-size: 12px;
+
+      height: 38px;
+    }
+
+    & > input::placeholder {
+      color: $color-grey;
+      font-size: 12px;
+    }
+
+    & > input:focus {
+      border-radius: 0;
+      border: none;
+      outline: none;
+    }
 
     & > .input__btn {
-      width: 38px;
+      width: 34px;
       height: 34px;
-      background-color: #a1a1a1;
     }
+  }
+}
+
+.tag__list__box {
+  // width: 100%;
+  .tag__list {
+    flex: 1;
+    padding: 0 14px;
+
+    & > .tag {
+      margin-right: 14px;
+      font-size: 14px;
+      // font-weight: bold;
+    }
+  }
+
+  margin: 22px 2.6vw 0;
+
+  height: 38px;
+  border: 1px solid $color-grey;
+
+  .tag__list__more__btn {
+    width: 40px;
+    font-size: 16px;
+    color: $color-grey;
+
+    height: 36px;
   }
 }
 

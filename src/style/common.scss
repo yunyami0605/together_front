@@ -29,6 +29,12 @@
   align-items: center;
 }
 
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .between {
   display: flex;
   justify-content: space-between;
@@ -50,7 +56,7 @@
 
 .loading__txt {
   font-size: 4rem;
-  color: #7d71ff;
+  color: $color-blue;
   position: fixed;
 
   top: 30vh;

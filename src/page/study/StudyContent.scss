@@ -1,4 +1,6 @@
 .study__content {
+  padding: 6vh 4vw 4vh;
+  // # content header
   .study__content__header {
     .study__content__title {
       padding-left: 12px;
@@ -24,7 +26,8 @@
     }
   }
 
-  .study__content__option {
+  // # content sub header (option)
+  .study__content__sub__header {
     padding: 24px 14px;
     border-top: 1px solid #6d6d6d;
     border-bottom: 1px solid #6d6d6d;
@@ -58,7 +61,7 @@
     }
   }
 
-  // @ body (des, member)
+  // # content body (des, member)
   .study__content__body {
     padding: 34px 22px;
 

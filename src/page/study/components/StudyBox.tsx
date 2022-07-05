@@ -1,3 +1,4 @@
+import { maxCountTxt } from "common/tool";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { typeStudyBoardItem } from "types/board";
@@ -17,6 +18,12 @@ export const StudyBox = ({ data }: IProps) => {
 
   return (
     <div className="border study__box" onClick={onMove}>
+      <img
+        src="/img/img__inactive__mark.svg"
+        className="board__mark"
+        alt="bm"
+      />
+
       <div className="study__box__header">
         <p>{data.title}</p>
       </div>
@@ -43,8 +50,8 @@ export const StudyBox = ({ data }: IProps) => {
           }`}</p>
 
           <div className="row sub__line">
-            <p className="view__count">{data?.view}</p>
-            <p className="comment__count">4</p>
+            <p className="view__count">뷰 {maxCountTxt(data?.view, 999)}</p>
+            <p className="comment__count">댓글 {maxCountTxt(4, 99)}</p>
           </div>
         </div>
       </div>

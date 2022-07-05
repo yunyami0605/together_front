@@ -1,11 +1,16 @@
+@import "src/style/color.scss";
+
 .header__container {
-  padding: 4vh 0 10px;
+  padding: 2.8vh 0 3vh;
   .main__header {
-    padding: 0 2vw;
+    padding: 0 2.5vw;
 
     & > h1 {
       margin-bottom: 8px;
-      padding-left: 12px;
+
+      & > span {
+        color: $color-blue;
+      }
     }
     // #
     .header__btnlist {

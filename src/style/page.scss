@@ -6,5 +6,14 @@
 }
 
 .page__body {
-  padding: 0 6vw;
+  // padding: 0 6vw;
+
+  .page__body__upper {
+    min-height: 22vh;
+  }
+
+  .page__body__lower {
+    min-height: 50vh;
+    background: #f8f9ff;
+  }
 }
