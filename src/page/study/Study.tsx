@@ -4,6 +4,7 @@ import { StudyBox } from "./components/StudyBox";
 import { useGetStudyBoardListQuery } from "redux/service/study/board";
 import { typeStudyBoardItem } from "types/board";
 import SearchContainer from "./components/SearchContainer";
+import PageTitle from "common/title/PageTitle";
 
 export const Study: FC = () => {
   const { data, isLoading, isSuccess, error, refetch } =
@@ -26,10 +27,7 @@ export const Study: FC = () => {
     <section className="page">
       {isLoading && <h1 className="loading__txt">LOADING...</h1>}
 
-      {/* // */}
-      <div className="w100 row page__title">
-        <h2>스터디</h2>
-      </div>
+      <PageTitle title="스터디" />
 
       <section className="page__body">
         <section className="page__body__upper">

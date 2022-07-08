@@ -1,9 +1,9 @@
 .register__form {
   margin: 44px 0 24px;
+  padding: 12px 28px;
 
   input[type="number"],
   .register__input {
-    margin-bottom: 4vh;
     width: 100%;
     padding-left: 18px;
     height: 44px;
@@ -23,14 +23,49 @@
       font-size: 16px;
     }
   }
+
+  .register__tag__list {
+    padding-left: 18px;
+    margin: 16px 0 4px;
+    & > span {
+      margin-right: 12px;
+      font-size: 16px;
+    }
+  }
+
+  // # 태그 입력 영역
+  .register__tag__input {
+    font-size: 16px;
+    padding-left: 6px;
+
+    width: 240px;
+    border-left: none;
+  }
+
+  .register__tag__input::placeholder {
+    font-size: 16px;
+  }
+
+  // # tag input 앞 부분에 '#' 표시 영역
+  .sharp__tag__box {
+    width: 30px !important;
+    height: 44px;
+    border: 1px solid lightgray;
+    border-right: none;
+
+    font-size: 18px;
+    padding-bottom: 1px;
+  }
 }
 
 .register__field {
-  margin-bottom: 2vh;
+  margin: 4vh 0 2vh;
 }
 
 .register__desc {
   margin-bottom: 4vh;
+  padding: 16px 0;
+  font-size: 16px;
 
   resize: none;
   height: 240px;

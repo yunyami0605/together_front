@@ -25,6 +25,7 @@ export const StudyContent: FC = () => {
 
   const listData = useGetCommentListQuery({ boardId: +param.id, page });
 
+  console.log(data?.tagList);
   const onCommentModify = (index: number) => {
     setIsModalShow(true);
     setSelectedIndex(index);
@@ -99,11 +100,9 @@ export const StudyContent: FC = () => {
 
               <div className="bold">태그</div>
               <div className="row option__tag__list">
-                {/* // @ 추후 */}
-                <span># 4명</span>
-                <span># 서울</span>
-                <span># 경기</span>
-                <span># 온라인</span>
+                {data?.tagList?.map((val, i) => (
+                  <span key={i}># {val}</span>
+                ))}
               </div>
             </div>
 

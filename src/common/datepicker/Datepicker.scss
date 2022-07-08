@@ -1,0 +1,93 @@
+@import "src/style/color.scss";
+
+.calendar__input {
+  width: 126px;
+  height: 34px;
+  // color: white;
+  color: $color-grey;
+  background: transparent;
+  border: 1px solid $color-grey;
+  font-size: 0.9rem;
+
+  text-align: center;
+  border-radius: 4px;
+}
+
+.calendar__background {
+  width: 100%;
+  height: 100%;
+  background: rgba(92, 92, 92, 0.235);
+}
+
+.calendar__container {
+  left: 0;
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+
+  width: 99.9vw;
+  height: 99.9vh;
+  background: transparent;
+}
+
+.calendar__box {
+  min-width: 380px;
+  // height: 320px;
+  position: absolute;
+  top: 110px;
+  z-index: 9999;
+
+  margin: 0 auto;
+  z-index: 2;
+
+  .calendar__header {
+    padding-top: 12px;
+    // height: 160px;
+    background: #96a5bb;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+
+    border-bottom-width: 2px;
+    border-bottom-color: #ffd2d2;
+
+    .calendar__header__top {
+      .calendar__header__date {
+        & > p {
+          font-size: 1.1rem;
+          font-weight: bold;
+          color: #f5f4f4;
+        }
+      }
+    }
+
+    .calendar__header__bottom {
+      padding: 0 14px;
+
+      height: 44px;
+
+      & > p {
+        flex: 1;
+        text-align: center;
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+    }
+  }
+
+  // 캘린더 바디 > 날짜 표시
+  .calendar__body {
+    background: #f4f4f4;
+    padding: 14px 4px 10px;
+
+    .calendar__dateline {
+      display: flex;
+
+      & > button {
+        font-size: 0.9rem;
+        flex: 1;
+        height: 44px;
+        color: #000;
+      }
+    }
+  }
+}

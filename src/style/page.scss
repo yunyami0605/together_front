@@ -1,7 +1,26 @@
+@import "./color.scss";
+
 .page {
   position: relative;
   .page__title {
     // #
+
+    & > div:first-child {
+      width: 4px;
+      margin-right: 2px;
+    }
+    & > div:nth-child(2) {
+      width: 2px;
+      margin-right: 18px;
+    }
+    & > div {
+      background-color: $color-black;
+      height: 22px;
+    }
+
+    & > h2 {
+      color: $color-black;
+    }
   }
 }
 
@@ -15,5 +34,21 @@
   .page__body__lower {
     min-height: 50vh;
     background: #f8f9ff;
+  }
+}
+
+.page__layout {
+  display: flex;
+  align-items: flex-start;
+
+  .page__layout__left {
+    min-height: 100vh;
+
+    flex: 1;
+  }
+
+  .page__layout__right {
+    min-height: 100vh;
+    flex: 15;
   }
 }

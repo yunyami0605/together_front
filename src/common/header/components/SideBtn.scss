@@ -1,8 +1,13 @@
 .sub__header__btn {
-  min-width: 120px;
-  width: 10%;
+  min-width: 72px;
+  // width: 4%;
   height: 40px;
-  line-height: 40px;
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
+  white-space: pre;
+  line-height: 22px;
+
+  & p {
+    margin-bottom: 26px;
+  }
 }

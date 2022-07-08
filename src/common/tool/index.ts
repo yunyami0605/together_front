@@ -1,6 +1,7 @@
 import moment from "moment";
 import queryString from "query-string";
 import jwt from "jsonwebtoken";
+import { type_date } from "types/common";
 
 export const getUserInfo = (token?: string | null, _key?: string) => {
   if (!token) return;
@@ -11,9 +12,13 @@ export const getUserInfo = (token?: string | null, _key?: string) => {
   return _key && typeof userObj !== "string" ? userObj[_key] : userObj;
 };
 
-export const toDate = (date?: string, type = "YYYY.MM.DD") => {
-  if (!date) return "-";
-  return moment(date).format(type);
+export const toDate = (
+  date?: string,
+  type = "YYYY.MM.DD",
+  isNodateNoRes = false
+) => {
+  if (date) return moment(date).format(type);
+  return isNodateNoRes ? "-" : moment().format(type);
 };
 
 /**
@@ -64,7 +69,45 @@ export const getQuery = () => {
 
 */
 export const maxCountTxt = (num?: number, maxCount = 99) => {
-  if (!num) return "";
+  if (!num) return "0";
 
   return num > maxCount ? `+${maxCount}` : `${num}`;
+};
+
+/**
+ * @description : date calculate func
+ * @param {string} _date
+ * @param {number} cal - calculate value
+ * @param {"y" | "m" | "d"} type - date type
+ * @param {} format - date format type to return
+ */
+export const calDate = (
+  _date: string,
+  cal: number,
+  type: type_date = "d",
+  format: string = "YYYYMMDD"
+) => {
+  let tmp = null;
+
+  // tmp = moment(_date).add(cal, type);
+  tmp = moment(_date).add(cal, type).format(format);
+
+  return tmp;
+};
+
+/**
+ * @description Text of number change lenth one to two:
+ * @param {number} tmp: value
+ */
+export const ChangeDoubleDigit = (tmp: number): string => {
+  return tmp >= 10 ? `${tmp}` : `0${tmp}`;
+};
+
+/**
+ * @description : get num if value is falsy
+ */
+export const toNumber = <T>(val: T): number => {
+  if (!val) return 0;
+
+  return Number(val);
 };

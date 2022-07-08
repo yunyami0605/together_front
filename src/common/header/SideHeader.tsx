@@ -9,7 +9,7 @@ const sideMenuInfoList = [
   },
   {
     src: "sideproject",
-    name: "사이드/프로젝트",
+    name: `사이드\n프로젝트`,
   },
   {
     src: "club",

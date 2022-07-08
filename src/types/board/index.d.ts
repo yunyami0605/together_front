@@ -13,12 +13,11 @@ export type typeStudyBoardItem = {
   dislike: number;
   view: number;
   createdAt: string;
-  updatedAt: string;
-  deletedAt?: string;
   writer: {
     nickname: string;
   };
-  comment: IGetListResData<typeCommentItem>;
+  comment: typeCommentItem[];
+  tagList: string[] | null;
 };
 
 export interface IBoardBody {

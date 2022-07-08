@@ -30,10 +30,9 @@ export const StudyBox = ({ data }: IProps) => {
 
       <div className="study__box__body">
         <div className="study__tag__list">
-          {/* // @ 추후 */}
-          <span>#JS</span>
-          <span>#TS</span>
-          <span>#REACT</span>
+          {data?.tagList?.map((val, i) => (
+            <span key={i}># {val}</span>
+          ))}
         </div>
       </div>
 
@@ -50,8 +49,12 @@ export const StudyBox = ({ data }: IProps) => {
           }`}</p>
 
           <div className="row sub__line">
-            <p className="view__count">뷰 {maxCountTxt(data?.view, 999)}</p>
-            <p className="comment__count">댓글 {maxCountTxt(4, 99)}</p>
+            <p className="view__count">
+              뷰 {maxCountTxt(data?.view || 0, 999)}
+            </p>
+            <p className="comment__count">
+              댓글 {maxCountTxt(data?.comment.length || 0, 99)}
+            </p>
           </div>
         </div>
       </div>

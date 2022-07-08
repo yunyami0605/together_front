@@ -31,6 +31,7 @@ export default function BoardCommentInput({ id }: IProps) {
       .then((payload) => {
         if (payload) {
           listData.refetch();
+          setContent("");
         }
       })
       .catch((error) => {

@@ -1,0 +1,12 @@
+.double__date__picker {
+  width: 340px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > button {
+    height: 34px;
+    line-height: 14px;
+  }
+}

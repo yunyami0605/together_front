@@ -3,27 +3,20 @@
   min-height: 100vh;
 
   & > button:first-child {
-    margin-bottom: 3.5vh;
+    width: 44px;
+    // height: 36px;
+    margin-bottom: 4vh;
   }
 
   // @ side header button
   & > a,
   & > button {
     height: auto;
-    & p {
-      margin-bottom: 14px;
-      font-size: 14px;
-    }
 
+    // @ side btn img
     & img {
-      margin-bottom: 4px;
+      margin-bottom: 10px;
       width: 32px;
-    }
-  }
-
-  & > a:first-child {
-    & img {
-      margin-bottom: 0px;
     }
   }
 }

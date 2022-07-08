@@ -20,6 +20,9 @@ export default function CommentItem({
 }: IProps) {
   const [deleteMutation, {}] = useDeleteCommentMutation();
 
+  /**
+   *@description : delete comment event handler
+   */
   const onDeleteComment = () => {
     deleteMutation(id)
       .unwrap()
@@ -30,12 +33,13 @@ export default function CommentItem({
       })
       .catch((error) => console.log(error));
   };
+
   return (
     <div className="comment__list__item">
       <div className="between list__item__header">
         <div className="row">
           <p className="bold comment__item__writer">{comment.id}</p>
-          <p className="">{toDate(comment.createdAt)}</p>
+          <p className="">{toDate(comment.createdAt, "YYYY.MM.DD hh:mm")}</p>
         </div>
 
         <div className="comment__sub__btnline">

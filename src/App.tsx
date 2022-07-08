@@ -1,6 +1,5 @@
 import Header from "common/header/Header";
 import SideHeader from "common/header/SideHeader";
-import PageLayout from "layout/PageLayout";
 import { Club } from "page/club/Club";
 import { Login } from "page/login/Login";
 import TogetherRegister from "page/register/TogetherRegister";
@@ -11,11 +10,10 @@ import { StudyContent } from "page/study/StudyContent";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import { Study } from "./page/study/Study";
-import "./layout/PageLayout.scss";
 
 function App() {
   return (
-    <section className="row page__layout">
+    <section className="page__layout">
       <BrowserRouter>
         <section className="page__layout__left">
           <SideHeader />
