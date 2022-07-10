@@ -14,6 +14,7 @@ export type typeStudyBoardItem = {
   view: number;
   createdAt: string;
   writer: {
+    id: number;
     nickname: string;
   };
   comment: typeCommentItem[];

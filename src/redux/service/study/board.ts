@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IGetListResData, IListRes, IRes } from "types/response";
-import { getCookie } from "common/tool";
 import { IBoardBody, typeStudyBoardItem } from "types/board";
 import { commonBaseQueryOption } from "redux/common";
 
@@ -66,7 +65,9 @@ export const studyBoardApi = createApi({
     }),
 
     deleteStudyBoard: builder.mutation<number, number>({
-      query: (id) => `/${id}`,
+      query: (id) => {
+        return { url: `/${id}`, method: "delete" };
+      },
       transformResponse: (response: IRes<number>) => response.data,
     }),
   }),

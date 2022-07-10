@@ -17,7 +17,7 @@ import {
   SELECTOR_TYPE_LIST,
 } from "./component/constant";
 
-function TogetherRegister() {
+function TogetherModify() {
   const typeList = useMemo(() => SELECTOR_TYPE_LIST, []);
 
   // 온라인/ 오프라인, 서울, 강서구,
@@ -27,14 +27,49 @@ function TogetherRegister() {
 
   const LIMIT_TAG_COUNT = 4;
 
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [type, setType] = useState(SELECTOR_TYPE_LIST[0]);
-  const [location, setLocation] = useState([meatList[0], regionList[0]]);
-  const [persons, setPersons] = useState(0);
-  const [tagList, setTagList] = useState<string[]>([]);
+  const param = useParams() as { id: string };
+
+  const getBoard = useGetStudyBoardQuery(+param.id);
+
+  // const onSplitTagList= (tagList?:string) => {
+  //   if(!tagList) return undefined;
+
+  //   tagList.split(";");
+  // }
+
+  // function test<T extends { [_key: string]: any }[]>(
+  //   arr: T[],
+  //   key: string,
+  //   findItem: any
+  // ) {
+  //   for (let i = 0; i < arr.length; i++) {
+  //     if (arr[i][key] === findItem) {
+  //       return i;
+  //     }
+  //   }
+
+  //   return undefined;
+  // }
+
+  const [title, setTitle] = useState(getBoard.data?.title || "");
+  const [content, setContent] = useState(getBoard.data?.content || "");
+  const [type, setType] = useState(
+    // test(SELECTOR_TYPE_LIST, "key", getBoard.data?.type) ||
+    SELECTOR_TYPE_LIST[0]
+  );
+  const [location, setLocation] = useState(
+    // getBoard.data?.type ||
+    // getBoard.data?.tagList?.split(";") ||
+    [meatList[0], regionList[0]]
+  );
+  const [persons, setPersons] = useState(getBoard.data?.persons || 0);
+  const [tagList, setTagList] = useState<string[]>(
+    getBoard.data?.tagList || []
+  );
   const [tag, setTag] = useState("");
-  const [period, setPeriod] = useState(moment().format("YYYYMMDD"));
+  const [period, setPeriod] = useState(
+    getBoard.data?.period || moment().format("YYYYMMDD")
+  );
 
   const [postCredentials, { isSuccess, isLoading, isError }] =
     usePostStudyBoardMutation();
@@ -91,6 +126,13 @@ function TogetherRegister() {
       alert("잘못된 폼");
     }
   }, [isSuccess, isLoading, isError]);
+
+  useEffect(() => {
+    if (getBoard) {
+      // # 수정 페이지로 접근 할 경우, 해당 board id 조회
+      // getBoard
+    }
+  }, []);
 
   return (
     <section className="page">
@@ -188,4 +230,4 @@ function TogetherRegister() {
   );
 }
 
-export default TogetherRegister;
+export default TogetherModify;

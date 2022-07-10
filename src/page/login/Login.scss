@@ -1,3 +1,5 @@
+@import "src/style/color.scss";
+
 .login__page {
   padding-top: 20vh;
   .login__box {
@@ -8,16 +10,15 @@
       margin-bottom: 20px;
     }
     .login__input {
-      height: 40px;
       margin-bottom: 20px;
     }
 
     .login__btn {
-      height: 50px;
+      height: 46px;
       margin: 20px 0 18px;
       font-weight: bold;
       font-size: 20px;
-      background-color: #bddeff;
+      background-color: $color-sky;
       color: #fff;
     }
 

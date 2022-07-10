@@ -9,6 +9,10 @@
   width: 100%;
 }
 
+.relative {
+  position: relative;
+}
+
 .row {
   display: flex;
   align-items: center;
@@ -23,6 +27,15 @@
   justify-content: center;
   align-items: center;
 }
+
+.flex {
+  display: flex;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
 .end {
   display: flex;
   justify-content: flex-end;
@@ -61,4 +74,26 @@
 
   top: 30vh;
   left: 46vw;
+}
+
+.normal__btn,
+.positive__btn,
+.negative__btn {
+  margin: 0 12px;
+  width: 90px;
+  height: 40px;
+  font-size: 14px;
+  // font-weight: bold;
+  color: #707070;
+  border: 1px solid lightgray;
+}
+
+.positive__btn {
+  background: $color-blue;
+  color: $color-white;
+}
+
+.negative__btn {
+  background-color: $color-grey;
+  color: $color-white;
 }

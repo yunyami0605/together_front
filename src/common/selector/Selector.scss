@@ -1,0 +1,27 @@
+@import "src/style/color.scss";
+
+.selector__box {
+  & > .selector {
+    width: 180px;
+    // border: 1px solid $color-grey;
+
+    & > .ant-select-selector {
+      height: 40px;
+
+      & input {
+        height: 40px;
+      }
+
+      & .ant-select-selection-item {
+        padding-left: 4px;
+        line-height: 41px;
+      }
+    }
+
+    // # drop box text
+    & p {
+      font-size: 14px;
+      color: $color-grey;
+    }
+  }
+}

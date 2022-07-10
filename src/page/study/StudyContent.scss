@@ -2,13 +2,15 @@
   padding: 6vh 4vw 4vh;
   // # content header
   .study__content__header {
+    // # board title
     .study__content__title {
       padding-left: 12px;
       margin-bottom: 12px;
     }
 
+    // # board content (view, like, dislike) count
     .study__content__sub {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
 
       & span {
         font-size: 16px;
@@ -18,11 +20,24 @@
       }
     }
 
+    // # board content create date
     .study__content__dateline {
       margin-bottom: 10px;
 
       font-size: 16px;
       text-align: right;
+    }
+
+    // # board content mod / delete btn line
+    .study__content__subline {
+      margin: 8px 0 10px;
+
+      & > button {
+        font-size: 14px;
+        margin-left: 14px;
+        width: 64px;
+        height: 34px;
+      }
     }
   }
 

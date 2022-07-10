@@ -3,7 +3,9 @@ import queryString from "query-string";
 import jwt from "jsonwebtoken";
 import { type_date } from "types/common";
 
-export const getUserInfo = (token?: string | null, _key?: string) => {
+export const getUserInfo = (_key?: string) => {
+  const token = getCookie(process.env.REACT_APP_ACCESS_TOKEN);
+  console.log(process.env.REACT_APP_ACCESS_TOKEN);
   if (!token) return;
 
   if (!process.env.REACT_APP_COOKIE_KYE) return;
@@ -25,7 +27,9 @@ export const toDate = (
  * @description : get cookie using name
  * @param {string} cookie_name
  */
-export function getCookie(cookieName: string) {
+export function getCookie(cookieName?: string) {
+  if (!cookieName) return;
+
   const cookieList = document.cookie.split(";");
 
   for (let i = 0; i < cookieList.length; i++) {

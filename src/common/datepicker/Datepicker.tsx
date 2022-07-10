@@ -50,10 +50,6 @@ function Datepicker({
   // # datepicker 모달창 on/off state
   const [open, setOpen] = useState(false);
 
-  //   const d = toNumber(toDate(defaultDate, "DD"));
-  //   const m = toNumber(toDate(defaultDate, "MM"));
-  //   const y = toNumber(toDate(defaultDate, "YYYY"));
-
   const [curDate, setCurDate] = useState({
     y: toNumber(toDate(defaultDate, "YYYY")),
     m: toNumber(toDate(defaultDate, "MM")),

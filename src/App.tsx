@@ -2,6 +2,7 @@ import Header from "common/header/Header";
 import SideHeader from "common/header/SideHeader";
 import { Club } from "page/club/Club";
 import { Login } from "page/login/Login";
+import TogetherModify from "page/register/TogetherModify";
 import TogetherRegister from "page/register/TogetherRegister";
 import UserRegister from "page/register/UserRegister";
 import { SideProject } from "page/sideProject/SideProject";
@@ -29,6 +30,7 @@ function App() {
             <Route path="/sideproject" element={<SideProject />} />
             <Route path="/club" element={<Club />} />
             <Route path="/together/register" element={<TogetherRegister />} />
+            <Route path="/together/modify/:id" element={<TogetherModify />} />
             <Route path="/login" element={<Login />} />
             <Route path="/user/register" element={<UserRegister />} />
             UserRegister

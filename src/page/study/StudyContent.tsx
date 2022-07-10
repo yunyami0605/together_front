@@ -1,8 +1,11 @@
-import { toDate } from "common/tool";
+import { getUserInfo, toDate } from "common/tool";
 import { FC, Fragment, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetCommentListQuery } from "redux/service/comment";
-import { useGetStudyBoardQuery } from "redux/service/study/board";
+import {
+  useDeleteStudyBoardMutation,
+  useGetStudyBoardQuery,
+} from "redux/service/study/board";
 import BoardCommentInput from "./components/BoardCommentInput";
 import CommentItem from "./components/CommentItem";
 import CommentModifyBox from "./components/CommentModifyBox";
@@ -12,6 +15,7 @@ import "./StudyContent.scss";
 export const StudyContent: FC = () => {
   // const tmp = queryString();
   const param = useParams() as { id: string };
+  const sub = getUserInfo("sub");
 
   const [page, setPage] = useState(1);
 
@@ -21,11 +25,15 @@ export const StudyContent: FC = () => {
     // { refetchOnMountOrArgChange: true }
   );
 
+  const navi = useNavigate();
+
+  const deleteStudyBoard = useDeleteStudyBoardMutation();
+
   const [isModalShow, setIsModalShow] = useState(false);
 
   const listData = useGetCommentListQuery({ boardId: +param.id, page });
 
-  console.log(data?.tagList);
+  const [onlineType, region] = data?.location.split(";") || ["", ""];
   const onCommentModify = (index: number) => {
     setIsModalShow(true);
     setSelectedIndex(index);
@@ -39,6 +47,27 @@ export const StudyContent: FC = () => {
 
   const onRefetchCommentList = () => {
     listData.refetch();
+  };
+
+  const onDeleteContent = () => {
+    if (!window.confirm("게시글을 삭제하시겠습니까?")) return;
+
+    deleteStudyBoard[0](+param.id)
+      .unwrap()
+      .then((payload) => {
+        console.log(payload);
+        alert("게시글이 삭제되었습니다.");
+
+        navi("/study", { replace: true });
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error);
+      });
+  };
+
+  const onModifyContent = () => {
+    navi(`/together/modify/${param.id}`, { state: { id: param.id } });
   };
 
   return (
@@ -81,6 +110,13 @@ export const StudyContent: FC = () => {
               <p className="bold w100 study__content__dateline">
                 {toDate(data?.createdAt, "YYYY.MM.DD")}
               </p>
+
+              {data?.writer.id === sub && (
+                <div className="end study__content__subline">
+                  <button onClick={onModifyContent}>수정</button>
+                  <button onClick={onDeleteContent}>삭제</button>
+                </div>
+              )}
             </div>
 
             <div className="study__content__sub__header">
@@ -88,7 +124,7 @@ export const StudyContent: FC = () => {
                 <div className="option__box__type">종류</div>
                 <div>{data?.type || ""}</div>
                 <div className="option__box__type">장소</div>
-                <div>{data?.location || ""}</div>
+                <div>{`${onlineType || "-"} / ${region || "-"}`}</div>
                 <div></div>
 
                 <div className="option__box__type">인원</div>

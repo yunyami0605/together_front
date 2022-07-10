@@ -1,5 +1,5 @@
 import { apiCall } from "common/api";
-import { getCookie, getUserInfo } from "common/tool";
+import { getUserInfo } from "common/tool";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Header.scss";
 
@@ -7,8 +7,7 @@ export default function Header() {
   const { pathname } = useLocation() as { pathname: string };
   const navi = useNavigate();
 
-  const cookie = getCookie("toat");
-  const sub = getUserInfo(cookie, "sub");
+  const sub = getUserInfo("sub");
 
   // const sub = 9;
 

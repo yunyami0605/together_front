@@ -1,3 +1,5 @@
+@import "src/style/color.scss";
+
 .register__form {
   margin: 44px 0 24px;
   padding: 12px 28px;
@@ -6,11 +8,10 @@
   .register__input {
     width: 100%;
     padding-left: 18px;
-    height: 44px;
 
     border: 1px solid lightgray;
 
-    border-radius: 0;
+    border-radius: 2px;
 
     font-size: 16px;
 
@@ -24,21 +25,58 @@
     }
   }
 
+  // # 장소 입력 폼 라인
+  .register__location__line {
+    .selector__box {
+      margin-right: 24px;
+    }
+
+    & .selector:first-child {
+      width: 240px;
+    }
+  }
+
+  // # 입력된 태그 리스트
   .register__tag__list {
-    padding-left: 18px;
+    border: 1px solid #d6d6d6;
+    border-radius: 2px;
+    padding: 8px 12px;
     margin: 16px 0 4px;
-    & > span {
+    min-height: 60px;
+
+    & > .register__tag {
+      padding: 2px 10px;
+      padding-right: 1px;
+
+      border: 1px solid #d6d6d6;
+      background-color: #f4f4f4;
+      border-radius: 4px;
       margin-right: 12px;
-      font-size: 16px;
+      font-size: 14px;
+
+      & > button {
+        // border: 1px solid;
+        // text-align: end;
+        // padding-right: 8px;
+        width: 24px;
+        height: 30px;
+        margin-bottom: 1px;
+        // line-height: -32px;
+        font-weight: bold;
+        color: $color-grey;
+        font-size: 14px;
+        margin-left: 2px;
+      }
     }
   }
 
   // # 태그 입력 영역
   .register__tag__input {
     font-size: 16px;
-    padding-left: 6px;
+    padding-left: 0;
+    line-height: 48px;
 
-    width: 240px;
+    width: 244px;
     border-left: none;
   }
 
@@ -48,10 +86,12 @@
 
   // # tag input 앞 부분에 '#' 표시 영역
   .sharp__tag__box {
-    width: 30px !important;
-    height: 44px;
+    left: 1px;
+    width: 26px;
+    height: 42px;
     border: 1px solid lightgray;
     border-right: none;
+    border-radius: 2px;
 
     font-size: 18px;
     padding-bottom: 1px;
@@ -66,16 +106,12 @@
   margin-bottom: 4vh;
   padding: 16px 0;
   font-size: 16px;
+  border-radius: 2px;
 
   resize: none;
   height: 240px;
 }
 
 .register__btnlist {
-  & > button {
-    margin: 0 12px;
-    width: 84px;
-    height: 42px;
-    border: 1px solid lightgray;
-  }
+  //
 }

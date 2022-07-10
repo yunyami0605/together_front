@@ -6,7 +6,6 @@ import {
 } from "redux/service/comment";
 import { ICommentBody } from "types/comment";
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetStudyBoardQuery } from "redux/service/study/board";
 
 interface IProps {
   id: number;

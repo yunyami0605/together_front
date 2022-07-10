@@ -2,14 +2,13 @@
 
 .calendar__input {
   width: 126px;
-  height: 34px;
-  // color: white;
   color: $color-grey;
   background: transparent;
-  border: 1px solid $color-grey;
-  font-size: 0.9rem;
+  // border: 1px solid $color-grey;
+  border: 1px solid $color-light-grey;
+  font-size: 1rem;
 
-  text-align: center;
+  padding-left: 4px;
   border-radius: 4px;
 }
 
