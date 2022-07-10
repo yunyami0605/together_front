@@ -1,6 +1,6 @@
 import Datepicker from "common/datepicker/Datepicker";
 import PageTitle from "common/title/PageTitle";
-import { toNumber } from "common/tool";
+import { findValueOnObjArray, toNumber } from "common/tool";
 import moment from "moment";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,6 +16,7 @@ import {
   SELECTOR_REGION_LIST,
   SELECTOR_TYPE_LIST,
 } from "./component/constant";
+import { type_key_label } from "types/common";
 
 function TogetherModify() {
   const typeList = useMemo(() => SELECTOR_TYPE_LIST, []);
@@ -53,15 +54,13 @@ function TogetherModify() {
 
   const [title, setTitle] = useState(getBoard.data?.title || "");
   const [content, setContent] = useState(getBoard.data?.content || "");
-  const [type, setType] = useState(
-    // test(SELECTOR_TYPE_LIST, "key", getBoard.data?.type) ||
-    SELECTOR_TYPE_LIST[0]
-  );
-  const [location, setLocation] = useState(
-    // getBoard.data?.type ||
-    // getBoard.data?.tagList?.split(";") ||
-    [meatList[0], regionList[0]]
-  );
+  const [type, setType] = useState(getBoard.data?.type || 0);
+
+  const [location, setLocation] = useState([
+    toNumber(getBoard.data?.location.split(";")[0]) || 0,
+    toNumber(getBoard.data?.location.split(";")[1]) || 0,
+  ]);
+
   const [persons, setPersons] = useState(getBoard.data?.persons || 0);
   const [tagList, setTagList] = useState<string[]>(
     getBoard.data?.tagList || []
@@ -78,12 +77,12 @@ function TogetherModify() {
 
   const onSubmit = async () => {
     const personsData = Number(persons);
-    if (type.key === "") return alert("종류를 선택해주세요.");
+    if (type === 0) return alert("종류를 선택해주세요.");
     const body: IBoardBody = {
       title,
       content,
-      type: type.key,
-      location: `${location[0].label};${location[1].label}`,
+      type: 0,
+      location: `${location[0]};${location[1]}`,
       persons: personsData < 0 ? 0 : personsData,
       tagList,
       period,
@@ -158,21 +157,20 @@ function TogetherModify() {
             <div className="row register__location__line">
               <Selector
                 data={meatList}
-                setItem={(value) => setLocation((prev) => [value, prev[1]])}
+                setItem={(item: number) =>
+                  setLocation((prev) => [item, prev[1]])
+                }
                 selectedItem={location[0]}
               />
 
               <Selector
                 data={regionList}
-                setItem={(value) => setLocation((prev) => [prev[0], value])}
+                setItem={(item: number) =>
+                  setLocation((prev) => [prev[0], item])
+                }
                 selectedItem={location[1]}
               />
             </div>
-            {/* <input
-              className="register__input"
-              onChange={(e: any) => setLocation(e.target.value)}
-              value={location}
-            /> */}
 
             <h3 className="register__field"># 인원</h3>
             <input

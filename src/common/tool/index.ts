@@ -115,3 +115,21 @@ export const toNumber = <T>(val: T): number => {
 
   return Number(val);
 };
+
+export const findValueOnObjArray = <T>(
+  array: any[],
+  key: string,
+  value: any
+): T | undefined => {
+  if (!value) return undefined;
+
+  let result;
+  for (let i = 0; i < array.length; i++) {
+    if (array[i][key] === value) {
+      result = array[i];
+      break;
+    }
+  }
+
+  return result;
+};

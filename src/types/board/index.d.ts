@@ -5,7 +5,7 @@ export type typeStudyBoardItem = {
   id: number;
   title: string;
   content: string;
-  type: string;
+  type: number;
   location: string;
   persons: number;
   period: string;
@@ -24,7 +24,7 @@ export type typeStudyBoardItem = {
 export interface IBoardBody {
   title: string;
   content: string;
-  type: string;
+  type: number;
   location: string;
   persons: number;
   period: string;

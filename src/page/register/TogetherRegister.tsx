@@ -29,8 +29,8 @@ function TogetherRegister() {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [type, setType] = useState(SELECTOR_TYPE_LIST[0]);
-  const [location, setLocation] = useState([meatList[0], regionList[0]]);
+  const [type, setType] = useState(0);
+  const [location, setLocation] = useState([0, 0]);
   const [persons, setPersons] = useState(0);
   const [tagList, setTagList] = useState<string[]>([]);
   const [tag, setTag] = useState("");
@@ -43,12 +43,12 @@ function TogetherRegister() {
 
   const onSubmit = async () => {
     const personsData = Number(persons);
-    if (type.key === "") return alert("종류를 선택해주세요.");
+    if (type === 0) return alert("종류를 선택해주세요.");
     const body: IBoardBody = {
       title,
       content,
-      type: type.key,
-      location: `${location[0].label};${location[1].label}`,
+      type,
+      location: `${location[0]};${location[1]}`,
       persons: personsData < 0 ? 0 : personsData,
       tagList,
       period,
@@ -116,13 +116,17 @@ function TogetherRegister() {
             <div className="row register__location__line">
               <Selector
                 data={meatList}
-                setItem={(value) => setLocation((prev) => [value, prev[1]])}
+                setItem={(item: number) =>
+                  setLocation((prev) => [item, prev[1]])
+                }
                 selectedItem={location[0]}
               />
 
               <Selector
                 data={regionList}
-                setItem={(value) => setLocation((prev) => [prev[0], value])}
+                setItem={(item: number) =>
+                  setLocation((prev) => [prev[0], item])
+                }
                 selectedItem={location[1]}
               />
             </div>
