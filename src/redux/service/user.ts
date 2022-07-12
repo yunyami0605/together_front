@@ -1,9 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IRes } from "types/response";
+import { IDataDate, IRes } from "types/response";
 
 export interface IUserPostBody {
   email: string;
   password: string;
+}
+
+export interface IGetUser extends IDataDate {
+  id: number;
+  email: string;
+  nickname: string;
 }
 
 export interface IUserRegisterBody {
@@ -48,9 +54,9 @@ export const userApi = createApi({
       // transformResponse: (response: IRes<number>, meta, arg) => response.data,
     }),
 
-    getUser: builder.query<any, number>({
-      query: (id) => `/user`,
-      transformResponse: (response: any) => response.data,
+    getUser: builder.query<IGetUser, number>({
+      query: (id) => `/user/${id}`,
+      transformResponse: (response: IRes<IGetUser>) => response.data,
     }),
     //
   }),

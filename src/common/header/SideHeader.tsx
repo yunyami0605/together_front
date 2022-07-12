@@ -30,7 +30,7 @@ export default function SideHeader() {
     <section className="column page__side__header">
       <button>
         <div>
-          <img src={`img/icon/img__menu__icon.svg`} alt="ic" />
+          <img src={`/img/icon/img__menu__icon.svg`} alt="ic" />
         </div>
       </button>
 

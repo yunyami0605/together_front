@@ -11,7 +11,7 @@ export default function SideBtn({ src, url, txt }: IProps) {
   return (
     <Link to={url || src} className="sub__header__btn">
       <div>
-        <img src={`img/icon/img__${src}__icon.svg`} alt="ic" />
+        <img src={`/img/icon/img__${src}__icon.svg`} alt="ic" />
         <p>{txt}</p>
       </div>
     </Link>

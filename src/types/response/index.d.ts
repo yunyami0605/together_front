@@ -15,3 +15,9 @@ export interface IGetListResData<K> {
   lastPage: number;
   list: K[];
 }
+
+export interface IDataDate {
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+}

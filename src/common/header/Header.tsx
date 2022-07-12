@@ -10,7 +10,8 @@ export default function Header() {
   const { pathname } = useLocation() as { pathname: string };
   const navi = useNavigate();
 
-  const [sub, _] = useState(getUserInfo("sub"));
+  // const [sub, _] = useState(getUserInfo("sub"));
+  const sub = getUserInfo("sub");
 
   // const sub = 9;
 

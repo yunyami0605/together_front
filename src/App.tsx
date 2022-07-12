@@ -8,6 +8,7 @@ import UserRegister from "page/register/UserRegister";
 import { SideProject } from "page/sideProject/SideProject";
 import { Story } from "page/story/Story";
 import { StudyContent } from "page/study/StudyContent";
+import UserInfo from "page/user/UserInfo";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import { Study } from "./page/study/Study";
@@ -33,7 +34,7 @@ function App() {
             <Route path="/together/modify/:id" element={<TogetherModify />} />
             <Route path="/login" element={<Login />} />
             <Route path="/user/register" element={<UserRegister />} />
-            <Route path="/user/info" element={<UserRegister />} />
+            <Route path="/user/info" element={<UserInfo />} />
             UserRegister
           </Routes>
         </section>
