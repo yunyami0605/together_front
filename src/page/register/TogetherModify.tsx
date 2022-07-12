@@ -16,7 +16,6 @@ import {
   SELECTOR_REGION_LIST,
   SELECTOR_TYPE_LIST,
 } from "./component/constant";
-import { type_key_label } from "types/common";
 
 function TogetherModify() {
   const typeList = useMemo(() => SELECTOR_TYPE_LIST, []);

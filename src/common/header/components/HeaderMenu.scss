@@ -1,0 +1,13 @@
+.header__menu {
+  width: 32px;
+  height: 32px;
+  margin: 0 10px;
+
+  & .header__my__img {
+    border: 1px solid;
+
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+  }
+}

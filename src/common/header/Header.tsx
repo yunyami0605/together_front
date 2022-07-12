@@ -1,13 +1,16 @@
 import { apiCall } from "common/api";
+import Dropbox from "common/dropbox/Dropbox";
 import { getUserInfo } from "common/tool";
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import HeaderMenu from "./components/HeaderMenu";
 import "./Header.scss";
 
 export default function Header() {
   const { pathname } = useLocation() as { pathname: string };
   const navi = useNavigate();
 
-  const sub = getUserInfo("sub");
+  const [sub, _] = useState(getUserInfo("sub"));
 
   // const sub = 9;
 
@@ -24,15 +27,16 @@ export default function Header() {
           <span>To</span>gether
         </h1>
 
-        <article className="header__btnlist">
-          {/* <Link to={"together/register"} className="sub__header__btn">
-        글쓰기
-        </Link> */}
+        <article className="row header__btnlist">
           <button onClick={() => onMovePage("together/register")}>
             글쓰기
           </button>
           <button>알림</button>
-          <button onClick={onMoveLoginPage}>{!sub ? "로그인" : "메뉴"}</button>
+          {!sub ? (
+            <button onClick={onMoveLoginPage}>{"로그인"}</button>
+          ) : (
+            <HeaderMenu />
+          )}
         </article>
       </section>
 

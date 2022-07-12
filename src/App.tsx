@@ -33,6 +33,7 @@ function App() {
             <Route path="/together/modify/:id" element={<TogetherModify />} />
             <Route path="/login" element={<Login />} />
             <Route path="/user/register" element={<UserRegister />} />
+            <Route path="/user/info" element={<UserRegister />} />
             UserRegister
           </Routes>
         </section>
