@@ -1,4 +1,31 @@
-.user__info__txt {
-  border: 1px solid;
-  height: 40px;
+@import "src/style/color.scss";
+
+.user__info__container {
+  margin: 44px 0 24px;
+  padding: 12px 36px;
+
+  .user__info__feature__line {
+    margin-bottom: 34px;
+    padding-bottom: 8px;
+    padding-right: 4px;
+    border-bottom: 1px solid $color-light-grey;
+
+    & > button {
+      width: 88px;
+      height: 34px;
+      font-size: 16px;
+    }
+  }
+
+  .user__info__line {
+    margin-bottom: 20px;
+
+    .user__info__txt {
+      min-width: 100px;
+      height: 40px;
+      line-height: 38px;
+      padding-left: 18px;
+      font-size: 18px;
+    }
+  }
 }

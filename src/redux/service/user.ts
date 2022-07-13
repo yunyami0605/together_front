@@ -18,6 +18,11 @@ export interface IUserRegisterBody {
   nickname: string;
 }
 
+export interface IUserPatchBody {
+  email?: string;
+  nickname?: string;
+}
+
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
@@ -54,6 +59,20 @@ export const userApi = createApi({
       // transformResponse: (response: IRes<number>, meta, arg) => response.data,
     }),
 
+    patchUser: builder.mutation<
+      IRes<string>,
+      { body: IUserPatchBody; id: string }
+    >({
+      query: ({ body, id }) => {
+        return {
+          url: `/user/${id}`,
+          credentials: "include",
+          method: "PATCH",
+          body,
+        };
+      },
+    }),
+
     getUser: builder.query<IGetUser, number>({
       query: (id) => `/user/${id}`,
       transformResponse: (response: IRes<IGetUser>) => response.data,
@@ -66,4 +85,5 @@ export const {
   useGetUserQuery,
   usePostLoginUserMutation,
   usePostRegisterUserMutation,
+  usePatchUserMutation,
 } = userApi;

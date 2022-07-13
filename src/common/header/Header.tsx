@@ -1,7 +1,7 @@
 import { apiCall } from "common/api";
-import Dropbox from "common/dropbox/Dropbox";
+
 import { getUserInfo } from "common/tool";
-import { useState } from "react";
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import HeaderMenu from "./components/HeaderMenu";
 import "./Header.scss";
