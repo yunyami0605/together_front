@@ -1,0 +1,95 @@
+@import "src/style/color.scss";
+
+.search__container {
+  margin-bottom: 12px;
+  padding: 0 2.6vw;
+
+  & > .search__bar__box {
+    padding-right: 12px;
+    max-width: 338px;
+    // flex: 3;
+
+    border: 1px solid $color-light-grey;
+    border-radius: 3px;
+
+    & > input {
+      border-radius: 0;
+      // border: 1px solid #898989;
+      border: none;
+      color: $color-black;
+      font-size: 12px;
+
+      height: 38px;
+    }
+
+    & > input::placeholder {
+      color: $color-grey;
+      font-size: 12px;
+    }
+
+    & > input:focus {
+      border-radius: 0;
+      border: none;
+      outline: none;
+    }
+
+    & > .input__btn {
+      width: 32px;
+      height: 32px;
+
+      & > img {
+        width: 26px;
+        height: 26px;
+      }
+    }
+  }
+}
+
+.search__filter {
+  margin-bottom: 12px;
+  padding-left: 2.6vw;
+
+  & > .selector__box {
+    margin-right: 18px;
+    // & > .selector {
+    //   width: 130px;
+    // }
+
+    & > .selector {
+      width: 120px;
+    }
+  }
+
+  & > .search__first__selector {
+    & > .selector {
+      width: 200px;
+    }
+  }
+}
+
+.tag__list__box {
+  // width: 100%;
+  .tag__list {
+    flex: 1;
+    padding: 0 14px;
+
+    & > .tag {
+      margin-right: 14px;
+      font-size: 14px;
+      // font-weight: bold;
+    }
+  }
+
+  margin: 0 2.6vw 0;
+
+  height: 38px;
+  border: 1px solid $color-grey;
+
+  .tag__list__more__btn {
+    width: 40px;
+    font-size: 16px;
+    color: $color-grey;
+
+    height: 36px;
+  }
+}

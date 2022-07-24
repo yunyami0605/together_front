@@ -8,17 +8,21 @@ import PageTitle from "common/title/PageTitle";
 
 export const Study: FC = () => {
   const { data, isLoading, isSuccess, error, refetch } =
-    useGetStudyBoardListQuery(1);
-
+    useGetStudyBoardListQuery({
+      page: 1,
+      location1: 0,
+      location2: 0,
+      location3: 0,
+      contentType1: 0,
+      contentType2: 0,
+    });
   console.log(data);
 
-  useEffect(() => {
-    // if (error) alert(error);
-    // getStudyBoardList();
-  }, [error]);
+  // if (error) alert(error);
+  // getStudyBoardList();
 
   useEffect(() => {
-    refetch();
+    // refetch();
   }, []);
 
   // 현재 모집 인원, 전체 모집 인원, view, taglist

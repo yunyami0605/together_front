@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IGetListResData, IListRes, IRes } from "types/response";
 import { IBoardBody, typeStudyBoardItem } from "types/board";
 import { commonBaseQueryOption } from "redux/common";
+import queryString from "query-string";
 
 // base URL과 엔드포인트들로 서비스 정의
 export const studyBoardApi = createApi({
@@ -25,11 +26,18 @@ export const studyBoardApi = createApi({
 
     getStudyBoardList: builder.query<
       IGetListResData<typeStudyBoardItem>,
-      number
+      {
+        page: number;
+        location1?: number;
+        location2?: number;
+        location3?: number;
+        contentType1?: number;
+        contentType2?: number;
+      }
     >({
-      query: (page) => {
+      query: (queryData) => {
         return {
-          url: `/list?page=${page}`,
+          url: `/list?${queryString.stringify(queryData)}`,
           credentials: "include",
         };
       },

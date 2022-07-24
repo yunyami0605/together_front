@@ -5,8 +5,10 @@ export type typeStudyBoardItem = {
   id: number;
   title: string;
   content: string;
-  type: number;
-  location: string;
+  togetherType: number;
+  location1: number;
+  location2: number;
+  location3: number;
   persons: number;
   period: string;
   like: number;
@@ -24,8 +26,12 @@ export type typeStudyBoardItem = {
 export interface IBoardBody {
   title: string;
   content: string;
-  type: number;
-  location: string;
+  togetherType: number;
+  contentType1: number;
+  contentType2: number;
+  location1: number;
+  location2: number;
+  location3: number;
   persons: number;
   period: string;
   tagList: string[];

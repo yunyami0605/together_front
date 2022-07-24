@@ -13,12 +13,19 @@ import "./TogetherRegister.scss";
 import Selector from "common/selector/Selector";
 import {
   SELECTOR_MEAT_LIST,
+  SELECTOR_RECRUIT_SUB_TYPE,
+  SELECTOR_RECRUIT_TYPE,
   SELECTOR_REGION_LIST,
-  SELECTOR_TYPE_LIST,
-} from "./component/constant";
+  SELECTOR_SUB_REGION_LIST,
+  SELECTOR_TOGETHER_TYPE_LIST,
+} from "../../common/constant";
 
 function TogetherModify() {
-  const typeList = useMemo(() => SELECTOR_TYPE_LIST, []);
+  const typeList = useMemo(() => SELECTOR_TOGETHER_TYPE_LIST, []);
+
+  const recruitType = useMemo(() => SELECTOR_RECRUIT_TYPE, []);
+  const recruitSubType = useMemo(() => SELECTOR_RECRUIT_SUB_TYPE, []);
+  const subRegionList = useMemo(() => SELECTOR_SUB_REGION_LIST, []);
 
   // 온라인/ 오프라인, 서울, 강서구,
   const meatList = useMemo(() => SELECTOR_MEAT_LIST, []);
@@ -53,11 +60,14 @@ function TogetherModify() {
 
   const [title, setTitle] = useState(getBoard.data?.title || "");
   const [content, setContent] = useState(getBoard.data?.content || "");
-  const [type, setType] = useState(getBoard.data?.type || 0);
+  const [togetherType, setTogetherType] = useState(
+    getBoard.data?.togetherType || 0
+  );
+  const [contentType, setContentType] = useState([0, 0]);
 
   const [location, setLocation] = useState([
-    toNumber(getBoard.data?.location.split(";")[0]) || 0,
-    toNumber(getBoard.data?.location.split(";")[1]) || 0,
+    toNumber(getBoard.data?.location1) || 0,
+    toNumber(getBoard.data?.location2) || 0,
   ]);
 
   const [persons, setPersons] = useState(getBoard.data?.persons || 0);
@@ -76,12 +86,16 @@ function TogetherModify() {
 
   const onSubmit = async () => {
     const personsData = Number(persons);
-    if (type === 0) return alert("종류를 선택해주세요.");
+    if (togetherType === 0) return alert("종류를 선택해주세요.");
     const body: IBoardBody = {
       title,
       content,
-      type: 0,
-      location: `${location[0]};${location[1]}`,
+      togetherType: 0,
+      contentType1: contentType[0],
+      contentType2: contentType[1],
+      location1: location[0],
+      location2: location[1],
+      location3: location[2],
       persons: personsData < 0 ? 0 : personsData,
       tagList,
       period,
@@ -143,7 +157,25 @@ function TogetherModify() {
           <div className="register__form">
             <h3 className="register__field"># Together 종류</h3>
 
-            <Selector data={typeList} setItem={setType} selectedItem={type} />
+            <Selector
+              data={typeList}
+              setItem={setTogetherType}
+              selectedItem={togetherType}
+            />
+
+            <h3 className="register__field"># 모집 분야</h3>
+            <Selector
+              data={recruitType}
+              setItem={(item) => setContentType((prev) => [item, prev[1]])}
+              selectedItem={contentType[0]}
+            />
+
+            <h3 className="register__field"># 모집 세부 분야</h3>
+            <Selector
+              data={recruitSubType[contentType[0]]}
+              setItem={(item) => setContentType((prev) => [prev[0], item])}
+              selectedItem={contentType[1]}
+            />
 
             <h3 className="register__field"># 제목</h3>
             <input
@@ -157,18 +189,30 @@ function TogetherModify() {
               <Selector
                 data={meatList}
                 setItem={(item: number) =>
-                  setLocation((prev) => [item, prev[1]])
+                  setLocation((prev) => [item, prev[1], prev[2]])
                 }
                 selectedItem={location[0]}
               />
 
-              <Selector
-                data={regionList}
-                setItem={(item: number) =>
-                  setLocation((prev) => [prev[0], item])
-                }
-                selectedItem={location[1]}
-              />
+              {location[0] !== 1 && (
+                <Selector
+                  data={regionList}
+                  setItem={(item: number) =>
+                    setLocation((prev) => [prev[0], item, prev[2]])
+                  }
+                  selectedItem={location[1]}
+                />
+              )}
+
+              {location[0] !== 1 && (
+                <Selector
+                  data={subRegionList[location[2]]}
+                  setItem={(item: number) =>
+                    setLocation((prev) => [prev[0], prev[1], item])
+                  }
+                  selectedItem={location[2]}
+                />
+              )}
             </div>
 
             <h3 className="register__field"># 인원</h3>

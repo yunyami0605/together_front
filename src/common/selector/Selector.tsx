@@ -6,14 +6,20 @@ interface IProps {
   data: { label: string; key: any }[];
   setItem: (item: number) => void;
   selectedItem: number;
+  className?: string;
 }
-export default function Selector({ data, setItem, selectedItem }: IProps) {
+export default function Selector({
+  data,
+  setItem,
+  selectedItem,
+  className,
+}: IProps) {
   const handleChange = (value: number) => {
     setItem(value);
   };
 
   return (
-    <div className="selector__box">
+    <div className={"selector__box" + ` ${className}`}>
       <Select
         defaultValue={selectedItem}
         className="center selector"

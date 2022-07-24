@@ -1,4 +1,10 @@
-import { getUserInfo, toDate } from "common/tool";
+import {
+  SELECTOR_MEAT_LIST,
+  SELECTOR_REGION_LIST,
+  SELECTOR_SUB_REGION_LIST,
+  SELECTOR_TOGETHER_TYPE_LIST,
+} from "common/constant";
+import { getUserInfo, toDate, toNumber } from "common/tool";
 import { FC, Fragment, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetCommentListQuery } from "redux/service/comment";
@@ -33,7 +39,18 @@ export const StudyContent: FC = () => {
 
   const listData = useGetCommentListQuery({ boardId: +param.id, page });
 
-  const [onlineType, region] = data?.location.split(";") || ["", ""];
+  // # on/offline, 서울, 강서구
+  const loc1 = data?.location1;
+  const loc2 = data?.location2;
+  const loc3 = data?.location3;
+
+  console.log(loc1);
+  const onlineType = toNumber(loc1);
+  const region = toNumber(loc2);
+  const subRegion = toNumber(loc3);
+
+  const regionTxt = `${SELECTOR_MEAT_LIST[onlineType].label} / ${SELECTOR_REGION_LIST[region].label} / ${SELECTOR_SUB_REGION_LIST[region][subRegion].label}`;
+
   const onCommentModify = (index: number) => {
     setIsModalShow(true);
     setSelectedIndex(index);
@@ -122,9 +139,15 @@ export const StudyContent: FC = () => {
             <div className="study__content__sub__header">
               <div className="option__box">
                 <div className="option__box__type">종류</div>
-                <div>{data?.type || ""}</div>
+                <div>
+                  {
+                    SELECTOR_TOGETHER_TYPE_LIST[
+                      toNumber(data?.togetherType || 1)
+                    ].label
+                  }
+                </div>
                 <div className="option__box__type">장소</div>
-                <div>{`${onlineType || "-"} / ${region || "-"}`}</div>
+                <div>{regionTxt}</div>
                 <div></div>
 
                 <div className="option__box__type">인원</div>
