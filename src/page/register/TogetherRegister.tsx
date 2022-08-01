@@ -50,8 +50,10 @@ function TogetherRegister() {
 
   const onSubmit = async () => {
     const personsData = Number(persons);
-    if (togetherType === 0) return alert("종류를 선택해주세요.");
-    if (location[1] === 0) return alert("지역을 선택해주세요.");
+    if (togetherType === 0) return alert("게시글 종류를 선택해주세요.");
+    if (location[1] === 0 && location[0] !== 1)
+      return alert("지역을 선택해주세요.");
+    if (contentType[0] === 0) return alert("모집 분야를 선택해주세요.");
 
     const body: IBoardBody = {
       title,

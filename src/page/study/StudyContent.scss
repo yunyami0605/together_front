@@ -59,6 +59,7 @@
       font-size: 18px;
       font-weight: bold;
       color: #144808;
+      margin-right: 10px;
     }
 
     & .option__box__type {
@@ -67,12 +68,6 @@
 
     .option__tag__list {
       margin-top: 20px;
-
-      & > span {
-        color: #144808;
-
-        margin-right: 10px;
-      }
     }
   }
 

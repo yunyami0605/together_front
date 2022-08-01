@@ -6,12 +6,30 @@ import {
   SELECTOR_RECRUIT_TYPE,
   SELECTOR_RECRUIT_SUB_TYPE,
 } from "common/constant";
-import { FC, useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import "./SearchContainer.scss";
-import { useGetStudyBoardListQuery } from "redux/service/study/board";
+import { typeSetState } from "types/common";
 
-interface IProps {}
-export default function SearchContainer() {
+interface IProps {
+  location: number[];
+  setLocation: typeSetState<number[]>;
+  contentType: number[];
+  setContentType: typeSetState<number[]>;
+  page: number;
+  setPage: typeSetState<number>;
+  searchTxt: string;
+  setSearchTxt: typeSetState<string>;
+}
+export default function SearchContainer({
+  location,
+  setLocation,
+  contentType,
+  setContentType,
+  page,
+  setPage,
+  searchTxt,
+  setSearchTxt,
+}: IProps) {
   const meatList = useMemo(() => SELECTOR_MEAT_LIST, []);
 
   const regionList = useMemo(() => SELECTOR_REGION_LIST, []);
@@ -20,33 +38,13 @@ export default function SearchContainer() {
   const togetherTypeList1 = useMemo(() => SELECTOR_RECRUIT_TYPE, []);
   const togetherTypeList2 = useMemo(() => SELECTOR_RECRUIT_SUB_TYPE, []);
 
-  const [location, setLocation] = useState([0, 0, 0]);
-  const [contentType, setContentType] = useState([0, 0]);
-  const [page, setPage] = useState(1);
-
-  const test = useGetStudyBoardListQuery({
-    page,
-    location1: location[0],
-    location2: location[1],
-    location3: location[2],
-    contentType1: contentType[0],
-    contentType2: contentType[1],
-  });
-
-  const onSearch = () => {};
-
-  useEffect(() => {
-    onSearch();
-  }, [location, contentType]);
-
   return (
     <section>
       <section className="row search__filter">
-        <button onClick={() => setPage(page + 1)}>test</button>
         <Selector
           data={meatList}
           setItem={(item: number) =>
-            setLocation((prev) => [item, prev[1], prev[2]])
+            setLocation((prev: number[]) => [item, prev[1], prev[2]])
           }
           selectedItem={location[0]}
           className="search__first__selector"
@@ -55,7 +53,7 @@ export default function SearchContainer() {
         <Selector
           data={regionList}
           setItem={(item: number) =>
-            setLocation((prev) => [prev[0], item, prev[2]])
+            setLocation((prev: number[]) => [prev[0], item, prev[2]])
           }
           selectedItem={location[1]}
         />
@@ -63,26 +61,35 @@ export default function SearchContainer() {
         <Selector
           data={subRegionList[location[1]]}
           setItem={(item: number) =>
-            setLocation((prev) => [item, prev[1], prev[2]])
+            setLocation((prev: number[]) => [item, prev[1], prev[2]])
           }
           selectedItem={location[2]}
         />
 
         <Selector
           data={togetherTypeList1}
-          setItem={(item: number) => setContentType((prev) => [item, prev[1]])}
+          setItem={(item: number) =>
+            setContentType((prev: number[]) => [item, prev[1]])
+          }
           selectedItem={contentType[0]}
         />
         <Selector
           data={togetherTypeList2[contentType[0]]}
-          setItem={(item: number) => setContentType((prev) => [prev[0], item])}
+          setItem={(item: number) =>
+            setContentType((prev: number[]) => [prev[0], item])
+          }
           selectedItem={contentType[1]}
         />
       </section>
 
       <section className="search__container">
         <div className="row search__bar__box">
-          <input type="text" placeholder="검색" className="search__bar" />
+          <input
+            type="text"
+            placeholder="검색"
+            className="search__bar"
+            onChange={(e: any) => setSearchTxt(e.target.value)}
+          />
           <button className="input__btn">
             <img src={"/img/icon/img__search__icon.svg"} />
           </button>

@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { commonBaseQueryOption } from "redux/common";
 import { IDataDate, IRes } from "types/response";
 
 export interface IUserPostBody {
@@ -25,9 +26,7 @@ export interface IUserPatchBody {
 
 export const userApi = createApi({
   reducerPath: "userApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_API_BASE_URL,
-  }),
+  baseQuery: fetchBaseQuery(commonBaseQueryOption("")),
   tagTypes: ["user"],
   endpoints: (builder) => ({
     postLoginUser: builder.mutation<IRes<string>, Partial<IUserPostBody>>({
@@ -37,6 +36,16 @@ export const userApi = createApi({
           credentials: "include",
           method: "POST",
           body,
+        };
+      },
+      invalidatesTags: [{ type: "user" as const, id: "LIST" }],
+    }),
+
+    postLogoutUser: builder.mutation<IRes<string>, undefined>({
+      query: () => {
+        return {
+          url: "/auth/logout",
+          method: "POST",
         };
       },
       invalidatesTags: [{ type: "user" as const, id: "LIST" }],
@@ -84,6 +93,7 @@ export const userApi = createApi({
 export const {
   useGetUserQuery,
   usePostLoginUserMutation,
+  usePostLogoutUserMutation,
   usePostRegisterUserMutation,
   usePatchUserMutation,
 } = userApi;

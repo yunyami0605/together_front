@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import "./Study.scss";
 import { StudyBox } from "./components/StudyBox";
 import { useGetStudyBoardListQuery } from "redux/service/study/board";
@@ -7,23 +7,21 @@ import SearchContainer from "./components/SearchContainer";
 import PageTitle from "common/title/PageTitle";
 
 export const Study: FC = () => {
+  const [location, setLocation] = useState([0, 0, 0]);
+  const [contentType, setContentType] = useState([0, 0]);
+  const [page, setPage] = useState(1);
+  const [searchTxt, setSearchTxt] = useState("");
+
   const { data, isLoading, isSuccess, error, refetch } =
     useGetStudyBoardListQuery({
-      page: 1,
-      location1: 0,
-      location2: 0,
-      location3: 0,
-      contentType1: 0,
-      contentType2: 0,
+      page,
+      location1: location[0],
+      location2: location[1],
+      location3: location[2],
+      contentType1: contentType[0],
+      contentType2: contentType[1],
+      searchTxt,
     });
-  console.log(data);
-
-  // if (error) alert(error);
-  // getStudyBoardList();
-
-  useEffect(() => {
-    // refetch();
-  }, []);
 
   // 현재 모집 인원, 전체 모집 인원, view, taglist
 
@@ -37,7 +35,16 @@ export const Study: FC = () => {
         <section className="page__body__upper">
           {/* # 검색 */}
 
-          <SearchContainer />
+          <SearchContainer
+            page={page}
+            setPage={setPage}
+            location={location}
+            setLocation={setLocation}
+            contentType={contentType}
+            setContentType={setContentType}
+            searchTxt={searchTxt}
+            setSearchTxt={setSearchTxt}
+          />
         </section>
 
         <section className="page__body__lower">

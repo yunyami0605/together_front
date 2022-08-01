@@ -1,5 +1,7 @@
 import {
   SELECTOR_MEAT_LIST,
+  SELECTOR_RECRUIT_SUB_TYPE,
+  SELECTOR_RECRUIT_TYPE,
   SELECTOR_REGION_LIST,
   SELECTOR_SUB_REGION_LIST,
   SELECTOR_TOGETHER_TYPE_LIST,
@@ -15,7 +17,6 @@ import {
 import BoardCommentInput from "./components/BoardCommentInput";
 import CommentItem from "./components/CommentItem";
 import CommentModifyBox from "./components/CommentModifyBox";
-import SearchContainer from "./components/SearchContainer";
 import "./StudyContent.scss";
 
 export const StudyContent: FC = () => {
@@ -31,6 +32,8 @@ export const StudyContent: FC = () => {
     // { refetchOnMountOrArgChange: true }
   );
 
+  console.log(data);
+
   const navi = useNavigate();
 
   const deleteStudyBoard = useDeleteStudyBoardMutation();
@@ -44,12 +47,23 @@ export const StudyContent: FC = () => {
   const loc2 = data?.location2;
   const loc3 = data?.location3;
 
-  console.log(loc1);
   const onlineType = toNumber(loc1);
   const region = toNumber(loc2);
   const subRegion = toNumber(loc3);
 
-  const regionTxt = `${SELECTOR_MEAT_LIST[onlineType].label} / ${SELECTOR_REGION_LIST[region].label} / ${SELECTOR_SUB_REGION_LIST[region][subRegion].label}`;
+  const regionTxt1 =
+    onlineType === 1
+      ? `${SELECTOR_MEAT_LIST[onlineType].label}`
+      : `${SELECTOR_REGION_LIST[region].label}`;
+
+  const regionTxt2 =
+    onlineType === 1
+      ? ``
+      : `${SELECTOR_SUB_REGION_LIST[region][subRegion].label}`;
+
+  const contentType1 = SELECTOR_RECRUIT_TYPE[data?.contentType1 || 0];
+  const contentType2 =
+    SELECTOR_RECRUIT_SUB_TYPE[data?.contentType1 || 0][data?.contentType2 || 0];
 
   const onCommentModify = (index: number) => {
     setIsModalShow(true);
@@ -99,7 +113,7 @@ export const StudyContent: FC = () => {
         )}
 
         <section className="page__body__upper">
-          <SearchContainer />
+          {/* <SearchContainer /> */}
         </section>
 
         <section className="page__body__lower">
@@ -146,8 +160,20 @@ export const StudyContent: FC = () => {
                     ].label
                   }
                 </div>
+                <div className="option__box__type">모집</div>
+                <div>
+                  <span>{contentType1.label}</span>
+                  <span>{contentType2.label}</span>
+                </div>
+                <div></div>
+
                 <div className="option__box__type">장소</div>
-                <div>{regionTxt}</div>
+                <div>
+                  <span>{regionTxt1}</span>
+                  <span>{regionTxt2}</span>
+                </div>
+                <div className="option__box__type"></div>
+                <div></div>
                 <div></div>
 
                 <div className="option__box__type">인원</div>

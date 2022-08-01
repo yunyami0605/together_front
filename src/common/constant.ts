@@ -7,9 +7,8 @@ export const SELECTOR_TOGETHER_TYPE_LIST = [
 
 // 온라인/ 오프라인, 서울, 강서구,
 export const SELECTOR_MEAT_LIST = [
-  { key: "both", label: "온라인 / 오프라인 둘다 가능" },
-  { key: "online", label: "온라인만 가능" },
-  { key: "offline", label: "오프라인만 가능" },
+  { key: "offline", label: "오프라인" },
+  { key: "online", label: "온라인" },
 ];
 
 export const SELECTOR_REGION_LIST = [
@@ -39,8 +38,11 @@ export const SELECTOR_REGION_LIST = [
 ];
 
 export const SELECTOR_SUB_REGION_LIST = [
+  [{ key: "00x00", label: "--- 지역 ---" }],
+
+  // 서울
   [
-    { key: "01x01", label: "서울 전체" },
+    { key: "01x01", label: "전체" },
     { key: "01x02", label: "강남" },
     { key: "01x03", label: "강동" },
     { key: "01x04", label: "강북" },
@@ -68,8 +70,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "01x26", label: "중랑" },
   ],
 
+  // 경기
   [
-    { key: "02x01", label: "경기 전체" },
+    { key: "02x01", label: "전체" },
     { key: "02x02", label: "수원" },
     { key: "02x03", label: "성남" },
     { key: "02x04", label: "고양" },
@@ -103,8 +106,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "02x32", label: "연천" },
   ],
 
+  // 인천
   [
-    { key: "03x01", label: "인천 전체" },
+    { key: "03x01", label: "전체" },
     { key: "03x02", label: "중구" },
     { key: "03x03", label: "동구" },
     { key: "03x04", label: "미추홀" },
@@ -117,8 +121,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "03x11", label: "옹진" },
   ],
 
+  // 강원
   [
-    { key: "04x01", label: "강원 전체" },
+    { key: "04x01", label: "전체" },
     { key: "04x02", label: "춘천" },
     { key: "04x03", label: "인제" },
     { key: "04x04", label: "양구" },
@@ -143,8 +148,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "04x23", label: "이천" },
   ],
 
+  // 부산
   [
-    { key: "05x01", label: "부산 전체" },
+    { key: "05x01", label: "전체" },
     { key: "05x02", label: "중구" },
     { key: "05x03", label: "서구" },
     { key: "05x04", label: "동구" },
@@ -163,8 +169,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "05x17", label: "기장" },
   ],
 
+  // 충북
   [
-    { key: "06x01", label: "충북 전체" },
+    { key: "06x01", label: "전체" },
     { key: "06x02", label: "청주" },
     { key: "06x03", label: "충주" },
     { key: "06x04", label: "제천" },
@@ -178,8 +185,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "06x12", label: "단양" },
   ],
 
+  // 충남
   [
-    { key: "07x01", label: "충남 전체" },
+    { key: "07x01", label: "전체" },
     { key: "07x02", label: "천안" },
     { key: "07x03", label: "공주" },
     { key: "07x04", label: "보령" },
@@ -197,8 +205,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "07x16", label: "태안" },
   ],
 
+  // 세종
   [
-    { key: "08x01", label: "세종 전체" },
+    { key: "08x01", label: "전체" },
     { key: "08x02", label: "조치원" },
     { key: "08x03", label: "연기" },
     { key: "08x04", label: "연동" },
@@ -221,8 +230,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "08x21", label: "다정" },
   ],
 
+  // 대전
   [
-    { key: "09x01", label: "대전 전체" },
+    { key: "09x01", label: "전체" },
     { key: "09x02", label: "동구" },
     { key: "09x03", label: "중구" },
     { key: "09x04", label: "서구" },
@@ -230,8 +240,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "09x06", label: "대덕" },
   ],
 
+  // 광주
   [
-    { key: "10x01", label: "광주 전체" },
+    { key: "10x01", label: "전체" },
     { key: "10x02", label: "동구" },
     { key: "10x03", label: "서구" },
     { key: "10x04", label: "남구" },
@@ -239,8 +250,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "10x06", label: "광산" },
   ],
 
+  // 전북
   [
-    { key: "11x01", label: "전북 전체" },
+    { key: "11x01", label: "전체" },
     { key: "11x02", label: "전주" },
     { key: "11x03", label: "익산" },
     { key: "11x04", label: "군산" },
@@ -257,8 +269,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "11x15", label: "장수" },
   ],
 
+  // 전남
   [
-    { key: "12x01", label: "전남 전체" },
+    { key: "12x01", label: "전체" },
     { key: "12x02", label: "목포" },
     { key: "12x03", label: "여수" },
     { key: "12x04", label: "순천" },
@@ -283,8 +296,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "12x23", label: "신안" },
   ],
 
+  // 대구
   [
-    { key: "13x01", label: "대구 전체" },
+    { key: "13x01", label: "전체" },
     { key: "13x02", label: "중구" },
     { key: "13x03", label: "동구" },
     { key: "13x04", label: "서구" },
@@ -295,8 +309,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "13x09", label: "달성" },
   ],
 
+  // 울산
   [
-    { key: "14x01", label: "울산 전체" },
+    { key: "14x01", label: "전체" },
     { key: "14x02", label: "중구" },
     { key: "14x03", label: "남구" },
     { key: "14x04", label: "동구" },
@@ -304,8 +319,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "14x06", label: "울주군" },
   ],
 
+  // 경북
   [
-    { key: "15x01", label: "경북 전체" },
+    { key: "15x01", label: "전체" },
     { key: "15x02", label: "포항" },
     { key: "15x03", label: "경주" },
     { key: "15x04", label: "김천" },
@@ -331,8 +347,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "15x24", label: "울릉" },
   ],
 
+  // 경남
   [
-    { key: "16x01", label: "경남 전체" },
+    { key: "16x01", label: "전체" },
     { key: "16x02", label: "창원" },
     { key: "16x03", label: "김해" },
     { key: "16x04", label: "양산" },
@@ -353,8 +370,9 @@ export const SELECTOR_SUB_REGION_LIST = [
     { key: "16x19", label: "의령" },
   ],
 
+  // 제주
   [
-    { key: "17x01", label: "제주 전체" },
+    { key: "17x01", label: "전체" },
     { key: "17x02", label: "애월" },
     { key: "17x03", label: "한림" },
     { key: "17x04", label: "한경" },
@@ -384,6 +402,7 @@ export const SELECTOR_RECRUIT_TYPE = [
 ];
 
 export const SELECTOR_RECRUIT_SUB_TYPE = [
+  [{ key: "no", label: "--- 분야 ---" }],
   [
     { key: "total", label: "전체" },
     { key: "frontend", label: "프론트엔드" },

@@ -8,6 +8,7 @@ import UserRegister from "page/register/UserRegister";
 import { SideProject } from "page/sideProject/SideProject";
 import { Story } from "page/story/Story";
 import { StudyContent } from "page/study/StudyContent";
+import Test from "page/Test";
 import UserInfo from "page/user/UserInfo";
 import UserInfoModify from "page/user/UserInfoModify";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
@@ -36,6 +37,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/user/register" element={<UserRegister />} />
             <Route path="/user/info" element={<UserInfo />} />
+            <Route path="/test" element={<Test />} />
+
             <Route path="/user/info/modify/:id" element={<UserInfoModify />} />
           </Routes>
         </section>

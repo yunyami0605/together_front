@@ -33,6 +33,7 @@ export const studyBoardApi = createApi({
         location3?: number;
         contentType1?: number;
         contentType2?: number;
+        searchTxt?: string;
       }
     >({
       query: (queryData) => {

@@ -1,11 +1,23 @@
 import "./HeaderMenu.scss";
 import { Dropdown, Menu, Space } from "antd";
 import { deleteCookie } from "common/tool";
+import { usePostLogoutUserMutation } from "redux/service/user";
 
 interface IProps {}
 export default function HeaderMenu() {
+  const [postCredentials, { isSuccess, isLoading, isError }] =
+    usePostLogoutUserMutation();
+
   const onLogout = () => {
     // 로그아웃 로직
+    const res = postCredentials(undefined)
+      .unwrap()
+      .then((payload) => {
+        if (payload.statusCode === 204) {
+          window.location.reload();
+        }
+      })
+      .catch((error) => console.error("rejected", error));
   };
 
   const menuOverlay = (

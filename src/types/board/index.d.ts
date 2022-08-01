@@ -9,6 +9,8 @@ export type typeStudyBoardItem = {
   location1: number;
   location2: number;
   location3: number;
+  contentType1: number;
+  contentType2: number;
   persons: number;
   period: string;
   like: number;

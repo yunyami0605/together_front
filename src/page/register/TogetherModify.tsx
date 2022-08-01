@@ -68,6 +68,7 @@ function TogetherModify() {
   const [location, setLocation] = useState([
     toNumber(getBoard.data?.location1) || 0,
     toNumber(getBoard.data?.location2) || 0,
+    toNumber(getBoard.data?.location3) || 0,
   ]);
 
   const [persons, setPersons] = useState(getBoard.data?.persons || 0);
@@ -142,15 +143,23 @@ function TogetherModify() {
   useEffect(() => {
     if (getBoard) {
       // # 수정 페이지로 접근 할 경우, 해당 board id 조회
-      // getBoard
+      setTitle(getBoard.data?.title || "");
+      setContent(getBoard.data?.content || "");
+      setTogetherType(getBoard.data?.togetherType || 0);
+      setPersons(getBoard.data?.persons || 0);
+      setLocation([
+        toNumber(getBoard.data?.location1) || 0,
+        toNumber(getBoard.data?.location2) || 0,
+        toNumber(getBoard.data?.location3) || 0,
+      ]);
     }
-  }, []);
+  }, [getBoard.data]);
 
   return (
     <section className="page">
       {isLoading && <h1 className="loading__txt">LOADING...</h1>}
 
-      <PageTitle title="게시글 등록하기" />
+      <PageTitle title="게시글 수정하기" />
 
       <section className="page__body">
         <section className="page__body__upper">
