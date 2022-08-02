@@ -2,20 +2,26 @@
 
 .login__page {
   padding-top: 20vh;
+
   .login__box {
     .login__title {
       text-align: center;
       font-size: 40px;
       font-weight: bold;
-      margin-bottom: 20px;
+      margin-bottom: 6px;
     }
-    .login__input {
-      margin-bottom: 20px;
+    & > label {
+      padding-left: 4px;
+      margin: 24px 0 6px;
+    }
+    & > input {
+      width: 400px;
+      // margin-bottom: 20px;
     }
 
     .login__btn {
-      height: 46px;
-      margin: 20px 0 18px;
+      height: 44px;
+      margin: 30px 0 18px;
       font-weight: bold;
       font-size: 20px;
       background-color: $color-sky;

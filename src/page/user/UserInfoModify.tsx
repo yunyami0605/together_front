@@ -16,6 +16,14 @@ function UserInfoModify() {
 
   const navi = useNavigate();
 
+  const [selectedFile, setSelectedFile] = useState<any>();
+  const [isFilePicked, setIsFilePicked] = useState(false);
+
+  const changeHandler = (event: any) => {
+    setSelectedFile(event.target.files[0]);
+    setIsFilePicked(true);
+  };
+
   const onSubmit = async () => {
     if (!param?.id) return alert("잘못된 접근입니다.");
     const body = {
@@ -29,6 +37,16 @@ function UserInfoModify() {
         console.log(payload);
       })
       .catch((error) => console.error("rejected", error));
+  };
+
+  const handleSubmission = () => {
+    var data = new FormData();
+    data.append("image", selectedFile);
+    console.log(selectedFile);
+    fetch("http://localhost:3000/api/study/board/upload", {
+      method: "POST",
+      body: data,
+    });
   };
 
   useEffect(() => {
@@ -67,6 +85,20 @@ function UserInfoModify() {
             onChange={(e: any) => setNickname(e.target.value)}
             value={nickname}
           />
+
+          <input type="file" name="file" onChange={changeHandler} />
+          {isFilePicked ? (
+            <div>
+              <p>Filename: {selectedFile.name}</p>
+              <p>Filetype: {selectedFile.type}</p>
+              <p>Size in bytes: {selectedFile.size}</p>
+            </div>
+          ) : (
+            <p>Select a file to show details</p>
+          )}
+          <div>
+            <button onClick={handleSubmission}>Submit</button>
+          </div>
 
           <div className="center register__btnlist">
             <button className="positive__btn" onClick={onSubmit}>

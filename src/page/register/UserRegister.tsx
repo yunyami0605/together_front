@@ -8,42 +8,66 @@ import {
   usePostRegisterUserMutation,
 } from "redux/service/user";
 import "./UserRegister.scss";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup"; //*
+
+type tFormValues = {
+  email: string;
+  password: string;
+  password2: string;
+  nickname: string;
+};
 
 function UserRegister() {
-  const dispatch = useDispatch();
-
-  /**
-    "title": "test5",
-    "content": "테스트 문구 5번입니다. 확인해주세요.",
-    "type": "study",
-    "location": "seoul",
-    "persons": 23,
-    "tagList": ["test1", "test2"],
-    "period": "2022-08-22 12:12:10"
-   */
-  const [email, setemail] = useState("");
-  const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
-  const [nickname, setNickname] = useState("");
-
   const [postCredentials, { isSuccess, isLoading, isError }] =
     usePostRegisterUserMutation();
 
   const navi = useNavigate();
 
-  const onSubmit = async () => {
-    const body: IUserRegisterBody = {
-      email,
-      password,
-      nickname,
-    };
-    const res = await postCredentials(body)
+  // # login form yup
+  const schema = yup.object().shape({
+    email: yup.string().email().required(),
+    password: yup.string().min(8).max(20).required(),
+    password2: yup
+      .string()
+      .min(8, "비밀번호는 8~20글자 사이로 정해주세요.")
+      .max(20, "비밀번호는 8~20글자 사이로 정해주세요.")
+      .required()
+      .oneOf(
+        [yup.ref("password")],
+        "비밀번호와 비밀번호 확인이 일치하지 않습니다."
+      ),
+
+    nickname: yup
+      .string()
+      .min(4, "닉네임은 4~12글자 사이로 정해주세요.")
+      .max(12, "닉네임은 4~12글자 사이로 정해주세요.")
+      .required("닉네임은 필수사항입니다."),
+  });
+
+  const onSubmit = async (data: tFormValues) => {
+    const { email, nickname, password } = data;
+    const res = await postCredentials({ email, nickname, password })
       .unwrap()
       .then((payload) => {
         console.log(payload);
       })
       .catch((error) => console.error("rejected", error));
   };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<tFormValues>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      email: "",
+      password: "",
+      password2: "",
+    },
+  }); //*
 
   useEffect(() => {
     if (isSuccess) {
@@ -59,42 +83,42 @@ function UserRegister() {
       {isLoading && <h1 className="loading__txt">LOADING...</h1>}
 
       <section className="page__body">
-        <div className="register__form">
+        <form className="register__form" onSubmit={handleSubmit(onSubmit)}>
           <h3 className="register__field"># 이메일</h3>
-          <input
-            className="register__input"
-            onChange={(e: any) => setemail(e.target.value)}
-            value={email}
-          />
 
-          <h3 className="register__field"># 패스워드</h3>
-          <input
-            className="register__input"
-            onChange={(e: any) => setPassword(e.target.value)}
-            value={password}
-          />
+          <input type="email" {...register("email")} />
+          <span className="error_span">
+            {errors.email && "이메일 형식이 맞지 않습니다."}
+          </span>
 
-          <h3 className="register__field"># 패스워드 확인</h3>
-          <input
-            className="register__input"
-            onChange={(e: any) => setPassword2(e.target.value)}
-            value={password2}
-          />
+          <h3 className="register__field"># 비밀번호</h3>
 
-          <h3 className="register__field"># 별명</h3>
-          <input
-            className="register__input"
-            onChange={(e: any) => setNickname(e.target.value)}
-            value={nickname}
-          />
+          <input type="password" {...register("password")} />
+          <span className="error_span">
+            {errors.password && "비밀번호는 8~20글자 사이로 정해주세요."}
+          </span>
+
+          <h3 className="register__field"># 비밀번호 확인</h3>
+          <input type="password" {...register("password2")} />
+
+          {errors.password2 && (
+            <span className="error_span">{errors.password2.message}</span>
+          )}
+
+          <h3 className="register__field"># 닉네임</h3>
+          <input type="text" {...register("nickname")} />
+
+          {errors.nickname && (
+            <span className="error_span">{errors.nickname.message}</span>
+          )}
 
           <div className="center register__btnlist">
-            <button onClick={onSubmit}>
+            <button className="positive__btn" type="submit">
               {isLoading ? "등록중" : "회원가입"}
             </button>
-            <button>취소하기</button>
+            <button className="negative__btn">취소하기</button>
           </div>
-        </div>
+        </form>
       </section>
     </section>
   );

@@ -1,34 +1,33 @@
-import { FC, useCallback, useContext, useState } from "react";
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePostLoginUserMutation } from "redux/service/user";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup"; //*
-import { useForm, SubmitHandler } from "react-hook-form"; //*
-
+import { Resolver, yupResolver } from "@hookform/resolvers/yup"; //*
+import { useForm } from "react-hook-form"; //*
 import "./Login.scss";
 
-type FormValues = {
+type tFormValues = {
   email: string;
   password: string;
 };
 
 export const Login: FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const [postCredentials, { isSuccess, isLoading, isError }] =
     usePostLoginUserMutation();
 
   const navi = useNavigate();
 
+  // # login form yup
   const schema = yup.object().shape({
     email: yup.string().email().required(),
-    pw: yup.string().min(8).max(20).required(),
+    password: yup.string().min(8).max(20).required(),
   });
 
-  const onLogin: SubmitHandler<FormValues> = (data) => {
+  /**
+   *@description : call login api event handler
+   */
+  const onLogin = (data: tFormValues) => {
     const body = data;
-    console.log(data);
 
     const res = postCredentials(body)
       .unwrap()
@@ -40,6 +39,9 @@ export const Login: FC = () => {
       .catch((error) => console.error("rejected", error));
   };
 
+  /**
+   *@description : move to register page
+   */
   const onUserRegister = () => {
     navi("/user/register");
   };
@@ -48,34 +50,31 @@ export const Login: FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>(); //*
-
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm<FormValues>({
-  //   resolver: yupResolver(schema),
-  // }); //*
+  } = useForm<tFormValues>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  }); //*
 
   return (
-    <section className="center page login__page">
+    <section className="center__v page login__page">
       {isLoading && <h1 className="loading__txt">LOADING...</h1>}
 
-      {/* <form className="login__box" onSubmit={handleSubmit(onTest)}> */}
       <form className="login__box" onSubmit={handleSubmit(onLogin)}>
         <p className="login__title">로그인</p>
 
         <label htmlFor="email">이메일</label>
         <input type="email" {...register("email")} />
-        <span className="">
+        <span className="error_span">
           {errors.email && "이메일 형식이 맞지 않습니다."}
         </span>
 
         <label htmlFor="password">비밀번호</label>
         <input type="password" {...register("password")} />
-        <span className="">
-          {errors.password && "비밀번호 형식이 맞지 않습니다."}
+        <span className="error_span">
+          {errors.password && "비밀번호 형식이 맞지 않습니다. (* 8~20 글자 ) "}
         </span>
 
         <button type="submit" className="w100 login__btn">
@@ -84,7 +83,7 @@ export const Login: FC = () => {
 
         <div className="login__subline">
           <button onClick={onUserRegister}>회원가입</button>
-          <button>패스워드 찾기</button>
+          <button>비밀번호 찾기</button>
         </div>
       </form>
     </section>
