@@ -19,6 +19,7 @@ import {
   SELECTOR_RECRUIT_SUB_TYPE,
   SELECTOR_SUB_REGION_LIST,
 } from "../../common/constant";
+import { DatePicker, message, Upload } from "antd";
 
 function TogetherRegister() {
   const togetherTypeList = useMemo(() => SELECTOR_TOGETHER_TYPE_LIST, []);
@@ -42,9 +43,13 @@ function TogetherRegister() {
   const [tagList, setTagList] = useState<string[]>([]);
   const [tag, setTag] = useState("");
   const [period, setPeriod] = useState(moment().format("YYYYMMDD"));
+  const [selectedFile, setSelectedFile] = useState<File>();
 
   const [postCredentials, { isSuccess, isLoading, isError }] =
     usePostStudyBoardMutation();
+
+  const previewImgRef = useRef<HTMLImageElement | null>(null);
+  const previewImgCanvas = useRef<HTMLCanvasElement | null>(null);
 
   const navi = useNavigate();
 
@@ -55,20 +60,23 @@ function TogetherRegister() {
       return alert("지역을 선택해주세요.");
     if (contentType[0] === 0) return alert("모집 분야를 선택해주세요.");
 
-    const body: IBoardBody = {
-      title,
-      content,
-      togetherType,
-      contentType1: contentType[0],
-      contentType2: contentType[1],
-      location1: location[0],
-      location2: location[1],
-      location3: location[2],
-      persons: personsData < 0 ? 0 : personsData,
-      tagList,
-      period,
-    };
-    const res = await postCredentials(body)
+    if (!selectedFile) return alert("모임 사진을 선택해주세요.");
+
+    const data = new FormData();
+    data.append("image", selectedFile);
+    data.append("title", title);
+    data.append("content", content);
+    data.append("togetherType", togetherType.toString());
+    data.append("contentType1", contentType[0].toString());
+    data.append("contentType2", contentType[1].toString());
+    data.append("location1", location[0].toString());
+    data.append("location2", location[1].toString());
+    data.append("location3", location[2].toString());
+    data.append("persons", personsData < 0 ? "0" : personsData.toString());
+    data.append("tagList", JSON.stringify(tagList));
+    data.append("period", period);
+
+    const res = await postCredentials(data)
       .unwrap()
       .then((payload) => console.log("fulfilled", payload))
       .catch((error) => console.error("rejected", error));
@@ -106,6 +114,68 @@ function TogetherRegister() {
       alert("잘못된 폼");
     }
   }, [isSuccess, isLoading, isError]);
+
+  const beforeUpload = (file: File) => {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+
+    if (!isJpgOrPng) {
+      message.error("You can only upload JPG/PNG file!");
+    }
+
+    const isLt2M = file.size / 1024 / 1024 < 2;
+
+    if (!isLt2M) {
+      message.error("Image must smaller than 2MB!");
+    }
+
+    return isJpgOrPng && isLt2M;
+  };
+
+  const getBase64 = (
+    img: any,
+    callback: (url: string | ArrayBuffer | null) => void
+  ) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => callback(reader.result));
+    reader.readAsDataURL(img);
+  };
+
+  const handleChange = (e: any) => {
+    console.log(e.target.files[0]);
+
+    setSelectedFile(e.target.files[0]);
+
+    /*
+    lastModified: 1659445153409
+    lastModifiedDate: Tue Aug 02 2022 21:59:13 GMT+0900 (한국 표준시) {}
+    name: "test.jpg"
+    size: 68692
+    type: "image/jpeg"
+    webkitRelativePath: ""
+    */
+
+    const file = e.target.files[0];
+
+    // 읽기
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    //로드 한 후
+    reader.onload = function () {
+      console.log(reader.result);
+
+      //로컬 이미지를 보여주기
+      if (previewImgRef.current) {
+        previewImgRef.current.src = `${reader.result}`;
+      }
+    };
+
+    /*
+    getBase64(file.originFileObj, (url: string | ArrayBuffer | null) => {
+        setImageUrl(url);
+      });
+    */
+  };
 
   return (
     <section className="page">
@@ -218,6 +288,25 @@ function TogetherRegister() {
               onChange={(e: any) => setContent(e.target.value)}
               value={content}
             />
+
+            <h3 className="register__field"># 이미지 업로드</h3>
+
+            <div className="center img__upload">
+              <input type="file" name="file" onChange={handleChange} />
+              <label>이미지 선택</label>
+            </div>
+
+            <img
+              ref={previewImgRef}
+              id="img__upload__preview"
+              className="img__upload__preview"
+              alt="t"
+              src=""
+            />
+
+            {/* <p>Filename: {selectedFile.name}</p>
+            <p>Filetype: {selectedFile.type}</p>
+            <p>Size in bytes: {selectedFile.size}</p> */}
 
             <div className="center register__btnlist">
               <button className="positive__btn" onClick={onSubmit}>

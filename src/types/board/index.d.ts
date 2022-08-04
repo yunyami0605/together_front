@@ -23,6 +23,7 @@ export type typeStudyBoardItem = {
   };
   comment: typeCommentItem[];
   tagList: string[] | null;
+  imgPath: string | null;
 };
 
 export interface IBoardBody {
@@ -37,4 +38,5 @@ export interface IBoardBody {
   persons: number;
   period: string;
   tagList: string[];
+  image: string;
 }

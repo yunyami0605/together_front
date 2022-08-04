@@ -16,45 +16,52 @@ export const StudyBox = ({ data }: IProps) => {
     navi(`/study/${data.id}`);
   };
 
+  console.log(data);
+
   return (
     <div className="border study__box" onClick={onMove}>
-      <img
-        src="/img/img__inactive__mark.svg"
-        className="board__mark"
-        alt="bm"
-      />
+      <p className="board__mark">♡</p>
 
-      <div className="study__box__header">
-        <p>{data.title}</p>
+      <div className="study__box__cover__img">
+        <img
+          src={`${process.env.REACT_APP_API_BASE_URL}/${data?.imgPath}` || ""}
+          alt="i"
+        />
       </div>
 
-      <div className="study__box__body">
-        <div className="study__tag__list">
-          {data?.tagList?.map((val, i) => (
-            <span key={i}># {val}</span>
-          ))}
-        </div>
-      </div>
-
-      <div className="study__box__putter">
-        <div className="row putter__line">
-          {/* // @ 추후 */}
-          <div className="user__img"></div>
-          <p className="user__nickname">{data?.writer.nickname || ""}</p>
+      <div className="study__box__content">
+        <div className="study__box__header">
+          <p>{data.title}</p>
         </div>
 
-        <div className="row between putter__line">
-          <p className="recruit__count">{`모집 인원 1/${
-            data?.persons || ""
-          }`}</p>
+        <div className="study__box__body">
+          <div className="study__tag__list">
+            {data?.tagList?.map((val, i) => (
+              <span key={i}># {val}</span>
+            ))}
+          </div>
+        </div>
 
-          <div className="row sub__line">
-            <p className="view__count">
-              뷰 {maxCountTxt(data?.view || 0, 999)}
-            </p>
-            <p className="comment__count">
-              댓글 {maxCountTxt(data?.comment.length || 0, 99)}
-            </p>
+        <div className="study__box__putter">
+          <div className="row putter__line">
+            {/* // @ 추후 */}
+            <div className="user__img"></div>
+            <p className="user__nickname">{data?.writer.nickname || ""}</p>
+          </div>
+
+          <div className="row between putter__line">
+            <p className="recruit__count">{`모집 인원 1/${
+              data?.persons || ""
+            }`}</p>
+
+            <div className="row sub__line">
+              <p className="view__count">
+                뷰 {maxCountTxt(data?.view || 0, 999)}
+              </p>
+              <p className="comment__count">
+                댓글 {maxCountTxt(data?.comment.length || 0, 99)}
+              </p>
+            </div>
           </div>
         </div>
       </div>

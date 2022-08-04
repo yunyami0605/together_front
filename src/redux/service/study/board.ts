@@ -12,12 +12,14 @@ export const studyBoardApi = createApi({
   refetchOnMountOrArgChange: 0,
   tagTypes: ["board"],
   endpoints: (builder) => ({
-    postStudyBoard: builder.mutation<typeStudyBoardItem, Partial<IBoardBody>>({
-      query: ({ ...body }) => ({
-        url: ``,
-        method: "POST",
-        body,
-      }),
+    postStudyBoard: builder.mutation<typeStudyBoardItem, FormData>({
+      query: (body) => {
+        return {
+          url: ``,
+          method: "POST",
+          body,
+        };
+      },
       invalidatesTags: [{ type: "board" as const, id: "LIST" }],
 
       transformResponse: (response: IRes<typeStudyBoardItem>, meta, arg) =>

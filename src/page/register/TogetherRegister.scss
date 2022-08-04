@@ -96,6 +96,36 @@
     font-size: 18px;
     padding-bottom: 1px;
   }
+
+  .img__upload__preview {
+    border: 1px solid #c1c1c1;
+    width: 240px;
+    height: 160px;
+    object-fit: contain;
+  }
+
+  .img__upload {
+    margin-bottom: 20px;
+    position: relative;
+    width: 104px;
+    border: 1px solid #c1c1c1;
+
+    & > label {
+      position: absolute;
+      color: $color-grey;
+    }
+
+    & > input {
+      height: 100px;
+      border: 1px solid;
+      opacity: 0;
+      z-index: 1;
+
+      &::-webkit-file-upload-button {
+        display: none;
+      }
+    }
+  }
 }
 
 .register__field {
