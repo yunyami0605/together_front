@@ -2,10 +2,10 @@ import React, { FC, useEffect, useState } from "react";
 import "./Study.scss";
 import { StudyBox } from "./components/StudyBox";
 import { useGetStudyBoardListQuery } from "redux/service/study/board";
-import { typeStudyBoardItem } from "types/board";
 import SearchContainer from "./components/SearchContainer";
 import PageTitle from "common/title/PageTitle";
 import useDebounce from "common/customHook/useDebounce";
+import { IStudyBoardItem } from "types/board";
 
 export const Study: FC = () => {
   const [location, setLocation] = useState([0, 0, 0]);
@@ -52,7 +52,7 @@ export const Study: FC = () => {
         <section className="page__body__lower">
           {/* # 내용 */}
           <section className="study__list__container">
-            {data?.list.map((val: typeStudyBoardItem, i) => (
+            {data?.list.map((val: IStudyBoardItem, i) => (
               <React.Fragment key={i}>
                 <StudyBox data={val} />
               </React.Fragment>

@@ -1,7 +1,7 @@
 import { typeCommentItem } from "types/comment";
 import { IGetListResData } from "types/response";
 
-export type typeStudyBoardItem = {
+export interface IStudyBoardBase {
   id: number;
   title: string;
   content: string;
@@ -24,7 +24,15 @@ export type typeStudyBoardItem = {
   comment: typeCommentItem[];
   tagList: string[] | null;
   imgPath: string | null;
-};
+}
+
+export interface IStudyBoardItem extends IStudyBoardBase {
+  boardMembers: { boardId: number; userId: number }[];
+}
+
+export interface IStudyBoardContent extends IStudyBoardBase {
+  member: { id: number; nickname: string }[];
+}
 
 export interface IBoardBody {
   title: string;

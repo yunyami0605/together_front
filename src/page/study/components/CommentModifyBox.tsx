@@ -20,9 +20,7 @@ export default function CommentModifyBox({
 
   const onModify = () => {
     if (!content.length) return alert("4자 이상 입력해주세요");
-    //
-    console.log("MOD");
-    console.log(comment?.id);
+
     postCredentials({ id: comment?.id, body: { content: content } })
       .unwrap()
       .then((payload) => {

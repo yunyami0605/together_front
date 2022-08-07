@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IGetListResData, IListRes, IRes } from "types/response";
-import { IBoardBody, typeStudyBoardItem } from "types/board";
+import { IBoardBody, IStudyBoardContent, IStudyBoardItem } from "types/board";
 import { commonBaseQueryOption } from "redux/common";
 import queryString from "query-string";
 
@@ -12,7 +12,7 @@ export const studyBoardApi = createApi({
   refetchOnMountOrArgChange: 0,
   tagTypes: ["board"],
   endpoints: (builder) => ({
-    postStudyBoard: builder.mutation<typeStudyBoardItem, FormData>({
+    postStudyBoard: builder.mutation<IStudyBoardItem, FormData>({
       query: (body) => {
         return {
           url: ``,
@@ -22,12 +22,22 @@ export const studyBoardApi = createApi({
       },
       invalidatesTags: [{ type: "board" as const, id: "LIST" }],
 
-      transformResponse: (response: IRes<typeStudyBoardItem>, meta, arg) =>
+      transformResponse: (response: IRes<IStudyBoardItem>, meta, arg) =>
         response.data,
     }),
 
+    patchBoardMember: builder.mutation<any, string>({
+      query: (id) => {
+        return {
+          url: `/${id}/member/add`,
+          method: "PATCH",
+        };
+      },
+      transformResponse: (response: IRes<number>) => response.data,
+    }),
+
     getStudyBoardList: builder.query<
-      IGetListResData<typeStudyBoardItem>,
+      IGetListResData<IStudyBoardItem>,
       {
         page: number;
         location1?: number;
@@ -43,7 +53,7 @@ export const studyBoardApi = createApi({
           url: `/list?${queryString.stringify(queryData)}`,
         };
       },
-      transformResponse: (response: IListRes<typeStudyBoardItem>, meta, arg) =>
+      transformResponse: (response: IListRes<IStudyBoardItem>, meta, arg) =>
         response.data,
       // providesTags: (result, error, arg) => [{ type: "board", id: arg }],
       // providesTags: (result) =>
@@ -55,11 +65,11 @@ export const studyBoardApi = createApi({
       //     : [{ type: "board" as const, id: "PARTIAL-LIST" }],
     }),
 
-    getStudyBoard: builder.query<typeStudyBoardItem, number>({
+    getStudyBoard: builder.query<IStudyBoardContent, number>({
       query: (id) => {
-        return { url: `/${id}`, method: "get" };
+        return { url: `/${id}`, method: "GET" };
       },
-      transformResponse: (response: IRes<typeStudyBoardItem>, meta, arg) =>
+      transformResponse: (response: IRes<IStudyBoardContent>, meta, arg) =>
         response.data,
     }),
 
@@ -67,7 +77,7 @@ export const studyBoardApi = createApi({
       query: (id) => {
         return {
           url: `/${id}`,
-          method: "patch",
+          method: "PATCH",
           body: { title: "테스트테스트입니다." },
         };
       },
@@ -76,7 +86,7 @@ export const studyBoardApi = createApi({
 
     deleteStudyBoard: builder.mutation<number, number>({
       query: (id) => {
-        return { url: `/${id}`, method: "delete" };
+        return { url: `/${id}`, method: "DELETE" };
       },
       transformResponse: (response: IRes<number>) => response.data,
     }),
@@ -90,4 +100,5 @@ export const {
   useGetStudyBoardQuery,
   usePatchStudyBoardMutation,
   useDeleteStudyBoardMutation,
+  usePatchBoardMemberMutation,
 } = studyBoardApi;

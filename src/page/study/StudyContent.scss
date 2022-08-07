@@ -73,7 +73,15 @@
 
   // # content body (des, member)
   .study__content__body {
+    position: relative;
     padding: 34px 22px;
+
+    .study__join__btn {
+      font-size: 14px;
+      font-weight: bold;
+      position: absolute;
+      right: 14px;
+    }
 
     & > h3 {
       // padding-left: 14px;

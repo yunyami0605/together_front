@@ -13,6 +13,7 @@ import { useGetCommentListQuery } from "redux/service/comment";
 import {
   useDeleteStudyBoardMutation,
   useGetStudyBoardQuery,
+  usePatchBoardMemberMutation,
 } from "redux/service/study/board";
 import BoardCommentInput from "./components/BoardCommentInput";
 import CommentItem from "./components/CommentItem";
@@ -39,6 +40,8 @@ export const StudyContent: FC = () => {
   const [isModalShow, setIsModalShow] = useState(false);
 
   const listData = useGetCommentListQuery({ boardId: +param.id, page });
+
+  const patchBoardMember = usePatchBoardMemberMutation();
 
   // # on/offline, 서울, 강서구
   const loc1 = data?.location1;
@@ -97,6 +100,19 @@ export const StudyContent: FC = () => {
 
   const onModifyContent = () => {
     navi(`/together/modify/${param.id}`, { state: { id: param.id } });
+  };
+
+  const onJoinStudy = () => {
+    if (!param?.id) return;
+
+    const [patch] = patchBoardMember;
+
+    patch(param?.id)
+      .unwrap()
+      .then((payload) => {
+        console.log(payload);
+      })
+      .catch((error) => console.error("rejected", error));
   };
 
   return (
@@ -191,6 +207,9 @@ export const StudyContent: FC = () => {
 
             {/* @ des, member */}
             <div className="study__content__body">
+              <button className="study__join__btn" onClick={onJoinStudy}>
+                함께하기
+              </button>
               <h3>소개</h3>
 
               <div className="content__desc">{data?.content || ""}</div>
@@ -198,17 +217,18 @@ export const StudyContent: FC = () => {
               <h3>현재 멤버</h3>
 
               <div className="row member__list">
-                <div className="member__box">
-                  <div className="row member__info">
-                    <img />
-                    <p>동동이</p>
+                {data?.member.map((val, i) => (
+                  <div key={i} className="member__box">
+                    <div className="row member__info">
+                      <img />
+                      <p>{val.nickname}</p>
+                    </div>
+                    <div className="row skill__taglist">
+                      <span># JS</span>
+                      <span># REACT</span>
+                    </div>
                   </div>
-                  <div className="row skill__taglist">
-                    <span># JS</span>
-                    <span># REACT</span>
-                  </div>
-                </div>
-                <div></div>
+                ))}
               </div>
             </div>
 

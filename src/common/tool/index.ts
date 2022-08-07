@@ -5,12 +5,11 @@ import { type_date } from "types/common";
 
 export const getUserInfo = (_key?: string) => {
   const token = getCookie(process.env.REACT_APP_ACCESS_TOKEN);
-  console.log(process.env.REACT_APP_ACCESS_TOKEN);
   if (!token) return;
 
   if (!process.env.REACT_APP_COOKIE_KYE) return;
-  var userObj = jwt.verify(token, process.env.REACT_APP_COOKIE_KYE);
 
+  var userObj = jwt.verify(token, process.env.REACT_APP_COOKIE_KYE);
   return _key && typeof userObj !== "string" ? userObj[_key] : userObj;
 };
 
