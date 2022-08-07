@@ -43,7 +43,7 @@ function UserInfoModify() {
     var data = new FormData();
     data.append("image", selectedFile);
     console.log(selectedFile);
-    fetch("http://localhost:3000/api/study/board/upload", {
+    fetch("http://localhost:3000/api/study/board/4/upload", {
       method: "POST",
       body: data,
     });
@@ -99,6 +99,11 @@ function UserInfoModify() {
           <div>
             <button onClick={handleSubmission}>Submit</button>
           </div>
+
+          <img
+            alt="t"
+            src="http://www.localhost:3000/files\\8eb319948c840c7a55d8f1a6ff961cb6.jpg"
+          />
 
           <div className="center register__btnlist">
             <button className="positive__btn" onClick={onSubmit}>

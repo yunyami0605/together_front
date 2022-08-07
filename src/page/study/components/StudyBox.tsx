@@ -16,8 +16,6 @@ export const StudyBox = ({ data }: IProps) => {
     navi(`/study/${data.id}`);
   };
 
-  console.log(data);
-
   return (
     <div className="border study__box" onClick={onMove}>
       <p className="board__mark">♡</p>

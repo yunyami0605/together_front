@@ -32,8 +32,6 @@ export const StudyContent: FC = () => {
     // { refetchOnMountOrArgChange: true }
   );
 
-  console.log(data);
-
   const navi = useNavigate();
 
   const deleteStudyBoard = useDeleteStudyBoardMutation();

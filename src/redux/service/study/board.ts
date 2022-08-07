@@ -8,7 +8,7 @@ import queryString from "query-string";
 export const studyBoardApi = createApi({
   reducerPath: "studyBoardApi",
   baseQuery: fetchBaseQuery(commonBaseQueryOption("/study/board")),
-
+  keepUnusedDataFor: 0,
   refetchOnMountOrArgChange: 0,
   tagTypes: ["board"],
   endpoints: (builder) => ({
@@ -41,19 +41,18 @@ export const studyBoardApi = createApi({
       query: (queryData) => {
         return {
           url: `/list?${queryString.stringify(queryData)}`,
-          credentials: "include",
         };
       },
       transformResponse: (response: IListRes<typeStudyBoardItem>, meta, arg) =>
         response.data,
       // providesTags: (result, error, arg) => [{ type: "board", id: arg }],
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.list.map(({ id }) => ({ type: "board" as const, id })),
-              { type: "board" as const, id: "PARTIAL-LIST" },
-            ]
-          : [{ type: "board" as const, id: "PARTIAL-LIST" }],
+      // providesTags: (result) =>
+      //   result
+      //     ? [
+      //         ...result.list.map(({ id }) => ({ type: "board" as const, id })),
+      //         { type: "board" as const, id: "PARTIAL-LIST" },
+      //       ]
+      //     : [{ type: "board" as const, id: "PARTIAL-LIST" }],
     }),
 
     getStudyBoard: builder.query<typeStudyBoardItem, number>({

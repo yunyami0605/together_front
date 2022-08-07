@@ -5,12 +5,14 @@ import { useGetStudyBoardListQuery } from "redux/service/study/board";
 import { typeStudyBoardItem } from "types/board";
 import SearchContainer from "./components/SearchContainer";
 import PageTitle from "common/title/PageTitle";
+import useDebounce from "common/customHook/useDebounce";
 
 export const Study: FC = () => {
   const [location, setLocation] = useState([0, 0, 0]);
   const [contentType, setContentType] = useState([0, 0]);
   const [page, setPage] = useState(1);
   const [searchTxt, setSearchTxt] = useState("");
+  // const _searchTxt = useDebounce(searchTxt, 700);
 
   const { data, isLoading, isSuccess, error, refetch } =
     useGetStudyBoardListQuery({

@@ -6,7 +6,7 @@ import {
   SELECTOR_RECRUIT_TYPE,
   SELECTOR_RECRUIT_SUB_TYPE,
 } from "common/constant";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import "./SearchContainer.scss";
 import { typeSetState } from "types/common";
 
@@ -38,6 +38,12 @@ export default function SearchContainer({
   const togetherTypeList1 = useMemo(() => SELECTOR_RECRUIT_TYPE, []);
   const togetherTypeList2 = useMemo(() => SELECTOR_RECRUIT_SUB_TYPE, []);
 
+  const [txt, setTxt] = useState("");
+
+  const onSearch = () => {
+    setSearchTxt(txt);
+  };
+
   return (
     <section>
       <section className="row search__filter">
@@ -61,7 +67,7 @@ export default function SearchContainer({
         <Selector
           data={subRegionList[location[1]]}
           setItem={(item: number) =>
-            setLocation((prev: number[]) => [item, prev[1], prev[2]])
+            setLocation((prev: number[]) => [prev[0], prev[1], item])
           }
           selectedItem={location[2]}
         />
@@ -88,9 +94,9 @@ export default function SearchContainer({
             type="text"
             placeholder="검색"
             className="search__bar"
-            onChange={(e: any) => setSearchTxt(e.target.value)}
+            onChange={(e: any) => setTxt(e.target.value)}
           />
-          <button className="input__btn">
+          <button className="input__btn" onClick={onSearch}>
             <img src={"/img/icon/img__search__icon.svg"} />
           </button>
         </div>
