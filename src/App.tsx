@@ -7,7 +7,7 @@ import TogetherRegister from "page/register/TogetherRegister";
 import UserRegister from "page/register/UserRegister";
 import { SideProject } from "page/sideProject/SideProject";
 import { Story } from "page/story/Story";
-import { StudyContent } from "page/study/StudyContent";
+import { StudyContent } from "page/content/StudyContent";
 import Test from "page/test/Test";
 import UserInfo from "page/user/UserInfo";
 import UserInfoModify from "page/user/UserInfoModify";

@@ -3,26 +3,43 @@ import { configureStore } from "@reduxjs/toolkit";
 // Or from '@reduxjs/toolkit/query/react'
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { commentApi } from "redux/service/comment";
+import { counterSlice } from "redux/service/counter/slice";
+import { themeSlice } from "redux/service/counter/theme";
+import { likeApi } from "redux/service/like";
 import { studyBoardApi } from "redux/service/study/board";
 import { userApi } from "redux/service/user";
 
 export const store = configureStore({
   reducer: {
-    // 특정 top-level slice에서 생성된 리듀서를 추가
+    // 리듀서 추가
     [studyBoardApi.reducerPath]: studyBoardApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [commentApi.reducerPath]: commentApi.reducer,
+    [likeApi.reducerPath]: likeApi.reducer,
+    [counterSlice.name]: counterSlice.reducer,
+    [themeSlice.name]: themeSlice.reducer,
   },
-  // 캐싱, 요청 취소, 폴링 등등 유용한 rtk-query의 기능들을 위한 api 미들웨어 추가
+  // rtk-query의 기능, api 미들웨어 추가
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       studyBoardApi.middleware,
       userApi.middleware,
-      commentApi.middleware
+      commentApi.middleware,
+      likeApi.middleware
     ),
   devTools: process.env.NODE_ENV !== "production",
+
+  // 위 reducer 객체에 설정된 propery의 타입을 받아온다. store 초기 상태 값
+  preloadedState: {},
+
+  /**
+   * redux에서 middleware처럼 고차함수로 구성된 store creator임
+   * 이 프로퍼티에서 enhancer 순서롤 변경할 수 있다
+   * ex) [applyMiddleware, offline]
+   * ex) enhancers: (defaultEnhancers) => [ ...defaultEnhancers],
+   */
+  // enhancers: [],
+  enhancers: (defaultEnhancers) => [...defaultEnhancers],
 });
 
-// 옵셔널, refetchOnFocus/refetchOnReconnect 기능을 위해 필요함
-// setupListeners 문서를 참고 - 커스텀을 위한 옵셔널 콜백을 2번째 인자로 받음
 setupListeners(store.dispatch);

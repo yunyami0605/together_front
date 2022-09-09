@@ -4,11 +4,7 @@ import { toNumber } from "common/tool";
 import moment from "moment";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  useGetStudyBoardQuery,
-  usePostStudyBoardMutation,
-} from "redux/service/study/board";
-import { IBoardBody } from "types/board";
+import { usePostStudyBoardMutation } from "redux/service/study/board";
 import "./TogetherRegister.scss";
 import Selector from "common/selector/Selector";
 import {
@@ -20,6 +16,7 @@ import {
   SELECTOR_SUB_REGION_LIST,
 } from "../../common/constant";
 import { DatePicker, message, Upload } from "antd";
+import Editor from "./common/Editor";
 
 function TogetherRegister() {
   const togetherTypeList = useMemo(() => SELECTOR_TOGETHER_TYPE_LIST, []);
@@ -49,7 +46,6 @@ function TogetherRegister() {
     usePostStudyBoardMutation();
 
   const previewImgRef = useRef<HTMLImageElement | null>(null);
-  const previewImgCanvas = useRef<HTMLCanvasElement | null>(null);
 
   const navi = useNavigate();
 
@@ -289,6 +285,8 @@ function TogetherRegister() {
               value={content}
             />
 
+            <Editor />
+
             <h3 className="register__field"># 이미지 업로드</h3>
 
             <div className="center img__upload">
@@ -303,10 +301,6 @@ function TogetherRegister() {
               alt="t"
               src=""
             />
-
-            {/* <p>Filename: {selectedFile.name}</p>
-            <p>Filetype: {selectedFile.type}</p>
-            <p>Size in bytes: {selectedFile.size}</p> */}
 
             <div className="center register__btnlist">
               <button className="positive__btn" onClick={onSubmit}>

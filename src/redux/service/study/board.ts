@@ -1,15 +1,18 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IGetListResData, IListRes, IRes } from "types/response";
 import { IBoardBody, IStudyBoardContent, IStudyBoardItem } from "types/board";
-import { commonBaseQueryOption } from "redux/common";
 import queryString from "query-string";
+
+import { commonBaseQueryOption } from "redux/common";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 // base URL과 엔드포인트들로 서비스 정의
 export const studyBoardApi = createApi({
   reducerPath: "studyBoardApi",
   baseQuery: fetchBaseQuery(commonBaseQueryOption("/study/board")),
-  keepUnusedDataFor: 0,
-  refetchOnMountOrArgChange: 0,
+  keepUnusedDataFor: 60,
+  // refetchOnMountOrArgChange: 10,
+
+  refetchOnFocus: true,
   tagTypes: ["board"],
   endpoints: (builder) => ({
     postStudyBoard: builder.mutation<IStudyBoardItem, FormData>({
@@ -18,19 +21,61 @@ export const studyBoardApi = createApi({
           url: ``,
           method: "POST",
           body,
+          // headers: {
+          //   "content-type": "multipart/form-data",
+          // },
         };
       },
-      invalidatesTags: [{ type: "board" as const, id: "LIST" }],
 
+      invalidatesTags: ["board"],
       transformResponse: (response: IRes<IStudyBoardItem>, meta, arg) =>
         response.data,
+
+      // query결과를 받아서 서버에 요청하여 결과를 받기 전에 캐쉬를 update하거나 다른 처리로 가공할 수 있다
+      // onQueryStarted는 optimistic 업데이트에 유용합니다.
+      // 이때 queryFulfilled(Promise) 을 실행하여 쿼리 확정한 후 에러면 1)redo 2) 전체 refetching
+      async onQueryStarted(
+        arg,
+        { dispatch, getState, queryFulfilled, requestId, extra, getCacheEntry }
+      ) {},
+
+      async onCacheEntryAdded(
+        arg,
+        {
+          dispatch,
+          getState,
+          extra,
+          requestId,
+          cacheEntryRemoved,
+          cacheDataLoaded,
+          getCacheEntry,
+        }
+      ) {},
     }),
 
+    /**
+     *@description add board member, usePatchBoardMemberMutation
+     *@param {string} id - board id
+     */
     patchBoardMember: builder.mutation<any, string>({
       query: (id) => {
         return {
-          url: `/${id}/member/add`,
+          url: `/${id}/member`,
           method: "PATCH",
+        };
+      },
+      transformResponse: (response: IRes<number>) => response.data,
+    }),
+
+    /**
+     *@description cancel board member, useDeleteBoardMemberMutation
+     *@param {string} id - board id
+     */
+    deleteBoardMember: builder.mutation<any, string>({
+      query: (id) => {
+        return {
+          url: `/${id}/member`,
+          method: "DELETE",
         };
       },
       transformResponse: (response: IRes<number>) => response.data,
@@ -53,22 +98,26 @@ export const studyBoardApi = createApi({
           url: `/list?${queryString.stringify(queryData)}`,
         };
       },
-      transformResponse: (response: IListRes<IStudyBoardItem>, meta, arg) =>
-        response.data,
-      // providesTags: (result, error, arg) => [{ type: "board", id: arg }],
-      // providesTags: (result) =>
-      //   result
-      //     ? [
-      //         ...result.list.map(({ id }) => ({ type: "board" as const, id })),
-      //         { type: "board" as const, id: "PARTIAL-LIST" },
-      //       ]
-      //     : [{ type: "board" as const, id: "PARTIAL-LIST" }],
+      // keepUnusedDataFor: 60,
+      providesTags: ["board"],
+      transformResponse: (response: IListRes<IStudyBoardItem>, meta, arg) => {
+        return response.data;
+      },
+
+      onQueryStarted: () => {
+        return;
+      },
+
+      onCacheEntryAdded: () => {
+        return;
+      },
     }),
 
     getStudyBoard: builder.query<IStudyBoardContent, number>({
       query: (id) => {
         return { url: `/${id}`, method: "GET" };
       },
+      providesTags: ["board"],
       transformResponse: (response: IRes<IStudyBoardContent>, meta, arg) =>
         response.data,
     }),
@@ -90,6 +139,17 @@ export const studyBoardApi = createApi({
       },
       transformResponse: (response: IRes<number>) => response.data,
     }),
+
+    uploadTmpImage: builder.mutation<string, FormData>({
+      query: (body) => {
+        return {
+          url: `/upload/tmp_image`,
+          method: "POST",
+          body,
+        };
+      },
+      transformResponse: (response: IRes<string>) => response.data,
+    }),
   }),
 });
 
@@ -101,4 +161,6 @@ export const {
   usePatchStudyBoardMutation,
   useDeleteStudyBoardMutation,
   usePatchBoardMemberMutation,
+  useDeleteBoardMemberMutation,
+  useUploadTmpImageMutation,
 } = studyBoardApi;
