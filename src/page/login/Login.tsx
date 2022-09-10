@@ -6,7 +6,7 @@ import { Resolver, yupResolver } from "@hookform/resolvers/yup"; //*
 import { useForm } from "react-hook-form"; //*
 import "./Login.scss";
 
-type tFormValues = {
+type TFormValues = {
   email: string;
   password: string;
 };
@@ -26,7 +26,7 @@ export const Login: FC = () => {
   /**
    *@description : call login api event handler
    */
-  const onLogin = (data: tFormValues) => {
+  const onLogin = (data: TFormValues) => {
     const body = data;
 
     const res = postCredentials(body)
@@ -50,7 +50,7 @@ export const Login: FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<tFormValues>({
+  } = useForm<TFormValues>({
     resolver: yupResolver(schema),
     defaultValues: {
       email: "",

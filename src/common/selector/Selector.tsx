@@ -1,5 +1,4 @@
 import { Select } from "antd";
-import { FC, useState } from "react";
 import "./Selector.scss";
 
 interface IProps {

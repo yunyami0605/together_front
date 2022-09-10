@@ -4,7 +4,6 @@ import { StudyBox } from "./components/StudyBox";
 import { useGetStudyBoardListQuery } from "redux/service/study/board";
 import SearchContainer from "./components/SearchContainer";
 import PageTitle from "common/title/PageTitle";
-import useDebounce from "common/customHook/useDebounce";
 import { IStudyBoardItem } from "types/board";
 
 export const Study: FC = () => {

@@ -15,7 +15,6 @@ import {
   SELECTOR_RECRUIT_SUB_TYPE,
   SELECTOR_SUB_REGION_LIST,
 } from "../../common/constant";
-import { DatePicker, message, Upload } from "antd";
 import Editor from "./common/Editor";
 
 function TogetherRegister() {
@@ -26,51 +25,61 @@ function TogetherRegister() {
 
   // 온라인/ 오프라인, 서울, 강서구,
   const meatList = useMemo(() => SELECTOR_MEAT_LIST, []);
-
   const regionList = useMemo(() => SELECTOR_REGION_LIST, []);
 
+  // 태그 제한
   const LIMIT_TAG_COUNT = 4;
 
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [togetherType, setTogetherType] = useState(0);
-  const [contentType, setContentType] = useState([0, 0]);
-  const [location, setLocation] = useState([0, 0, 0]);
-  const [persons, setPersons] = useState(0);
-  const [tagList, setTagList] = useState<string[]>([]);
+  const navi = useNavigate();
+
+  // post form init data
+  const initFromDataState = {
+    title: "",
+    content: "",
+    togetherType: 0,
+    contentType: [0, 0],
+    location: [0, 0, 0],
+    persons: 0,
+    tagList: [] as string[],
+    period: moment().format("YYYYMMDD"),
+    file: undefined as File | undefined,
+  };
+
+  type tFormData = typeof initFromDataState;
+
+  const [formData, setFormData] = useState<tFormData>(initFromDataState);
   const [tag, setTag] = useState("");
-  const [period, setPeriod] = useState(moment().format("YYYYMMDD"));
-  const [selectedFile, setSelectedFile] = useState<File>();
 
   const [postCredentials, { isSuccess, isLoading, isError }] =
     usePostStudyBoardMutation();
 
   const previewImgRef = useRef<HTMLImageElement | null>(null);
 
-  const navi = useNavigate();
-
+  // board register to submit on event handler
   const onSubmit = async () => {
-    const personsData = Number(persons);
-    if (togetherType === 0) return alert("게시글 종류를 선택해주세요.");
-    if (location[1] === 0 && location[0] !== 1)
+    const personsData = Number(formData.persons);
+    if (formData.togetherType === 0)
+      return alert("게시글 종류를 선택해주세요.");
+    if (formData.location[1] === 0 && formData.location[0] !== 1)
       return alert("지역을 선택해주세요.");
-    if (contentType[0] === 0) return alert("모집 분야를 선택해주세요.");
+    if (formData.contentType[0] === 0)
+      return alert("모집 분야를 선택해주세요.");
 
-    if (!selectedFile) return alert("모임 사진을 선택해주세요.");
+    if (!formData.file) return alert("모임 사진을 선택해주세요.");
 
     const data = new FormData();
-    data.append("image", selectedFile);
-    data.append("title", title);
-    data.append("content", content);
-    data.append("togetherType", togetherType.toString());
-    data.append("contentType1", contentType[0].toString());
-    data.append("contentType2", contentType[1].toString());
-    data.append("location1", location[0].toString());
-    data.append("location2", location[1].toString());
-    data.append("location3", location[2].toString());
+    data.append("image", formData.file);
+    data.append("title", formData.title);
+    data.append("content", formData.content);
+    data.append("togetherType", formData.togetherType.toString());
+    data.append("contentType1", formData.contentType[0].toString());
+    data.append("contentType2", formData.contentType[1].toString());
+    data.append("location1", formData.location[0].toString());
+    data.append("location2", formData.location[1].toString());
+    data.append("location3", formData.location[2].toString());
     data.append("persons", personsData < 0 ? "0" : personsData.toString());
-    data.append("tagList", JSON.stringify(tagList));
-    data.append("period", period);
+    data.append("tagList", JSON.stringify(formData.tagList));
+    data.append("period", formData.period);
 
     const res = await postCredentials(data)
       .unwrap()
@@ -84,21 +93,42 @@ function TogetherRegister() {
     if (personCount < 0 || personCount > 100) {
       return alert("모집 인원은 0 ~ 100 사이로 설정해주세요.");
     }
-    setPersons(personCount);
+    setFormData({ ...formData, persons: personCount });
   };
 
   const onDeleteTag = (index: number) => {
-    const deletedTagList = tagList.filter((val, i) => index !== i);
-    setTagList(deletedTagList);
+    const deletedTagList = formData.tagList.filter((val, i) => index !== i);
+    setFormData({ ...formData, tagList: deletedTagList });
   };
 
   const onTagInput = (e: any) => {
     if (e.key === "Enter") {
-      if (tagList.length === LIMIT_TAG_COUNT) return;
+      if (formData.tagList.length === LIMIT_TAG_COUNT) return;
 
-      setTagList((prev) => [...prev, tag]);
+      setFormData((prev) => ({ ...formData, tagList: [...prev.tagList, tag] }));
       setTag("");
     }
+  };
+
+  /**
+   *@description : img change to event handler
+   */
+  const onChangeImg = (e: any) => {
+    setFormData({ ...formData, file: e.target.files[0] });
+
+    const file = e.target.files[0];
+
+    // 읽기
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    //로드 한 후
+    reader.onload = function () {
+      //로컬 이미지를 보여주기
+      if (previewImgRef.current) {
+        previewImgRef.current.src = `${reader.result}`;
+      }
+    };
   };
 
   useEffect(() => {
@@ -111,68 +141,6 @@ function TogetherRegister() {
     }
   }, [isSuccess, isLoading, isError]);
 
-  const beforeUpload = (file: File) => {
-    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-
-    if (!isJpgOrPng) {
-      message.error("You can only upload JPG/PNG file!");
-    }
-
-    const isLt2M = file.size / 1024 / 1024 < 2;
-
-    if (!isLt2M) {
-      message.error("Image must smaller than 2MB!");
-    }
-
-    return isJpgOrPng && isLt2M;
-  };
-
-  const getBase64 = (
-    img: any,
-    callback: (url: string | ArrayBuffer | null) => void
-  ) => {
-    const reader = new FileReader();
-    reader.addEventListener("load", () => callback(reader.result));
-    reader.readAsDataURL(img);
-  };
-
-  const handleChange = (e: any) => {
-    console.log(e.target.files[0]);
-
-    setSelectedFile(e.target.files[0]);
-
-    /*
-    lastModified: 1659445153409
-    lastModifiedDate: Tue Aug 02 2022 21:59:13 GMT+0900 (한국 표준시) {}
-    name: "test.jpg"
-    size: 68692
-    type: "image/jpeg"
-    webkitRelativePath: ""
-    */
-
-    const file = e.target.files[0];
-
-    // 읽기
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    //로드 한 후
-    reader.onload = function () {
-      console.log(reader.result);
-
-      //로컬 이미지를 보여주기
-      if (previewImgRef.current) {
-        previewImgRef.current.src = `${reader.result}`;
-      }
-    };
-
-    /*
-    getBase64(file.originFileObj, (url: string | ArrayBuffer | null) => {
-        setImageUrl(url);
-      });
-    */
-  };
-
   return (
     <section className="page">
       {isLoading && <h1 className="loading__txt">LOADING...</h1>}
@@ -183,61 +151,83 @@ function TogetherRegister() {
         <section className="page__body__upper">
           <div className="register__form">
             <h3 className="register__field"># Together 종류</h3>
-
             <Selector
               data={togetherTypeList}
-              setItem={setTogetherType}
-              selectedItem={togetherType}
+              setItem={(item) =>
+                setFormData({ ...formData, togetherType: item })
+              }
+              selectedItem={formData.togetherType}
             />
 
             <h3 className="register__field"># 모집 분야</h3>
             <Selector
               data={recruitType}
-              setItem={(item) => setContentType((prev) => [item, prev[1]])}
-              selectedItem={contentType[0]}
+              setItem={(item) =>
+                setFormData(({ contentType }) => ({
+                  ...formData,
+                  contentType: [item, contentType[1]],
+                }))
+              }
+              selectedItem={formData.contentType[0]}
             />
 
             <h3 className="register__field"># 모집 세부 분야</h3>
             <Selector
-              data={recruitSubType[contentType[0]]}
-              setItem={(item) => setContentType((prev) => [prev[0], item])}
-              selectedItem={contentType[1]}
+              data={recruitSubType[formData.contentType[0]]}
+              setItem={(item) =>
+                setFormData(({ contentType }) => ({
+                  ...formData,
+                  contentType: [contentType[0], item],
+                }))
+              }
+              selectedItem={formData.contentType[1]}
             />
 
             <h3 className="register__field"># 제목</h3>
             <input
               className="register__input"
-              onChange={(e: any) => setTitle(e.target.value)}
-              value={title}
+              onChange={(e: any) =>
+                setFormData({ ...formData, title: e.target.value })
+              }
+              value={formData.title}
             />
 
             <h3 className="register__field"># 장소</h3>
             <div className="row register__location__line">
               <Selector
                 data={meatList}
-                setItem={(item: number) =>
-                  setLocation((prev) => [item, prev[1], prev[2]])
+                setItem={(item) =>
+                  setFormData(({ location }) => ({
+                    ...formData,
+                    location: [item, location[1], location[2]],
+                  }))
                 }
-                selectedItem={location[0]}
+                selectedItem={formData.location[0]}
               />
 
-              {location[0] !== 1 && (
+              {formData.location[0] !== 1 && (
                 <Selector
                   data={regionList}
-                  setItem={(item: number) =>
-                    setLocation((prev) => [prev[0], item, prev[2]])
+                  setItem={(item) =>
+                    setFormData(({ location }) => ({
+                      ...formData,
+                      location: [location[0], item, location[2]],
+                    }))
                   }
-                  selectedItem={location[1]}
+                  selectedItem={formData.location[1]}
                 />
               )}
 
-              {location[0] !== 1 && (
+              {formData.location[0] !== 1 && (
                 <Selector
-                  data={subRegionList[location[1]]}
-                  setItem={(item: number) =>
-                    setLocation((prev) => [prev[0], prev[1], item])
+                  data={subRegionList[formData.location[1]]}
+                  setItem={(item) =>
+                    setFormData(({ location }) => ({
+                      ...formData,
+                      location: [location[0], location[1], item],
+                    }))
                   }
-                  selectedItem={location[2]}
+                  selectedItem={formData.location[2]}
                 />
               )}
             </div>
@@ -246,14 +236,14 @@ function TogetherRegister() {
             <input
               className="register__input"
               onChange={onChangePerson}
-              value={persons}
+              value={formData.persons}
               type={"number"}
             />
 
             <h3 className="register__field"># 모집 마감일</h3>
             <Datepicker
-              defaultDate={period}
-              setDate={(date: string) => setPeriod(date)}
+              defaultDate={formData.period}
+              setDate={(date) => setFormData({ ...formData, period: date })}
             />
 
             <h3 className="register__field"># 태그</h3>
@@ -270,7 +260,7 @@ function TogetherRegister() {
               </div>
 
               <div className="row flex register__tag__list">
-                {tagList.map((val, i) => (
+                {formData.tagList.map((val, i) => (
                   <div className="center register__tag" key={i}>
                     # {val} <button onClick={() => onDeleteTag(i)}>x</button>
                   </div>
@@ -281,8 +271,10 @@ function TogetherRegister() {
             <h3 className="register__field"># 설명</h3>
             <textarea
               className="register__desc"
-              onChange={(e: any) => setContent(e.target.value)}
-              value={content}
+              onChange={(e: any) =>
+                setFormData({ ...formData, content: e.target.value })
+              }
+              value={formData.content}
             />
 
             <Editor />
@@ -290,7 +282,7 @@ function TogetherRegister() {
             <h3 className="register__field"># 이미지 업로드</h3>
 
             <div className="center img__upload">
-              <input type="file" name="file" onChange={handleChange} />
+              <input type="file" name="file" onChange={onChangeImg} />
               <label>이미지 선택</label>
             </div>
 
@@ -303,7 +295,11 @@ function TogetherRegister() {
             />
 
             <div className="center register__btnlist">
-              <button className="positive__btn" onClick={onSubmit}>
+              <button
+                type="submit"
+                className="positive__btn"
+                onClick={onSubmit}
+              >
                 {isLoading ? "등록중" : "등록하기"}
               </button>
               <button className="negative__btn">취소하기</button>

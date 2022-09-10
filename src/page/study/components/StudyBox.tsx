@@ -1,11 +1,11 @@
 import { maxCountTxt } from "common/tool";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { typeStudyBoardItem } from "types/board";
+import { IStudyBoardItem } from "types/board";
 import "./StudyBox.scss";
 
 interface IProps {
-  data: typeStudyBoardItem;
+  data: IStudyBoardItem;
 }
 
 export const StudyBox = ({ data }: IProps) => {
@@ -48,9 +48,9 @@ export const StudyBox = ({ data }: IProps) => {
           </div>
 
           <div className="row between putter__line">
-            <p className="recruit__count">{`모집 인원 1/${
-              data?.persons || ""
-            }`}</p>
+            {/* <p className="recruit__count">{`모집 인원 ${
+              data?.boardMembers.length || 0
+            }/${data?.persons || ""}`}</p> */}
 
             <div className="row sub__line">
               <p className="view__count">
