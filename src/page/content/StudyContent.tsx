@@ -29,11 +29,11 @@ export const StudyContent: FC = () => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const getStudyBoard = useGetStudyBoardQuery(+param.id);
 
-  const [user, setUser] = useState(-1);
+  const [userId, setUserId] = useState(-1);
 
   const getLikeList = useGetLikeListQuery({
     board_id: param.id,
-    user_id: user,
+    user_id: userId,
   });
 
   const [isMember, setIsMember] = useState(false);
@@ -153,7 +153,7 @@ export const StudyContent: FC = () => {
     // 해당 유저가 모임 유저인지 판별
     let _isMember = false;
     getStudyBoard.data?.member.forEach((val) => {
-      if (val.id === user) {
+      if (val.id === userId) {
         _isMember = true;
       }
     });
@@ -162,7 +162,7 @@ export const StudyContent: FC = () => {
 
   useEffect(() => {
     // user id 조회
-    if (sub && sub !== user) setUser(sub);
+    if (sub && sub !== userId) setUserId(sub);
   }, [sub]);
 
   return (
@@ -182,7 +182,7 @@ export const StudyContent: FC = () => {
           <section className="study__content">
             {/* @ header */}
             <ContentHeader
-              userId={user}
+              userId={userId}
               data={getStudyBoard.data}
               onModifyContent={onModifyContent}
               onDeleteContent={onDeleteContent}
@@ -192,7 +192,7 @@ export const StudyContent: FC = () => {
             <ContentBody
               likeData={getLikeList.data}
               contentData={getStudyBoard.data}
-              userId={user}
+              userId={userId}
               onJoinStudy={onJoinStudy}
               onJoinCancel={onJoinCancel}
               onLike={onLike}
