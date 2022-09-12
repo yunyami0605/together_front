@@ -20,7 +20,7 @@ export default function Selector({
   return (
     <div className={"selector__box" + ` ${className}`}>
       <Select
-        defaultValue={selectedItem}
+        value={selectedItem}
         className="center selector"
         onChange={handleChange}
       >
