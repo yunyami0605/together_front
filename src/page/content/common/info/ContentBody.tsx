@@ -1,6 +1,7 @@
 import { IStudyBoardContent } from "types/board";
 import { ILikeRes } from "types/like";
 import "./ContentBody.scss";
+import * as DOMPurify from "dompurify";
 
 interface IProps {
   likeData: ILikeRes | undefined;
@@ -20,6 +21,10 @@ export default function ContentBody({
   onLike,
   isMember,
 }: IProps) {
+  let cleanContent = contentData?.content
+    ? DOMPurify.sanitize(contentData?.content)
+    : "";
+
   return (
     <div className="study__content__body">
       {likeData?.isLike ? (
@@ -46,7 +51,10 @@ export default function ContentBody({
 
       <h3>소개</h3>
 
-      <div className="content__desc">{contentData?.content || ""}</div>
+      <div
+        className="content__desc"
+        dangerouslySetInnerHTML={{ __html: cleanContent }}
+      />
 
       <h3>현재 멤버</h3>
 
