@@ -122,14 +122,15 @@ export const studyBoardApi = createApi({
         response.data,
     }),
 
-    patchStudyBoard: builder.mutation<any, number>({
-      query: (id) => {
+    patchStudyBoard: builder.mutation<any, { data: FormData; id: number }>({
+      query: ({ data, id }) => {
         return {
           url: `/${id}`,
           method: "PATCH",
-          body: { title: "테스트테스트입니다." },
+          body: data,
         };
       },
+      invalidatesTags: ["board"],
       transformResponse: (response: IRes<number>) => response.data,
     }),
 
