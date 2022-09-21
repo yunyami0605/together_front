@@ -5,11 +5,12 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useUploadTmpImageMutation } from "redux/service/study/board";
 
-interface IProps {}
-export default function Editor() {
+interface IProps {
+  contents: string;
+  setContents: (value: string) => void;
+}
+export default function Editor({ contents, setContents }: IProps) {
   const [uploadTmpImage, uploadState] = useUploadTmpImageMutation();
-
-  const [contents, setContents] = useState("");
 
   const editorRef = useRef<ReactQuill | null>(null);
 
@@ -29,7 +30,6 @@ export default function Editor() {
     input.onchange = async () => {
       const file = input.files;
 
-      console.log(file);
       if (file !== null) {
         formData.append("image", file[0]);
 
@@ -98,7 +98,9 @@ export default function Editor() {
         modules={modules}
         theme="snow"
         value={contents}
-        onChange={setContents}
+        onChange={(content, delta, source, editor) =>
+          setContents(editor.getHTML())
+        }
       />
     </div>
   );
