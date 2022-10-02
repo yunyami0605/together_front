@@ -1,12 +1,6 @@
 @import "src/style/color.scss";
 
-.input_profile_img {
-  position: relative;
-  width: 64px;
-  height: 64px;
-  border: 1px solid black;
-  border-radius: 50%;
-
+.img_user_profile_box {
   & > input {
     position: absolute;
     width: 100%;
@@ -16,19 +10,18 @@
     opacity: 0;
   }
 
-  & > .img_non_selected_profile,
+  & > .img_no_user_profile,
   & > img {
     position: absolute;
     left: -4px;
     top: -4px;
     width: 110%;
     height: 110%;
-    border-radius: 50%;
 
     z-index: 1;
   }
 
-  & > .img_non_selected_profile {
+  & > .img_no_user_profile {
     z-index: 2;
   }
 }

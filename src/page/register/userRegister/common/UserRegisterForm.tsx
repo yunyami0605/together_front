@@ -169,7 +169,7 @@ export default function UserRegisterForm({
 
       <h3 className="register__field"># 프로필</h3>
 
-      <div className="input_profile_img">
+      <div className="img_user_profile_box">
         <input
           type="file"
           accept="image/*"
@@ -177,9 +177,14 @@ export default function UserRegisterForm({
           onChange={onChangeImg}
         />
 
-        {!selectedFile && <div className="img_non_selected_profile" />}
+        {!selectedFile && <div className="img_no_user_profile" />}
 
-        <img ref={previewImgRef} alt="pre_img_profile" src={selectedImgSrc} />
+        <img
+          ref={previewImgRef}
+          alt="pre_img_profile"
+          className="img_user_profile"
+          src={selectedImgSrc}
+        />
       </div>
 
       <div className="center register__btnlist">
