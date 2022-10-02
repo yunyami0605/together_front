@@ -21,9 +21,6 @@ export const studyBoardApi = createApi({
           url: ``,
           method: "POST",
           body,
-          // headers: {
-          //   "content-type": "multipart/form-data",
-          // },
         };
       },
 

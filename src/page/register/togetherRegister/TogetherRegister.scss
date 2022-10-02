@@ -27,11 +27,11 @@
 
   // # 장소 입력 폼 라인
   .register__location__line {
-    .selector__box {
+    .custom_selector_box {
       margin-right: 24px;
     }
 
-    & .selector:first-child {
+    & .custrom_selector:first-child {
       width: 240px;
     }
   }

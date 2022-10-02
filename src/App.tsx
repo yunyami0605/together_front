@@ -3,17 +3,17 @@ import SideHeader from "common/header/SideHeader";
 import { Club } from "page/club/Club";
 import { Login } from "page/login/Login";
 import TogetherModify from "page/register/togetherRegister/TogetherModify";
-import UserRegister from "page/register/UserRegister";
 import { SideProject } from "page/sideProject/SideProject";
 import { Story } from "page/story/Story";
 import { StudyContent } from "page/content/StudyContent";
 import Test from "page/test/Test";
 import UserInfo from "page/user/UserInfo";
-import UserInfoModify from "page/user/UserInfoModify";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import { Study } from "./page/study/Study";
 import TogetherRegister from "page/register/togetherRegister/TogetherRegister";
+import UserRegister from "page/register/userRegister/UserRegister";
+import UserInfoModify from "page/register/userRegister/UserInfoModify";
 
 function App() {
   return (

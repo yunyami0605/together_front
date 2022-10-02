@@ -1,17 +1,13 @@
 import PageTitle from "common/title/PageTitle";
 import { getUserInfo } from "common/tool";
-import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetUserQuery } from "redux/service/user";
 import "./UserInfo.scss";
 
-interface IProps {}
 // 사진, 이름, 스킬, 서브 스킬, 직업, 지역, 연차, 소개,
 export default function UserInfo() {
   const sub = getUserInfo("sub");
   const { data, isLoading, isSuccess, isError } = useGetUserQuery(sub);
-
-  console.log(data);
 
   const navi = useNavigate();
 
@@ -21,7 +17,7 @@ export default function UserInfo() {
 
   return (
     <section className="page">
-      {/* {isLoading && <h1 className="loading__txt">LOADING...</h1>} */}
+      {isLoading && <h1 className="loading__txt">LOADING...</h1>}
 
       <PageTitle title="내정보" />
 

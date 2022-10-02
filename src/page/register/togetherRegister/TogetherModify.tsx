@@ -24,9 +24,6 @@ function TogetherModify() {
 
   const navi = useNavigate();
 
-  let test = "0";
-  console.log(!test);
-
   const onSubmit = async () => {
     const persons = Number(formData.persons);
     const id = param?.id;

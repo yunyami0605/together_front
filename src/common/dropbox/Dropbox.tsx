@@ -12,7 +12,6 @@ export default function Dropbox({ data, setItem, selectedItem }: IProps) {
   const dropdownMenu = (
     <Menu
       onClick={(item) => {
-        console.log(item);
         setItem(item.key);
       }}
       items={data}

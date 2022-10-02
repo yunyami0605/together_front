@@ -1,8 +1,8 @@
 @import "src/style/color.scss";
 
-.selector__box {
-  & > .selector {
-    width: 180px;
+.custom_selector_box {
+  & > .custom_selector_box {
+    // width: 180px !important;
     // border: 1px solid $color-grey;
 
     & > .ant-select-selector {

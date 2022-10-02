@@ -250,9 +250,7 @@ export default function TogetherRegisterForm({
 
       <div className="center register__btnlist">
         <button type="submit" className="positive__btn" onClick={onSubmit}>
-          {isLoading
-            ? `${registerOrModifyTxt}중`
-            : `${registerOrModifyTxt}하기`}
+          {`${registerOrModifyTxt}${isLoading ? "중" : "하기"}`}
         </button>
         <button className="negative__btn">취소하기</button>
       </div>

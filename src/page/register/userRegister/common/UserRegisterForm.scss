@@ -1,0 +1,82 @@
+@import "src/style/color.scss";
+
+.input_profile_img {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border: 1px solid black;
+  border-radius: 50%;
+
+  & > input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    z-index: 3;
+    opacity: 0;
+  }
+
+  & > .img_non_selected_profile,
+  & > img {
+    position: absolute;
+    left: -4px;
+    top: -4px;
+    width: 110%;
+    height: 110%;
+    border-radius: 50%;
+
+    z-index: 1;
+  }
+
+  & > .img_non_selected_profile {
+    z-index: 2;
+  }
+}
+
+.form_user_info_career {
+  & > .custom_selector_box {
+    margin-right: 2%;
+  }
+
+  & > button {
+    font-size: 1rem;
+  }
+}
+
+.career_container {
+  padding: 1vh 0;
+  min-height: 12vh;
+  border-bottom: 2px solid #dedede;
+
+  .career_item {
+    height: 34px;
+
+    & > p:first-child {
+      margin-right: 14px;
+    }
+
+    & > p {
+      font-size: 1rem;
+    }
+
+    & > div {
+      margin: 0 2%;
+
+      width: 2px;
+      height: 50%;
+      background-color: #dedede;
+    }
+
+    & > .btn_career_item_delete {
+      margin-left: 1%;
+
+      color: $color-red;
+      font-size: 14px;
+      font-weight: bold;
+
+      width: 32px;
+      height: 32px;
+      margin-bottom: 4px;
+    }
+  }
+}
