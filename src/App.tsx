@@ -14,6 +14,7 @@ import { Study } from "./page/study/Study";
 import TogetherRegister from "page/register/togetherRegister/TogetherRegister";
 import UserRegister from "page/register/userRegister/UserRegister";
 import UserInfoModify from "page/register/userRegister/UserInfoModify";
+import KakaoRedirect from "page/login/redirect/KakaoRedirect";
 
 function App() {
   return (
@@ -34,10 +35,12 @@ function App() {
             <Route path="/club" element={<Club />} />
             <Route path="/together/register" element={<TogetherRegister />} />
             <Route path="/together/modify/:id" element={<TogetherModify />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/user/register" element={<UserRegister />} />
             <Route path="/user/info" element={<UserInfo />} />
             <Route path="/test" element={<Test />} />
+
+            <Route path="/login" element={<Login />} />
+            <Route path="/login/kakao/redirect" element={<KakaoRedirect />} />
 
             <Route path="/user/info/modify/:id" element={<UserInfoModify />} />
           </Routes>

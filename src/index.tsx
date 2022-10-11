@@ -10,6 +10,8 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { store } from "redux/store";
 
+window.Kakao.init(`${process.env.REACT_APP_KAKAO_KEY}`);
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

@@ -4,9 +4,11 @@ import { usePostRegisterUserMutation } from "redux/service/user";
 import "./UserRegister.scss";
 import UserRegisterForm from "./common/UserRegisterForm";
 import { initUserFormState, tUserFormData } from "./common/constant";
+import useCustomQuery from "common/customHook/useCustomQuery";
 
 function UserRegister() {
   const navi = useNavigate();
+  const query = useCustomQuery();
 
   const [formData, setFormData] = useState<tUserFormData>(initUserFormState);
 
@@ -17,7 +19,12 @@ function UserRegister() {
     const body = new FormData();
 
     if (formData.image) body.append("image", formData.image);
+    const socialID = query.get("social_id");
+    const socialType = query.get("social_type");
+
     body.append("password", "test1234");
+    if (socialID) body.append("socialID", socialID);
+    if (socialType) body.append("socialType", socialType);
 
     Object.entries(formData).map(([key, val]) => {
       let value = null;

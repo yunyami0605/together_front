@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { responseInterceptor } from "http-proxy-middleware";
 import { tUserFormData } from "page/register/userRegister/common/constant";
 import { commonBaseQueryOption } from "redux/common";
 import { IDataDate, IRes } from "types/response";
@@ -86,7 +87,20 @@ export const userApi = createApi({
       },
       invalidatesTags: ["user"],
 
-      transformResponse: (response: IRes<string>, meta, arg) => response.data,
+      transformResponse: (response: IRes<string>) => response.data,
+    }),
+
+    kakaoLogin: builder.mutation<string, any>({
+      query: (body) => {
+        return {
+          url: "/auth/login/kakao",
+          method: "POST",
+          body,
+        };
+      },
+
+      invalidatesTags: ["user"],
+      transformResponse: (response: IRes<string>) => response.data,
     }),
 
     patchUser: builder.mutation<IRes<string>, { body: FormData; id: string }>({
@@ -110,4 +124,5 @@ export const {
   usePostLogoutUserMutation,
   usePostRegisterUserMutation,
   usePatchUserMutation,
+  useKakaoLoginMutation,
 } = userApi;

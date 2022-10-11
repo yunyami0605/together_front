@@ -39,6 +39,18 @@ export const Login: FC = () => {
       .catch((error) => console.error("rejected", error));
   };
 
+  function onLoginKakao() {
+    /**
+     * `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+     */
+
+    window.location.href = "http://localhost:3000/api/auth/login/kakao";
+
+    // window.Kakao.Auth.authorize({
+    //   redirectUri: `${process.env.REACT_APP_HOST_BASE_URL}/login/kakao/redirect`,
+    // });
+  }
+
   /**
    *@description : move to register page
    */
@@ -79,6 +91,10 @@ export const Login: FC = () => {
 
         <button type="submit" className="w100 login__btn">
           로그인
+        </button>
+
+        <button className="w100 login__btn" onClick={onLoginKakao}>
+          카카오 로그인
         </button>
 
         <div className="login__subline">
