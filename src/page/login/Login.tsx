@@ -51,6 +51,10 @@ export const Login: FC = () => {
     // });
   }
 
+  function onLoginNaver() {
+    window.location.href = "http://localhost:3000/api/auth/login/naver";
+  }
+
   /**
    *@description : move to register page
    */
@@ -95,6 +99,10 @@ export const Login: FC = () => {
 
         <button className="w100 login__btn" onClick={onLoginKakao}>
           카카오 로그인
+        </button>
+
+        <button className="w100 login__btn" onClick={onLoginNaver}>
+          네이버 로그인
         </button>
 
         <div className="login__subline">
