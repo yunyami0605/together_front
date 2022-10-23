@@ -17,7 +17,7 @@
     "dompurify": "^2.4.0",
     "dotenv": "^16.0.1",
     "http-proxy-middleware": "^2.0.6",
-    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
     "moment": "^2.29.3",
     "node-sass": "^7.0.1",
     "query-string": "^7.1.1",
@@ -59,7 +59,6 @@
   },
   "devDependencies": {
     "@types/dompurify": "^2.3.4",
-    "@types/jsonwebtoken": "^8.5.8",
     "@types/react-router-dom": "^5.3.3",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",

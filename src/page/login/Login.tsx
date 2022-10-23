@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { Resolver, yupResolver } from "@hookform/resolvers/yup"; //*
 import { useForm } from "react-hook-form"; //*
 import "./Login.scss";
+import { usePostRefreshTokenMutation } from "redux/service/auth";
 
 type TFormValues = {
   email: string;
@@ -14,6 +15,8 @@ type TFormValues = {
 export const Login: FC = () => {
   const [postCredentials, { isSuccess, isLoading, isError }] =
     usePostLoginUserMutation();
+
+  const [test] = usePostRefreshTokenMutation();
 
   const navi = useNavigate();
 
@@ -39,6 +42,14 @@ export const Login: FC = () => {
       .catch((error) => console.error("rejected", error));
   };
 
+  const onRefresh = () => {
+    const res = test(undefined)
+      .unwrap()
+      .then((payload) => {
+        console.log(payload);
+      });
+  };
+
   function onLoginKakao() {
     /**
      * `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
@@ -53,6 +64,10 @@ export const Login: FC = () => {
 
   function onLoginNaver() {
     window.location.href = "http://localhost:3000/api/auth/login/naver";
+  }
+
+  function onLoginGoogle() {
+    window.location.href = "http://localhost:3000/api/auth/login/google";
   }
 
   /**
@@ -103,6 +118,14 @@ export const Login: FC = () => {
 
         <button className="w100 login__btn" onClick={onLoginNaver}>
           네이버 로그인
+        </button>
+
+        <button className="w100 login__btn" onClick={onLoginGoogle}>
+          구글 로그인
+        </button>
+
+        <button className="w100 login__btn" onClick={onRefresh}>
+          리프래쉬
         </button>
 
         <div className="login__subline">

@@ -2,6 +2,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 // Or from '@reduxjs/toolkit/query/react'
 import { setupListeners } from "@reduxjs/toolkit/query";
+import { authApi } from "redux/service/auth";
 import { commentApi } from "redux/service/comment";
 import { counterSlice } from "redux/service/counter/slice";
 import { themeSlice } from "redux/service/counter/theme";
@@ -16,6 +17,7 @@ export const store = configureStore({
     [userApi.reducerPath]: userApi.reducer,
     [commentApi.reducerPath]: commentApi.reducer,
     [likeApi.reducerPath]: likeApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
     [counterSlice.name]: counterSlice.reducer,
     [themeSlice.name]: themeSlice.reducer,
   },
@@ -25,7 +27,8 @@ export const store = configureStore({
       studyBoardApi.middleware,
       userApi.middleware,
       commentApi.middleware,
-      likeApi.middleware
+      likeApi.middleware,
+      authApi.middleware
     ),
   devTools: process.env.NODE_ENV !== "production",
 

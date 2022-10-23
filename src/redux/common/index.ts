@@ -9,7 +9,7 @@ export const commonBaseQueryOption = (url: string): FetchBaseQueryArgs => {
   return {
     baseUrl: process.env.REACT_APP_API_BASE_URL + url,
     prepareHeaders(headers: Headers) {
-      const token = getCookie("toat");
+      const token = getCookie(process.env.REACT_APP_ACCESS_TOKEN);
 
       headers.set("Authorization", `Bearer ${token}`);
       headers.set("Accept", `application/json`);

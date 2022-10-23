@@ -1,16 +1,19 @@
 import moment from "moment";
 import queryString from "query-string";
-import jwt from "jsonwebtoken";
 import { type_date } from "types/common";
+import jwtDecode from "jwt-decode";
 
 export const getUserInfo = (_key?: string) => {
   const token = getCookie(process.env.REACT_APP_ACCESS_TOKEN);
   if (!token) return;
 
-  if (!process.env.REACT_APP_COOKIE_KYE) return;
+  if (!process.env.REACT_APP_ACCESS_TOKEN_KYE) return;
 
-  var userObj = jwt.verify(token, process.env.REACT_APP_COOKIE_KYE);
-  return _key && typeof userObj !== "string" ? userObj[_key] : userObj;
+  const decodedToken = jwtDecode<any>(token);
+
+  return _key && typeof decodedToken !== "string"
+    ? decodedToken[_key]
+    : decodedToken;
 };
 
 export const toDate = (
@@ -33,7 +36,7 @@ export function getCookie(cookieName?: string) {
 
   for (let i = 0; i < cookieList.length; i++) {
     const cookie = cookieList[i].split("=");
-    if (cookie[0] === cookieName) {
+    if (cookie[0].trim() === cookieName) {
       return cookie[1];
     }
   }

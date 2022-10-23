@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { getCookie } from "common/tool";
 import { responseInterceptor } from "http-proxy-middleware";
 import { tUserFormData } from "page/register/userRegister/common/constant";
 import { commonBaseQueryOption } from "redux/common";
@@ -72,7 +73,7 @@ export const userApi = createApi({
       invalidatesTags: ["user"],
     }),
 
-    getUser: builder.query<IGetUser, number>({
+    getUser: builder.query<IGetUser, number | undefined>({
       query: (id) => `/user/${id}`,
       transformResponse: (response: IRes<IGetUser>) => response.data,
     }),
