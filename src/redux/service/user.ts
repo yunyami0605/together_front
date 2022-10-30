@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getCookie } from "common/tool";
 import { responseInterceptor } from "http-proxy-middleware";
 import { tUserFormData } from "page/register/userRegister/common/constant";
-import { commonBaseQueryOption } from "redux/common";
+import { commonBaseQueryOption, customFetchBase } from "redux/common";
 import { IDataDate, IRes } from "types/response";
 
 export interface IUserPostBody {
@@ -48,7 +48,8 @@ export interface IUserPatchBody {
 
 export const userApi = createApi({
   reducerPath: "userApi",
-  baseQuery: fetchBaseQuery(commonBaseQueryOption("")),
+  baseQuery: customFetchBase,
+  // baseQuery: fetchBaseQuery(commonBaseQueryOption("")),
   tagTypes: ["user"],
   endpoints: (builder) => ({
     postLoginUser: builder.mutation<IRes<string>, Partial<IUserPostBody>>({

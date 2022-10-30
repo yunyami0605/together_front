@@ -1,19 +1,20 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { commonBaseQueryOption } from "redux/common";
+import { commonBaseQueryOption, customFetchBase } from "redux/common";
 import queryString from "query-string";
 import { IRes } from "types/response";
 import { ILikeRes } from "types/like";
 
 export const likeApi = createApi({
   reducerPath: "likeApi",
-  baseQuery: fetchBaseQuery(commonBaseQueryOption("/like")),
+  baseQuery: customFetchBase,
+  // baseQuery: fetchBaseQuery(commonBaseQueryOption("/like")),
   tagTypes: ["like"],
   endpoints: (builder) => ({
     //
     postLike: builder.mutation<any, { boardId: string; isLike: boolean }>({
       query: (body) => {
         return {
-          url: "",
+          url: "/like",
           method: "POST",
           body,
         };
@@ -28,7 +29,7 @@ export const likeApi = createApi({
       {
         query: (queryData) => {
           return {
-            url: `list?${queryString.stringify(queryData)}`,
+            url: `/like/list?${queryString.stringify(queryData)}`,
           };
         },
         transformResponse: (response: IRes<ILikeRes>, meta, arg) =>

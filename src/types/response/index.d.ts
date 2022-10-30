@@ -21,3 +21,13 @@ export interface IDataDate {
   updatedAt: string;
   deletedAt: string | null;
 }
+
+// api response.error.data 객체 type
+export interface IErrorData {
+  code: number;
+  data: {
+    message: string;
+    statusCode: boolean;
+  };
+  success: boolean;
+}

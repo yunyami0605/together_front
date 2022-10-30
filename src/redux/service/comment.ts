@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { responseInterceptor } from "http-proxy-middleware";
-import { commonBaseQueryOption } from "redux/common";
+import { commonBaseQueryOption, customFetchBase } from "redux/common";
 import {
   ICommentBody,
   typeCommentItem,
@@ -11,7 +11,8 @@ import { IGetListResData, IListRes, IRes } from "types/response";
 // comment api
 export const commentApi = createApi({
   reducerPath: "commentApi",
-  baseQuery: fetchBaseQuery(commonBaseQueryOption("/comment")),
+  baseQuery: customFetchBase,
+  // baseQuery: fetchBaseQuery(commonBaseQueryOption("/comment")),
 
   refetchOnMountOrArgChange: 0,
   tagTypes: ["comment"],
@@ -19,7 +20,7 @@ export const commentApi = createApi({
     // api post comment
     postComment: builder.mutation<typePostCommentRes, ICommentBody>({
       query: ({ ...body }) => ({
-        url: "",
+        url: "/comment",
         method: "POST",
         body,
       }),
@@ -35,7 +36,7 @@ export const commentApi = createApi({
     >({
       query: ({ page, boardId }) => {
         return {
-          url: `/list?page=${page}&boardId=${boardId}`,
+          url: `/comment/list?page=${page}&boardId=${boardId}`,
         };
       },
       transformResponse: (response: IListRes<typeCommentItem>) => response.data,
@@ -55,7 +56,7 @@ export const commentApi = createApi({
     // api get comment content
     getComment: builder.query<typeCommentItem, number>({
       query: (id) => {
-        return { url: `/${id}`, method: "GET" };
+        return { url: `/comment/${id}`, method: "GET" };
       },
       transformResponse: (response: IRes<any>) => response.data,
     }),
@@ -66,7 +67,7 @@ export const commentApi = createApi({
       { id?: number; body: { content: string } }
     >({
       query: ({ id, body }) => ({
-        url: `/${id}`,
+        url: `/comment/${id}`,
         method: "PATCH",
         body,
         credentials: "include",
@@ -77,7 +78,7 @@ export const commentApi = createApi({
     // api delete comment content
     deleteComment: builder.mutation<number, number>({
       query: (id) => ({
-        url: `/${id}`,
+        url: `/comment/${id}`,
         method: "DELETE",
         credentials: "include",
       }),

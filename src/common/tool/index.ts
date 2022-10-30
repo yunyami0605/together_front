@@ -54,7 +54,7 @@ export function setCookie(
 ) {
   var date = new Date();
   date.setTime(date.getTime() + day * 60 * 60 * 24 * 1000);
-  document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/;domain=${domain};`;
+  document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/;`;
 }
 
 export function deleteCookie(cookie_name: string) {

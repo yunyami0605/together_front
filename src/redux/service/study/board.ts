@@ -2,13 +2,16 @@ import { IGetListResData, IListRes, IRes } from "types/response";
 import { IBoardBody, IStudyBoardContent, IStudyBoardItem } from "types/board";
 import queryString from "query-string";
 
-import { commonBaseQueryOption } from "redux/common";
+import { commonBaseQueryOption, customFetchBase } from "redux/common";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { getCookie } from "common/tool";
 
 // base URL과 엔드포인트들로 서비스 정의
 export const studyBoardApi = createApi({
   reducerPath: "studyBoardApi",
-  baseQuery: fetchBaseQuery(commonBaseQueryOption("/study/board")),
+  baseQuery: customFetchBase,
+  // baseQuery: fetchBaseQuery(commonBaseQueryOption("/study/board")),
+
   keepUnusedDataFor: 60,
   // refetchOnMountOrArgChange: 10,
 
@@ -17,10 +20,16 @@ export const studyBoardApi = createApi({
   endpoints: (builder) => ({
     postStudyBoard: builder.mutation<IStudyBoardItem, FormData>({
       query: (body) => {
+        const token = getCookie(process.env.REACT_APP_ACCESS_TOKEN);
+
         return {
-          url: ``,
+          url: `/study/board`,
           method: "POST",
           body,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          // credentials: "include", 토큰 보내기
         };
       },
 
@@ -57,7 +66,7 @@ export const studyBoardApi = createApi({
     patchBoardMember: builder.mutation<any, string>({
       query: (id) => {
         return {
-          url: `/${id}/member`,
+          url: `/study/board/${id}/member`,
           method: "PATCH",
         };
       },
@@ -71,7 +80,7 @@ export const studyBoardApi = createApi({
     deleteBoardMember: builder.mutation<any, string>({
       query: (id) => {
         return {
-          url: `/${id}/member`,
+          url: `/study/board/${id}/member`,
           method: "DELETE",
         };
       },
@@ -92,7 +101,7 @@ export const studyBoardApi = createApi({
     >({
       query: (queryData) => {
         return {
-          url: `/list?${queryString.stringify(queryData)}`,
+          url: `/study/board/list?${queryString.stringify(queryData)}`,
         };
       },
       // keepUnusedDataFor: 60,
@@ -112,7 +121,7 @@ export const studyBoardApi = createApi({
 
     getStudyBoard: builder.query<IStudyBoardContent, number>({
       query: (id) => {
-        return { url: `/${id}`, method: "GET" };
+        return { url: `/study/board/${id}`, method: "GET" };
       },
       providesTags: ["board"],
       transformResponse: (response: IRes<IStudyBoardContent>, meta, arg) =>
@@ -122,7 +131,7 @@ export const studyBoardApi = createApi({
     patchStudyBoard: builder.mutation<any, { data: FormData; id: number }>({
       query: ({ data, id }) => {
         return {
-          url: `/${id}`,
+          url: `/study/board/${id}`,
           method: "PATCH",
           body: data,
         };
@@ -133,7 +142,7 @@ export const studyBoardApi = createApi({
 
     deleteStudyBoard: builder.mutation<number, number>({
       query: (id) => {
-        return { url: `/${id}`, method: "DELETE" };
+        return { url: `/study/board/${id}`, method: "DELETE" };
       },
       transformResponse: (response: IRes<number>) => response.data,
     }),
@@ -141,7 +150,7 @@ export const studyBoardApi = createApi({
     uploadTmpImage: builder.mutation<string, FormData>({
       query: (body) => {
         return {
-          url: `/upload/tmp_image`,
+          url: `/study/board/upload/tmp_image`,
           method: "POST",
           body,
         };
