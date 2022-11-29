@@ -6,6 +6,9 @@ import TogetherRegisterForm from "./common/TogetherRegisterForm";
 import { initFormDataState, tFormData } from "./constant";
 import "./TogetherRegister.scss";
 
+/**
+ *@description 전체 게시글 등록 페이지
+ */
 function TogetherRegister() {
   const navi = useNavigate();
 

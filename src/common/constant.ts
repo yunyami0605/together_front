@@ -386,7 +386,7 @@ export const SELECTOR_SUB_REGION_LIST = [
 ];
 
 /**
- * 기획 디자인 마켓팅 개발 기타
+ * 모집 분야 : 기획 디자인 마켓팅 개발 기타
  */
 export const SELECTOR_RECRUIT_TYPE = [
   { key: "no", label: "--- 분야 ---" },
@@ -401,6 +401,7 @@ export const SELECTOR_RECRUIT_TYPE = [
   { key: "etc", label: "기타" },
 ];
 
+// 모집 세부 분야
 export const SELECTOR_RECRUIT_SUB_TYPE = [
   [{ key: "no", label: "--- 분야 ---" }],
   [

@@ -23,6 +23,14 @@ interface IProps {
   imgPath?: string | null;
 }
 
+/**
+ * @description 게시글 등록 폼
+ * @param setFormData - form data state 설정
+ * @param formData - form data state
+ * @param isLoading - form api 요청 중인지 여부
+ * @param formType - add 면 등록, mod 면 수정
+ * @param imgPath - 게시글을 등록할 대표 이미지
+ */
 export default function TogetherRegisterForm({
   setFormData,
   formData,
@@ -31,8 +39,13 @@ export default function TogetherRegisterForm({
   imgPath,
   formType = "add",
 }: IProps) {
+  // 등록 페이지 타입
   const togetherTypeList = useMemo(() => SELECTOR_TOGETHER_TYPE_LIST, []);
+
+  // 모집 분야
   const recruitType = useMemo(() => SELECTOR_RECRUIT_TYPE, []);
+
+  // 모집 세부 분야
   const recruitSubType = useMemo(() => SELECTOR_RECRUIT_SUB_TYPE, []);
   const subRegionList = useMemo(() => SELECTOR_SUB_REGION_LIST, []);
 
@@ -51,7 +64,9 @@ export default function TogetherRegisterForm({
   const previewImgRef = useRef<HTMLImageElement | null>(null);
 
   const [tag, setTag] = useState("");
+  const [isVisibleImg, setVisibleImg] = useState(false);
 
+  // 모집 인원 수정
   const onChangePerson = (e: any) => {
     const personCount = toNumber(e.target.value);
 
@@ -76,7 +91,6 @@ export default function TogetherRegisterForm({
     setFormData({ ...formData, image: e.target.files[0] });
 
     const file = e.target.files[0];
-
     // 읽기
     let reader = new FileReader();
     reader.readAsDataURL(file);
@@ -86,6 +100,7 @@ export default function TogetherRegisterForm({
       //로컬 이미지를 보여주기
       if (previewImgRef.current) {
         previewImgRef.current.src = `${reader.result}`;
+        setVisibleImg(true);
       }
     };
   };
@@ -243,7 +258,10 @@ export default function TogetherRegisterForm({
       <img
         ref={previewImgRef}
         id="img__upload__preview"
-        className="img__upload__preview"
+        className={
+          "img__upload__preview" +
+          (isVisibleImg ? "" : " no__img__upload__preview")
+        }
         alt="t"
         src=""
       />
