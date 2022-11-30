@@ -76,7 +76,7 @@ export default function UserRegisterForm({
     setCareer2(0);
   };
 
-  const onDeleteCareeer = (index: number) => {
+  const onDeleteCareeerList = (index: number) => {
     const careerListTmp = [...formData.careerList];
 
     const res = careerListTmp.filter((_, i) => i !== index);
@@ -143,7 +143,7 @@ export default function UserRegisterForm({
 
             <button
               className="btn_career_item_delete"
-              onClick={() => onDeleteCareeer(i)}
+              onClick={() => onDeleteCareeerList(i)}
             >
               ✖
             </button>
@@ -169,7 +169,7 @@ export default function UserRegisterForm({
 
       <h3 className="register__field"># 프로필</h3>
 
-      <div className="img_user_profile_box">
+      <div className="center img_user_profile_box">
         <input
           type="file"
           accept="image/*"
@@ -177,7 +177,13 @@ export default function UserRegisterForm({
           onChange={onChangeImg}
         />
 
-        {!selectedFile && <div className="img_no_user_profile" />}
+        {!selectedFile && (
+          <img
+            className="img_no_user_profile"
+            alt="img_no_user_profile"
+            src={`${process.env.REACT_APP_HOST_BASE_URL}/img/icon/img__default__user__icon.png`}
+          />
+        )}
 
         <img
           ref={previewImgRef}
