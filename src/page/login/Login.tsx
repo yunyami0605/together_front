@@ -97,13 +97,13 @@ export const Login: FC = () => {
         <p className="login__title">로그인</p>
 
         <label htmlFor="email">이메일</label>
-        <input type="email" {...register("email")} />
+        <input className="w100" type="email" {...register("email")} />
         <span className="error_span">
           {errors.email && "이메일 형식이 맞지 않습니다."}
         </span>
 
         <label htmlFor="password">비밀번호</label>
-        <input type="password" {...register("password")} />
+        <input className="w100" type="password" {...register("password")} />
         <span className="error_span">
           {errors.password && "비밀번호 형식이 맞지 않습니다. (* 8~20 글자 ) "}
         </span>

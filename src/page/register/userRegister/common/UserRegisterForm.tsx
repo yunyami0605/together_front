@@ -41,6 +41,8 @@ export default function UserRegisterForm({
     []
   );
 
+  const [isVisibleImg, setVisibleImg] = useState(false);
+
   const [selectedFile, setSelectedFile] = useState<File>();
   const [selectedImgSrc, setSelectedImgSrc] = useState(imgPath || "");
 
@@ -58,6 +60,7 @@ export default function UserRegisterForm({
         previewImgRef.current.src = imgLocalPath;
         setSelectedImgSrc(imgLocalPath);
         setFormData({ ...formData, image: file });
+        setVisibleImg(true);
       }
     };
 
@@ -179,7 +182,7 @@ export default function UserRegisterForm({
 
         {!selectedFile && (
           <img
-            className="img_no_user_profile"
+            className={"img_no_user_profile"}
             alt="img_no_user_profile"
             src={`${process.env.REACT_APP_HOST_BASE_URL}/img/icon/img__default__user__icon.png`}
           />
@@ -188,7 +191,10 @@ export default function UserRegisterForm({
         <img
           ref={previewImgRef}
           alt="pre_img_profile"
-          className="img_user_profile"
+          className={
+            "img_user_profile" +
+            (isVisibleImg ? "" : " no__img__upload__preview")
+          }
           src={selectedImgSrc}
         />
       </div>

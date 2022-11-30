@@ -54,6 +54,7 @@ export default function SearchContainer({
           }
           selectedItem={location[0]}
           className="search__first__selector"
+          selectorStyle={{ marginRight: 10 }}
         />
 
         <Selector
@@ -62,6 +63,7 @@ export default function SearchContainer({
             setLocation((prev: number[]) => [prev[0], item, prev[2]])
           }
           selectedItem={location[1]}
+          selectorStyle={{ marginRight: 10 }}
         />
 
         <Selector
@@ -70,6 +72,7 @@ export default function SearchContainer({
             setLocation((prev: number[]) => [prev[0], prev[1], item])
           }
           selectedItem={location[2]}
+          selectorStyle={{ marginRight: 10 }}
         />
 
         <Selector
@@ -78,13 +81,16 @@ export default function SearchContainer({
             setContentType((prev: number[]) => [item, prev[1]])
           }
           selectedItem={contentType[0]}
+          selectorStyle={{ marginRight: 10 }}
         />
+
         <Selector
           data={togetherTypeList2[contentType[0]]}
           setItem={(item: number) =>
             setContentType((prev: number[]) => [prev[0], item])
           }
           selectedItem={contentType[1]}
+          selectorStyle={{ marginRight: 10 }}
         />
       </section>
 

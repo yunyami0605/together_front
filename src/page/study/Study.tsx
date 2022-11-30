@@ -11,7 +11,6 @@ export const Study: FC = () => {
   const [contentType, setContentType] = useState([0, 0]);
   const [page, setPage] = useState(1);
   const [searchTxt, setSearchTxt] = useState("");
-  // const _searchTxt = useDebounce(searchTxt, 700);
 
   const { data, isLoading, isSuccess, error, refetch } =
     useGetStudyBoardListQuery({
